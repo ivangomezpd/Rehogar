@@ -5,7 +5,7 @@ import { CompatibilityService } from './compatibility';
 const router = Router();
 const compatibilityService = new CompatibilityService();
 
-// Mock Data
+// Mock Data updated to new structure
 const hostExample: UserProfile = {
     id: '1', role: 'HOST',
     authProvider: 'EMAIL',
@@ -13,8 +13,27 @@ const hostExample: UserProfile = {
     subscription: { isActive: true },
     verification: { isVerified: true },
     financials: { monthlyBudget: 500 },
-    attributes: { smoker: false, petsAllowed: true, nightOwl: false, cleanlinessLevel: 8 },
-    childrenInfo: { hasChildren: true, count: 1, ageRanges: ['6-12'], schedule: 'SHARED_50_50' }
+    attributes: {
+        smoker: false,
+        petsAllowed: true,
+        nightOwl: false,
+        cleanlinessLevel: 8,
+        ageRanges: ['6-12'],
+        schedule: 'SHARED_50_50'
+    },
+    propertyDetails: {
+        type: 'FLAT',
+        sizeM2: 90,
+        totalRooms: 3,
+        hasElevator: true,
+        hasTerrace: false,
+        hasGarden: false,
+        hasPool: false,
+        isFurnished: true,
+        description: 'Piso amplio en Chamberí, muy silencioso.',
+        photos: ['url1', 'url2'],
+        address: 'Calle de Fuencarral, 12'
+    }
 };
 
 const seekerExample: UserProfile = {
@@ -24,8 +43,14 @@ const seekerExample: UserProfile = {
     subscription: { isActive: true },
     verification: { isVerified: true },
     financials: { monthlyBudget: 600 },
-    attributes: { smoker: false, petsAllowed: true, nightOwl: false, cleanlinessLevel: 7 },
-    childrenInfo: { hasChildren: true, count: 1, ageRanges: ['6-12'], schedule: 'SHARED_50_50' }
+    attributes: {
+        smoker: false,
+        petsAllowed: true,
+        nightOwl: false,
+        cleanlinessLevel: 7,
+        ageRanges: ['6-12'],
+        schedule: 'SHARED_50_50'
+    }
 };
 
 // Routes
@@ -42,7 +67,13 @@ router.get('/matches', async (req: Request, res: Response) => {
             matchScore: score,
             summary: 'Buscador compatible con presupuesto y valores',
             location: { lat: 40.4167, lng: -3.7032, address: 'Madrid Centro' },
-            childrenInfo: seekerExample.childrenInfo
+            attributes: seekerExample.attributes,
+            // CRO: URGENCIA Y ESCASEZ ÉTICA
+            activity: {
+                viewCount: 12,
+                isHot: true,
+                lastViewed: '10m ago'
+            }
         }
     ];
     res.status(200).json({ data: matches, page: 1 });

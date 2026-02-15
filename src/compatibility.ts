@@ -21,10 +21,15 @@ export class CompatibilityService {
             score -= 30; // Diferencia de hábitos
         }
 
-        // 2. Sinergia de Niños (El "Gancho")
-        if (host.childrenInfo.hasChildren && seeker.childrenInfo.hasChildren) {
-            // Si ambos tienen niños, el score sube o se mantiene alto
-            score += 10;
+        // 2. Sinergia de Niños (El "Gancho") - Usando ageRanges en attributes
+        if (host.attributes.ageRanges.length > 0 && seeker.attributes.ageRanges.length > 0) {
+            // Comprobar si hay solapamiento en rangos de edad
+            const commonAges = host.attributes.ageRanges.filter(age => seeker.attributes.ageRanges.includes(age));
+            if (commonAges.length > 0) {
+                score += 15; // Sinergia alta si tienen niños de edades similares
+            } else {
+                score += 5; // Sinergia básica por ser ambos padres
+            }
         }
 
         // 3. Nivel de limpieza
