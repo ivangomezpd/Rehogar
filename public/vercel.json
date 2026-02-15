@@ -1,0 +1,11 @@
+{
+    "version": 2,
+    "public": true,
+    "name": "rehogar",
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
+    ]
+}

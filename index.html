@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Co-Parent Living - Prototipo</title>
+    <style>
+        /* ESTILOS BASE (Simulando App Móvil) */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .mobile-frame {
+            width: 375px;
+            height: 812px;
+            background-color: #fff;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            position: relative;
+            border: 8px solid #333;
+        }
+
+        /* PANTALLAS */
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            /* Ocultas por defecto */
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        /* COMPONENTES UI */
+        .header {
+            padding: 20px;
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            font-weight: bold;
+            font-size: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn {
+            background-color: #4A90E2;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #4A90E2;
+            color: #4A90E2;
+        }
+
+        .btn-google {
+            background-color: #DB4437;
+        }
+
+        /* SCREEN 1: LOGIN */
+        #screen-login {
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+        }
+
+        .logo {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        /* SCREEN 2: ROLE SELECTION */
+        #screen-role {
+            padding: 20px;
+            justify-content: center;
+        }
+
+        .role-card {
+            background: #f8f9fa;
+            border: 2px solid #eee;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .role-card:hover {
+            border-color: #4A90E2;
+            background: #eef6fc;
+        }
+
+        .role-icon {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* SCREEN 3: FEED (HOME) */
+        .feed-list {
+            padding: 15px;
+            padding-bottom: 80px;
+        }
+
+        .property-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .card-image {
+            height: 200px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .match-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #27ae60;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .card-details {
+            padding: 15px;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .location {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .features {
+            display: flex;
+            gap: 10px;
+        }
+
+        .tag {
+            background: #eee;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        /* SCREEN 4: DETAIL */
+        .detail-image {
+            height: 250px;
+            background-color: #ddd;
+            background-size: cover;
+        }
+
+        .host-section {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: #f9f9f9;
+            margin: 15px;
+            border-radius: 12px;
+        }
+
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #ccc;
+            margin-right: 15px;
+            background-size: cover;
+        }
+
+        .synergy-box {
+            background: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            margin: 0 15px 15px;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .synergy-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #2e7d32;
+        }
+
+        /* BOTTOM NAV */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            background: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-item {
+            font-size: 24px;
+            color: #ccc;
+            cursor: pointer;
+        }
+
+        .nav-item.active {
+            color: #4A90E2;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="mobile-frame">
+
+        <!-- PANTALLA 1: LOGIN -->
+        <div id="screen-login" class="screen active">
+            <div class="logo">🏠🧩</div>
+            <h1>Co-Parent Living</h1>
+            <p class="tagline">Comparte hogar, comparte vida.<br>La comunidad segura para padres separados.</p>
+
+            <button class="btn btn-google" onclick="goTo('screen-role')">G Continuar con Google</button>
+            <button class="btn" style="background:#000" onclick="goTo('screen-role')"> Continuar con Apple</button>
+            <button class="btn btn-outline" onclick="goTo('screen-role')">Usar Email</button>
+        </div>
+
+        <!-- PANTALLA 2: SELECCIÓN DE ROL -->
+        <div id="screen-role" class="screen">
+            <div class="header">¿Qué buscas hoy?</div>
+
+            <div class="role-card" onclick="goTo('screen-feed')">
+                <span class="role-icon">🛋️</span>
+                <h3>Tengo Casa</h3>
+                <p>Busco compartir gastos y compañía con otro padre/madre.</p>
+            </div>
+
+            <div class="role-card" onclick="goTo('screen-feed')">
+                <span class="role-icon">🔍</span>
+                <h3>Busco Casa</h3>
+                <p>Necesito un hogar child-friendly para mí y mis hijos.</p>
+            </div>
+        </div>
+
+        <!-- PANTALLA 3: FEED (HOME) -->
+        <div id="screen-feed" class="screen">
+            <div class="header">
+                Explorar
+                <span style="font-size:12px; color:#666">📍 Madrid</span>
+            </div>
+
+            <div class="feed-list">
+                <!-- Tarjeta 1 -->
+                <div class="property-card" onclick="goTo('screen-detail')">
+                    <div class="card-image"
+                        style="background-image: url('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');">
+                        <div class="match-badge">95% Compatible</div>
+                    </div>
+                    <div class="card-details">
+                        <div class="price">550€ <span style="font-size:14px; font-weight:normal">/mes</span></div>
+                        <div class="location">Chamberí • 3 habs</div>
+                        <div class="features">
+                            <span class="tag">👶 Niños OK</span>
+                            <span class="tag">🛗 Ascensor</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 2 -->
+                <div class="property-card">
+                    <div class="card-image"
+                        style="background-image: url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');">
+                        <div class="match-badge" style="background:#f1c40f">70% Compatible</div>
+                    </div>
+                    <div class="card-details">
+                        <div class="price">480€ <span style="font-size:14px; font-weight:normal">/mes</span></div>
+                        <div class="location">La Latina • 2 habs</div>
+                        <div class="features">
+                            <span class="tag">🐶 Mascotas OK</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Nav -->
+            <div class="bottom-nav">
+                <div class="nav-item active">🏠</div>
+                <div class="nav-item">💬</div>
+                <div class="nav-item">❤️</div>
+                <div class="nav-item">👤</div>
+            </div>
+        </div>
+
+        <!-- PANTALLA 4: DETALLE -->
+        <div id="screen-detail" class="screen">
+            <div class="card-image detail-image"
+                style="background-image: url('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');">
+                <div style="position:absolute; top:20px; left:20px; background:rgba(0,0,0,0.5); color:white; padding:5px 10px; border-radius:20px; cursor:pointer"
+                    onclick="goTo('screen-feed')">← Volver</div>
+            </div>
+
+            <div style="padding:20px">
+                <h2 style="margin:0">Habitación luminosa en Chamberí</h2>
+                <p style="color:#666; margin-top:5px">Calle de Fuencarral, 12</p>
+                <div class="price">550€ <span style="font-size:16px; font-weight:normal">gastos inc.</span></div>
+            </div>
+
+            <!-- Sinergias (El algoritmo en acción) -->
+            <div class="synergy-box">
+                <strong>✨ Por qué encajáis:</strong>
+                <div class="synergy-item">✅ Vuestros hijos tienen edad similar (6-8 años).</div>
+                <div class="synergy-item">✅ Ambos tenéis custodia compartida.</div>
+                <div class="synergy-item">✅ Buscáis ambiente tranquilo (No fumadores).</div>
+            </div>
+
+            <!-- Perfil del Host -->
+            <div class="host-section">
+                <div class="avatar"
+                    style="background-image: url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80');">
+                </div>
+                <div>
+                    <div style="font-weight:bold">Casa de Juan</div>
+                    <div style="font-size:14px; color:#666">42 años • Divorciado</div>
+                    <div style="font-size:12px; color:#4A90E2">🛡️ Identidad Verificada</div>
+                </div>
+            </div>
+
+            <div style="padding: 0 20px 20px;">
+                <h3>Sobre la casa</h3>
+                <p style="color:#555; line-height:1.5">
+                    Piso amplio con ascensor, ideal para carritos. La habitación libre da al interior (muy silenciosa).
+                    Tengo una niña de 6 años que viene fines de semana alternos. Busco alguien respetuoso y limpio.
+                </p>
+
+                <div style="display:flex; gap:10px; margin-top:20px; flex-wrap:wrap">
+                    <span class="tag">🛗 Ascensor</span>
+                    <span class="tag">❄️ Aire Acond.</span>
+                    <span class="tag">🧺 Lavadora</span>
+                    <span class="tag">📶 WiFi</span>
+                </div>
+            </div>
+
+            <!-- Sticky Footer CTA -->
+            <div style="padding:20px; background:white; border-top:1px solid #eee; position:sticky; bottom:0">
+                <button class="btn"
+                    onclick="alert('Aquí se abriría la pasarela de pago de Stripe para desbloquear el WhatsApp.')">💬
+                    Contactar por WhatsApp</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Lógica simple de navegación para el prototipo
+        function goTo(screenId) {
+            // Ocultar todas
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            // Mostrar la deseada
+            document.getElementById(screenId).classList.add('active');
+
+            // Scroll al top
+            document.getElementById(screenId).scrollTop = 0;
+        }
+    </script>
+</body>
+
+</html>
