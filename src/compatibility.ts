@@ -21,18 +21,22 @@ export class CompatibilityService {
             score -= 30; // Diferencia de hábitos
         }
 
-        // 2. Sinergia de Niños (El "Gancho") - Usando ageRanges en attributes
+        // 2. Sinergia de Niños (El "Gancho")
         if (host.attributes.ageRanges.length > 0 && seeker.attributes.ageRanges.length > 0) {
-            // Comprobar si hay solapamiento en rangos de edad
             const commonAges = host.attributes.ageRanges.filter(age => seeker.attributes.ageRanges.includes(age));
             if (commonAges.length > 0) {
                 score += 15; // Sinergia alta si tienen niños de edades similares
             } else {
-                score += 5; // Sinergia básica por ser ambos padres
+                score += 5;
             }
         }
 
-        // 3. Nivel de limpieza
+        // 3. Calendario de Custodia
+        if (host.attributes.schedule === seeker.attributes.schedule) {
+            score += 10; // Bonus por calendarios compatibles
+        }
+
+        // 4. Nivel de limpieza
         const cleanlinessDiff = Math.abs(host.attributes.cleanlinessLevel - seeker.attributes.cleanlinessLevel);
         score -= (cleanlinessDiff * 5);
 
