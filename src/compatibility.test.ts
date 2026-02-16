@@ -34,8 +34,8 @@ describe('CompatibilityService', () => {
     });
 
     test('Debe penalizar si uno fuma y el otro no', () => {
-        const host = { ...baseUser, attributes: { ...baseUser.attributes, smoker: false } };
-        const seeker = { ...baseUser, id: '2', role: 'SEEKER' as const, attributes: { ...baseUser.attributes, smoker: true } };
+        const host = { ...baseUser, attributes: { ...baseUser.attributes, smoker: false, ageRanges: [], schedule: 'SHARED_50_50' as const } };
+        const seeker = { ...baseUser, id: '2', role: 'SEEKER' as const, attributes: { ...baseUser.attributes, smoker: true, ageRanges: [], schedule: 'FULL_TIME' as const } };
 
         const score = service.calculateMatchScore(host, seeker);
         expect(score).toBe(70);
