@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#11d462",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#102218",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<title>Solicitar Visita - Coliving</title>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<!-- Main Container -->
+<div class="max-w-md mx-auto bg-white dark:bg-slate-900 min-h-screen flex flex-col shadow-sm">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800">
+<div class="flex items-center p-4 justify-between">
+<button class="text-slate-900 dark:text-slate-100 p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="text-lg font-bold leading-tight tracking-tight flex-1 text-center pr-10">Solicitar Visita</h1>
+</div>
+</header>
+<main class="flex-1 overflow-y-auto">
+<!-- Property Summary Card -->
+<div class="p-4">
+<div class="flex items-center gap-4 bg-background-light dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700">
+<div class="shrink-0">
+<img alt="Casa Coliving Exterior" class="size-16 rounded-lg object-cover" data-alt="Modern house exterior with large windows and garden" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7BxUg-B7tgZn_0kK7YrJDFE_YAo-64at6xegdiikPuZOFEa1R79yrWXKZYmrYXuvMSvYNfpjRs9v5vPB0oZJJlgvqUJOmCn-7MbQfMViTTC4x-uyFQqwdmCvnFmn6zHN_amNm5hQkDAkgGZ-WUMa4SUx6Ts8YMopD4bQCB74KpeO_BFXWbIMJZrctRmxnFVwcgzbXch_lG3xCyukXrKKTYfqjaxnkP4ilSqSBAwlbguDUrlykX8QbMZOWZX7Yv2HGHy_04dwOYA"/>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-slate-900 dark:text-slate-100 text-base font-bold leading-tight">Casa Coliving Gracia</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal">Carrer de Verdi, Barcelona</p>
+</div>
+</div>
+</div>
+<!-- Calendar Section -->
+<section class="px-4 py-2">
+<h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold mb-4">Selecciona el día</h3>
+<div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-400">chevron_left</span>
+</button>
+<p class="text-slate-900 dark:text-slate-100 text-base font-bold">Octubre 2024</p>
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-400">chevron_right</span>
+</button>
+</div>
+<div class="grid grid-cols-7 text-center mb-2">
+<span class="text-slate-400 text-xs font-bold uppercase py-2">Lu</span>
+<span class="text-slate-400 text-xs font-bold uppercase py-2">Ma</span>
+<span class="text-slate-400 text-xs font-bold uppercase py-2">Mi</span>
+<span class="text-slate-400 text-xs font-bold uppercase py-2">Ju</span>
+<span class="text-slate-400 text-xs font-bold uppercase py-2">Vi</span>
+<span class="text-slate-400 text-xs font-bold uppercase py-2">Sa</span>
+<span class="text-slate-400 text-xs font-bold uppercase py-2">Do</span>
+</div>
+<div class="grid grid-cols-7 gap-1">
+<!-- Dates placeholders -->
+<div class="h-10"></div><div class="h-10"></div>
+<button class="h-10 flex items-center justify-center text-sm font-medium rounded-full hover:bg-primary/10">1</button>
+<button class="h-10 flex items-center justify-center text-sm font-medium rounded-full hover:bg-primary/10">2</button>
+<button class="h-10 flex items-center justify-center text-sm font-medium rounded-full hover:bg-primary/10">3</button>
+<button class="h-10 flex items-center justify-center text-sm font-medium rounded-full hover:bg-primary/10">4</button>
+<button class="h-10 flex items-center justify-center text-sm font-medium rounded-full hover:bg-primary/10">5</button>
+<button class="h-10 flex items-center justify-center text-sm font-medium rounded-full bg-primary text-slate-900 font-bold">6</button>
+<button class="h-10 flex items-center justify-center text-sm font-medium rounded-full hover:bg-primary/10">7</button>
+<button class="h-10 flex items-center justify-center text-sm font-medium rounded-full hover:bg-primary/10">8</button>
+<button class="h-10 flex items-center justify-center text-sm font-medium rounded-full hover:bg-primary/10">9</button>
+<button class="h-10 flex items-center justify-center text-sm font-medium rounded-full hover:bg-primary/10">10</button>
+<button class="h-10 flex items-center justify-center text-sm font-medium rounded-full hover:bg-primary/10">11</button>
+<button class="h-10 flex items-center justify-center text-sm font-medium rounded-full hover:bg-primary/10 text-slate-300 dark:text-slate-600" disabled="">12</button>
+<button class="h-10 flex items-center justify-center text-sm font-medium rounded-full hover:bg-primary/10 text-slate-300 dark:text-slate-600" disabled="">13</button>
+<!-- Rest of dates omitted for brevity but keeping grid structure -->
+<button class="h-10 flex items-center justify-center text-sm font-medium rounded-full hover:bg-primary/10">14</button>
+<button class="h-10 flex items-center justify-center text-sm font-medium rounded-full hover:bg-primary/10">15</button>
+<button class="h-10 flex items-center justify-center text-sm font-medium rounded-full hover:bg-primary/10">16</button>
+<button class="h-10 flex items-center justify-center text-sm font-medium rounded-full hover:bg-primary/10">17</button>
+<button class="h-10 flex items-center justify-center text-sm font-medium rounded-full hover:bg-primary/10">18</button>
+</div>
+</div>
+</section>
+<!-- Time Slots -->
+<section class="px-4 py-4">
+<h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold mb-4">Horarios disponibles</h3>
+<div class="grid grid-cols-3 gap-3">
+<button class="py-3 px-2 rounded-xl border-2 border-primary bg-primary/10 text-slate-900 dark:text-slate-100 text-sm font-bold text-center">
+                        10:00 AM
+                    </button>
+<button class="py-3 px-2 rounded-xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/50 text-slate-600 dark:text-slate-400 text-sm font-medium text-center transition-all">
+                        11:30 AM
+                    </button>
+<button class="py-3 px-2 rounded-xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/50 text-slate-600 dark:text-slate-400 text-sm font-medium text-center transition-all">
+                        13:00 PM
+                    </button>
+<button class="py-3 px-2 rounded-xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/50 text-slate-600 dark:text-slate-400 text-sm font-medium text-center transition-all">
+                        16:30 PM
+                    </button>
+<button class="py-3 px-2 rounded-xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/50 text-slate-600 dark:text-slate-400 text-sm font-medium text-center transition-all">
+                        18:00 PM
+                    </button>
+<button class="py-3 px-2 rounded-xl border-2 border-slate-50 dark:border-slate-800/50 bg-slate-50 dark:bg-slate-800/50 text-slate-300 dark:text-slate-600 text-sm font-medium text-center cursor-not-allowed" disabled="">
+                        19:30 PM
+                    </button>
+</div>
+</section>
+<!-- Additional Message -->
+<section class="px-4 py-4">
+<label class="block text-slate-900 dark:text-slate-100 text-lg font-bold mb-4" for="message">Mensaje adicional</label>
+<textarea class="w-full rounded-xl border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-primary text-slate-700 dark:text-slate-300 placeholder:text-slate-400 text-sm" id="message" placeholder="Cuéntanos un poco sobre ti o si tienes alguna duda específica..." rows="4"></textarea>
+</section>
+<!-- Spacing for bottom button -->
+<div class="h-24"></div>
+</main>
+<!-- Fixed Bottom Action -->
+<footer class="p-4 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 sticky bottom-0">
+<button class="w-full bg-primary hover:bg-primary/90 text-slate-900 font-bold py-4 rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-[0.98]">
+                Confirmar Solicitud
+            </button>
+</footer>
+</div>
+</body></html>
