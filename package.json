@@ -1,15 +1,22 @@
 {
   "name": "rehogar",
   "version": "1.0.0",
-  "description": "��#\u0000 \u0000R\u0000e\u0000h\u0000o\u0000g\u0000a\u0000r\u0000\r\u0000 \u0000",
+  "description": "Plataforma de coliving para personas divorciadas.",
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/server.ts",
     "test": "jest"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "coliving",
+    "divorcees",
+    "stitch",
+    "typescript",
+    "express",
+    "tailwind"
+  ],
+  "author": "Ivan Gomez",
+  "license": "MIT",
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
