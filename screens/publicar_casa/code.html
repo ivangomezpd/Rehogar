@@ -31,7 +31,7 @@
       min-height: max(884px, 100dvh);
     }
   </style>
-</head>
+  </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-[#111814] transition-colors duration-300">
 <div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden">
 <!-- Top Navigation -->
@@ -100,27 +100,7 @@
 <span class="material-symbols-outlined">location_on</span>
 </div>
 </div>
-</label><div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-<label class="flex flex-col gap-2">
-<span class="text-[#111814] dark:text-white text-sm font-semibold">Tipo de vivienda</span>
-<select class="form-select block w-full rounded-xl border-[#dbe6e0] dark:border-[#2a3f33] bg-white dark:bg-[#1a2e23] text-[#111814] dark:text-white h-14 px-4 focus:ring-primary focus:border-primary">
-<option value="">Seleccionar...</option>
-<option value="piso">Piso</option>
-<option value="chalet">Chalet</option>
-<option value="casa">Casa</option>
-<option value="estudio">Estudio</option>
-<option value="atico">Ático</option>
-</select>
 </label>
-<label class="flex flex-col gap-2">
-<span class="text-[#111814] dark:text-white text-sm font-semibold">Nº de Habitaciones</span>
-<input class="form-input block w-full rounded-xl border-[#dbe6e0] dark:border-[#2a3f33] bg-white dark:bg-[#1a2e23] text-[#111814] dark:text-white h-14 px-4 focus:ring-primary focus:border-primary" min="0" placeholder="0" type="number"/>
-</label>
-<label class="flex flex-col gap-2">
-<span class="text-[#111814] dark:text-white text-sm font-semibold">Nº de Aseos</span>
-<input class="form-input block w-full rounded-xl border-[#dbe6e0] dark:border-[#2a3f33] bg-white dark:bg-[#1a2e23] text-[#111814] dark:text-white h-14 px-4 focus:ring-primary focus:border-primary" min="0" placeholder="0" type="number"/>
-</label>
-</div>
 </div>
 <div class="rounded-xl overflow-hidden h-40 w-full relative border border-[#dbe6e0] dark:border-[#2a3f33]">
 <img class="w-full h-full object-cover" data-alt="Map showing a city neighborhood layout" data-location="Madrid, Spain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO348hZRogiM8Xs5gA_aS5FOK4WTHlV69K5QBrfdT3SMwlHSSUa-EQq4ANTlzyo7J1d0WkHUTsqzLkXUIhLKsNR2PaYxfPJGedB70twcsR0V5gle1V_PbrtEWQ3dSEhRw2LhxsNLk1b4F4gGnSzLf4aVjB9UouNsakfLNao7PAYI7sHUHUcFv8ZsVs7XF41aIFlS5X7wlPuKFwzb2Bn_ob6y9KWCAGwEkJh0gj8PBNo5gweT3rit1pZtOi9ne7WKvdVzAG6y55nEY"/>
@@ -128,30 +108,6 @@
 <div class="bg-white dark:bg-[#1a2e23] p-2 rounded-full shadow-lg">
 <span class="material-symbols-outlined text-primary">person_pin_circle</span>
 </div>
-</div>
-</div><div class="space-y-3 pt-2">
-<span class="text-[#111814] dark:text-white text-sm font-semibold">Características extra</span>
-<div class="flex flex-wrap gap-3">
-<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#1a2e23] text-gray-600 dark:text-gray-300 border border-[#dbe6e0] dark:border-[#2a3f33] font-medium text-sm hover:border-primary hover:text-primary transition-colors">
-<span class="material-symbols-outlined text-lg">balcony</span>
-      Terraza
-    </button>
-<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#1a2e23] text-gray-600 dark:text-gray-300 border border-[#dbe6e0] dark:border-[#2a3f33] font-medium text-sm hover:border-primary hover:text-primary transition-colors">
-<span class="material-symbols-outlined text-lg">pool</span>
-      Piscina
-    </button>
-<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#1a2e23] text-gray-600 dark:text-gray-300 border border-[#dbe6e0] dark:border-[#2a3f33] font-medium text-sm hover:border-primary hover:text-primary transition-colors">
-<span class="material-symbols-outlined text-lg">holiday_village</span>
-      Urbanización
-    </button>
-<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#1a2e23] text-gray-600 dark:text-gray-300 border border-[#dbe6e0] dark:border-[#2a3f33] font-medium text-sm hover:border-primary hover:text-primary transition-colors">
-<span class="material-symbols-outlined text-lg">elevator</span>
-      Ascensor
-    </button>
-<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#1a2e23] text-gray-600 dark:text-gray-300 border border-[#dbe6e0] dark:border-[#2a3f33] font-medium text-sm hover:border-primary hover:text-primary transition-colors">
-<span class="material-symbols-outlined text-lg">garage</span>
-      Garaje
-    </button>
 </div>
 </div>
 </section>
@@ -169,13 +125,6 @@
 <option>1 Adulto y 2 niños</option>
 <option>2 Adultos y 2 niños</option>
 <option>Sólo yo</option>
-</select>
-</label><label class="block mt-4">
-<span class="text-[#111814] dark:text-white text-sm font-semibold">Régimen de Custodia de los hijos</span>
-<select class="mt-2 block w-full rounded-xl border-[#dbe6e0] dark:border-[#2a3f33] bg-white dark:bg-[#1a2e23] text-[#111814] dark:text-white h-14 px-4 focus:ring-primary focus:border-primary">
-<option value="fines-de-semana">Fines de semana</option>
-<option value="semanas-alternas">Semanas alternas</option>
-<option value="custodia-completa">Custodia completa</option>
 </select>
 </label>
 <div class="space-y-3">
