@@ -9,7 +9,7 @@ function toSnakeCase(str) {
     return str
         .toLowerCase()
         .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // remove accents
-        .replace(/[^a-z0-9\s]/g, '') // remove special chars (fixed regex)
+        .replace(/[^a-z0-9\s_]/g, '') // remove special chars (allowing underscores)
         .trim()
         .replace(/\s+/g, '_');
 }
@@ -41,16 +41,28 @@ async function sync() {
     console.log(`Found ${screens.length} screens in Stitch project.`);
 
     const usedNames = new Set();
+    const finalScreens = []; // To keep track of what we download
 
     for (const screen of screens) {
         let name = toSnakeCase(screen.title);
-        if (usedNames.has(name)) {
-            // Append short ID if name exists
-            const shortId = screen.name.split('/').pop().substring(0, 4);
-            name = `${name}_${shortId}`;
+        // The user wants to remove duplicates. If we find the same title again, 
+        // we'll only keep the last one (assuming it's the latest in the JSON).
+        // Actually, let's keep track of titles and only sync each title once.
+        
+        if (!finalScreens.find(s => s.name === name)) {
+            finalScreens.push({ name, screen });
+        } else {
+            // Update existing one if we want latest, but usually Stitch order is fine.
+            // Let's just skip if already added to avoid duplicates in the FIRST place.
+            console.log(`Skipping duplicate title: ${screen.title} (${name})`);
+            continue;
         }
-        usedNames.add(name);
+    }
 
+    console.log(`Will sync ${finalScreens.length} unique screens.`);
+
+    for (const item of finalScreens) {
+        const { name, screen } = item;
         const targetDir = path.join(SCREENS_DIR, name);
         if (!fs.existsSync(targetDir)) {
             fs.mkdirSync(targetDir, { recursive: true });
@@ -62,7 +74,6 @@ async function sync() {
         if (screen.htmlCode && screen.htmlCode.downloadUrl) {
             try {
                 await downloadFile(screen.htmlCode.downloadUrl, path.join(targetDir, 'code.html'));
-                console.log(`  Downloaded HTML`);
             } catch (err) {
                 console.error(`  Error downloading HTML for ${name}: ${err.message}`);
             }
@@ -72,7 +83,6 @@ async function sync() {
         if (screen.screenshot && screen.screenshot.downloadUrl) {
             try {
                 await downloadFile(screen.screenshot.downloadUrl, path.join(targetDir, 'screen.png'));
-                console.log(`  Downloaded Screenshot`);
             } catch (err) {
                 console.error(`  Error downloading screenshot for ${name}: ${err.message}`);
             }
