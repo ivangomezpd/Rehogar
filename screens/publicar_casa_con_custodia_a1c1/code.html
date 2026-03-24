@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#11d462",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#102218",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>Publicar Anuncio - Casa Compartida</title>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111814] transition-colors duration-300">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden">
+<!-- Top Navigation -->
+<header class="flex items-center bg-white dark:bg-[#1a2e23] p-4 pb-4 justify-between border-b border-[#dbe6e0] dark:border-[#2a3f33]">
+<div class="text-[#111814] dark:text-white flex size-10 shrink-0 items-center justify-center cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full" data-icon="ArrowLeft">
+<span class="material-symbols-outlined">arrow_back</span>
+</div>
+<h2 class="text-[#111814] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Publicar anuncio</h2>
+<div class="size-10"></div> <!-- Spacer for centering -->
+</header>
+<!-- Progress Indicator -->
+<div class="flex w-full flex-row items-center justify-center gap-4 py-6 bg-white dark:bg-[#1a2e23]">
+<div class="flex flex-col items-center gap-1">
+<div class="h-2.5 w-12 rounded-full bg-primary"></div>
+<span class="text-[10px] font-bold text-primary uppercase">Paso 1</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="h-2.5 w-12 rounded-full bg-[#dbe6e0] dark:bg-[#2a3f33]"></div>
+<span class="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase">Paso 2</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="h-2.5 w-12 rounded-full bg-[#dbe6e0] dark:bg-[#2a3f33]"></div>
+<span class="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase">Paso 3</span>
+</div>
+</div>
+<main class="max-w-2xl mx-auto w-full p-4 space-y-8">
+<!-- Section 1: House Data -->
+<section class="space-y-6">
+<div class="flex flex-col gap-1">
+<h3 class="text-[#111814] dark:text-white tracking-light text-2xl font-bold leading-tight">1. Datos de la casa</h3>
+<p class="text-sm text-gray-600 dark:text-gray-400">Cuéntanos sobre el espacio que quieres compartir.</p>
+</div>
+<!-- Photo Upload Grid -->
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+<div class="flex flex-col gap-2">
+<div class="relative w-full aspect-square bg-gray-200 dark:bg-gray-800 rounded-xl overflow-hidden group cursor-pointer border-2 border-dashed border-gray-300 dark:border-gray-700 flex flex-col items-center justify-center">
+<span class="material-symbols-outlined text-gray-400 text-3xl">add_a_photo</span>
+<span class="text-xs text-gray-500 mt-2 font-medium">Añadir Principal</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="w-full aspect-square bg-center bg-no-repeat bg-cover rounded-xl shadow-sm border border-gray-200 dark:border-gray-700" data-alt="Interior modern minimalist bright living room" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAi0EXp7q4O70lo0gK_KZi_hvFi9NTBW3S6lr67ZeQGj0AeQvQQ8-E9cD7Fvg27otWJ9gAmeVlJVkOVXeW5spLe6ubUunO7nGKc-vzqDAjpHV7UAJfMpM-2fbKhcAmZJ7ZjYTimMORBuXuUKXPoqVxrLp75voDRhU7bUttLW5OO8T9E_4-exVJUZXMRvl8xKuE1f2q0nyydypnh5_8tKw7CzYUY1j5Y5RgOjjr_Sz8UCGa6ELB_yZ4Yw_q9zwKVqLQG0qXZSvALNUU");'></div>
+<p class="text-[#111814] dark:text-gray-300 text-xs font-medium text-center">Salón</p>
+</div>
+<div class="flex flex-col gap-2">
+<div class="w-full aspect-square bg-center bg-no-repeat bg-cover rounded-xl shadow-sm border border-gray-200 dark:border-gray-700" data-alt="Clean minimal bedroom with natural light" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDcVj-jkukKmQ9E7J-xAHj5pQstn1Eua7JlcSUJ7ykx20_Eoc8UBlDFt2reTvqwM-NEosCBA4rH0PXxmdChxN4Gbu_tz7kwU_nrj2ixKgiaeuv4GX3RC-0HAK2ioUgyK9A54yyizEuPSp7Pv_Sgbc4ozNcxgpbb5MyGenJAkBHetkQo8HR2rJzZb5_QU8wOh1UyhAS4oagBJgLsk0h_AoB9rgukXKXts6UWBGl4mYiPkXwiDLrOQ7J87MKTm-7iLePrWP7iXVzgMGE");'></div>
+<p class="text-[#111814] dark:text-gray-300 text-xs font-medium text-center">Habitación</p>
+</div>
+</div>
+<!-- Price and Location Fields -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<label class="flex flex-col gap-2">
+<span class="text-[#111814] dark:text-white text-sm font-semibold">Precio mensual (todo incl.)</span>
+<div class="relative flex items-center">
+<input class="form-input block w-full rounded-xl border-[#dbe6e0] dark:border-[#2a3f33] bg-white dark:bg-[#1a2e23] text-[#111814] dark:text-white h-14 pl-4 pr-12 focus:ring-primary focus:border-primary" placeholder="0.00" type="text"/>
+<div class="absolute right-4 text-gray-500">
+<span class="material-symbols-outlined">euro</span>
+</div>
+</div>
+</label>
+<label class="flex flex-col gap-2">
+<span class="text-[#111814] dark:text-white text-sm font-semibold">Ubicación</span>
+<div class="relative flex items-center">
+<input class="form-input block w-full rounded-xl border-[#dbe6e0] dark:border-[#2a3f33] bg-white dark:bg-[#1a2e23] text-[#111814] dark:text-white h-14 pl-4 pr-12 focus:ring-primary focus:border-primary" placeholder="Ej: Calle Mayor, Madrid" type="text"/>
+<div class="absolute right-4 text-gray-500">
+<span class="material-symbols-outlined">location_on</span>
+</div>
+</div>
+</label><div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<label class="flex flex-col gap-2">
+<span class="text-[#111814] dark:text-white text-sm font-semibold">Tipo de vivienda</span>
+<select class="form-select block w-full rounded-xl border-[#dbe6e0] dark:border-[#2a3f33] bg-white dark:bg-[#1a2e23] text-[#111814] dark:text-white h-14 px-4 focus:ring-primary focus:border-primary">
+<option value="">Seleccionar...</option>
+<option value="piso">Piso</option>
+<option value="chalet">Chalet</option>
+<option value="casa">Casa</option>
+<option value="estudio">Estudio</option>
+<option value="atico">Ático</option>
+</select>
+</label>
+<label class="flex flex-col gap-2">
+<span class="text-[#111814] dark:text-white text-sm font-semibold">Nº de Habitaciones</span>
+<input class="form-input block w-full rounded-xl border-[#dbe6e0] dark:border-[#2a3f33] bg-white dark:bg-[#1a2e23] text-[#111814] dark:text-white h-14 px-4 focus:ring-primary focus:border-primary" min="0" placeholder="0" type="number"/>
+</label>
+<label class="flex flex-col gap-2">
+<span class="text-[#111814] dark:text-white text-sm font-semibold">Nº de Aseos</span>
+<input class="form-input block w-full rounded-xl border-[#dbe6e0] dark:border-[#2a3f33] bg-white dark:bg-[#1a2e23] text-[#111814] dark:text-white h-14 px-4 focus:ring-primary focus:border-primary" min="0" placeholder="0" type="number"/>
+</label>
+</div>
+</div>
+<div class="rounded-xl overflow-hidden h-40 w-full relative border border-[#dbe6e0] dark:border-[#2a3f33]">
+<img class="w-full h-full object-cover" data-alt="Map showing a city neighborhood layout" data-location="Madrid, Spain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO348hZRogiM8Xs5gA_aS5FOK4WTHlV69K5QBrfdT3SMwlHSSUa-EQq4ANTlzyo7J1d0WkHUTsqzLkXUIhLKsNR2PaYxfPJGedB70twcsR0V5gle1V_PbrtEWQ3dSEhRw2LhxsNLk1b4F4gGnSzLf4aVjB9UouNsakfLNao7PAYI7sHUHUcFv8ZsVs7XF41aIFlS5X7wlPuKFwzb2Bn_ob6y9KWCAGwEkJh0gj8PBNo5gweT3rit1pZtOi9ne7WKvdVzAG6y55nEY"/>
+<div class="absolute inset-0 flex items-center justify-center bg-black/10">
+<div class="bg-white dark:bg-[#1a2e23] p-2 rounded-full shadow-lg">
+<span class="material-symbols-outlined text-primary">person_pin_circle</span>
+</div>
+</div>
+</div><div class="space-y-3 pt-2">
+<span class="text-[#111814] dark:text-white text-sm font-semibold">Características extra</span>
+<div class="flex flex-wrap gap-3">
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#1a2e23] text-gray-600 dark:text-gray-300 border border-[#dbe6e0] dark:border-[#2a3f33] font-medium text-sm hover:border-primary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">balcony</span>
+      Terraza
+    </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#1a2e23] text-gray-600 dark:text-gray-300 border border-[#dbe6e0] dark:border-[#2a3f33] font-medium text-sm hover:border-primary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">pool</span>
+      Piscina
+    </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#1a2e23] text-gray-600 dark:text-gray-300 border border-[#dbe6e0] dark:border-[#2a3f33] font-medium text-sm hover:border-primary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">holiday_village</span>
+      Urbanización
+    </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#1a2e23] text-gray-600 dark:text-gray-300 border border-[#dbe6e0] dark:border-[#2a3f33] font-medium text-sm hover:border-primary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">elevator</span>
+      Ascensor
+    </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#1a2e23] text-gray-600 dark:text-gray-300 border border-[#dbe6e0] dark:border-[#2a3f33] font-medium text-sm hover:border-primary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">garage</span>
+      Garaje
+    </button>
+</div>
+</div>
+</section>
+<!-- Section 2: Cohabitation Profile -->
+<section class="space-y-6 pt-4 border-t border-[#dbe6e0] dark:border-[#2a3f33]">
+<div class="flex flex-col gap-1">
+<h3 class="text-[#111814] dark:text-white tracking-light text-2xl font-bold leading-tight">2. Perfil de convivencia</h3>
+<p class="text-sm text-gray-600 dark:text-gray-400">¿Quién vive ya en casa y qué buscáis?</p>
+</div>
+<div class="space-y-4">
+<label class="block">
+<span class="text-[#111814] dark:text-white text-sm font-semibold">¿Quién vive actualmente?</span>
+<select class="mt-2 block w-full rounded-xl border-[#dbe6e0] dark:border-[#2a3f33] bg-white dark:bg-[#1a2e23] text-[#111814] dark:text-white h-14 px-4 focus:ring-primary focus:border-primary">
+<option>1 Adulto y 1 niño</option>
+<option>1 Adulto y 2 niños</option>
+<option>2 Adultos y 2 niños</option>
+<option>Sólo yo</option>
+</select>
+</label><label class="block mt-4">
+<span class="text-[#111814] dark:text-white text-sm font-semibold">Régimen de Custodia de los hijos</span>
+<select class="mt-2 block w-full rounded-xl border-[#dbe6e0] dark:border-[#2a3f33] bg-white dark:bg-[#1a2e23] text-[#111814] dark:text-white h-14 px-4 focus:ring-primary focus:border-primary">
+<option value="fines-de-semana">Fines de semana</option>
+<option value="semanas-alternas">Semanas alternas</option>
+<option value="custodia-completa">Custodia completa</option>
+</select>
+</label>
+<div class="space-y-3">
+<span class="text-[#111814] dark:text-white text-sm font-semibold">Preferencias</span>
+<div class="flex flex-wrap gap-3">
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary border border-primary font-medium text-sm">
+<span class="material-symbols-outlined text-lg">pets</span>
+                                Aceptamos perros
+                            </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#1a2e23] text-gray-600 dark:text-gray-300 border border-[#dbe6e0] dark:border-[#2a3f33] font-medium text-sm">
+<span class="material-symbols-outlined text-lg">smoke_free</span>
+                                No fumadores
+                            </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#1a2e23] text-gray-600 dark:text-gray-300 border border-[#dbe6e0] dark:border-[#2a3f33] font-medium text-sm">
+<span class="material-symbols-outlined text-lg">woman</span>
+                                Sólo mujeres
+                            </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#1a2e23] text-gray-600 dark:text-gray-300 border border-[#dbe6e0] dark:border-[#2a3f33] font-medium text-sm">
+<span class="material-symbols-outlined text-lg">man</span>
+                                Sólo hombres
+                            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Family Photo -->
+<section class="space-y-6 pt-4 border-t border-[#dbe6e0] dark:border-[#2a3f33]">
+<div class="flex flex-col gap-1">
+<h3 class="text-[#111814] dark:text-white tracking-light text-2xl font-bold leading-tight">3. Foto de la familia</h3>
+<p class="text-sm text-gray-600 dark:text-gray-400">Humaniza tu anuncio. Las familias conectan mejor con fotos reales.</p>
+</div>
+<div class="relative w-full aspect-video bg-primary/5 rounded-2xl border-2 border-dashed border-primary/30 overflow-hidden flex flex-col items-center justify-center gap-4 cursor-pointer hover:bg-primary/10 transition-colors">
+<div class="size-16 rounded-full bg-primary flex items-center justify-center text-white shadow-lg">
+<span class="material-symbols-outlined text-3xl">groups</span>
+</div>
+<div class="text-center">
+<p class="text-primary font-bold">Subir foto familiar</p>
+<p class="text-xs text-gray-500 mt-1">JPG, PNG hasta 5MB</p>
+</div>
+<!-- Optional Preview Overlay (simulated) -->
+<!-- <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=800" class="absolute inset-0 w-full h-full object-cover opacity-20" data-alt="Happy family outdoors in a park"> -->
+</div>
+<label class="block">
+<span class="text-[#111814] dark:text-white text-sm font-semibold">Unas palabras sobre vosotros</span>
+<textarea class="mt-2 block w-full rounded-xl border-[#dbe6e0] dark:border-[#2a3f33] bg-white dark:bg-[#1a2e23] text-[#111814] dark:text-white h-32 px-4 py-3 focus:ring-primary focus:border-primary resize-none" placeholder="Hola! Somos una familia tranquila que busca compartir gastos y buenos momentos..."></textarea>
+</label>
+</section>
+<!-- Action Buttons -->
+<footer class="flex items-center gap-4 py-10">
+<button class="flex-1 h-14 rounded-xl border-2 border-[#dbe6e0] dark:border-[#2a3f33] text-[#111814] dark:text-white font-bold hover:bg-gray-50 dark:hover:bg-[#1a2e23] transition-colors">
+                    Guardar borrador
+                </button>
+<button class="flex-[2] h-14 rounded-xl bg-primary text-white font-bold shadow-lg shadow-primary/30 hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                    Continuar al paso 2
+                    <span class="material-symbols-outlined">chevron_right</span>
+</button>
+</footer>
+</main>
+<!-- Bottom padding for mobile -->
+<div class="h-10"></div>
+</div>
+</body></html>

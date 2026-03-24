@@ -40,11 +40,11 @@
         }
     </style>
 <style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
-  </head>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
 <body class="bg-background-light dark:bg-background-dark text-[#111814]">
 <!-- Main Container -->
 <div class="relative flex min-h-screen w-full flex-col max-w-md mx-auto bg-white shadow-xl overflow-x-hidden">
@@ -70,19 +70,29 @@
 </div>
 </div>
 <div class="mt-4 text-center">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 bg-primary/10 text-primary rounded-full mb-2">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">house</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Ofertante (Host)</span>
+</div>
 <p class="text-[#111814] text-2xl font-bold tracking-tight">Carlos, 42 años</p>
 <div class="flex items-center justify-center gap-1 text-gray-500 mt-1">
 <span class="material-symbols-outlined text-sm">location_on</span>
 <p class="text-sm font-medium">Madrid, España</p>
 </div>
 </div>
-<div class="mt-6 flex w-full gap-3">
+<div class="mt-6 flex w-full flex-col gap-3">
+<div class="flex w-full gap-3">
 <button class="flex-1 bg-primary text-white py-2.5 rounded-lg font-bold text-sm shadow-sm hover:bg-opacity-90 transition-all">
                     Editar Perfil
                 </button>
 <button class="flex-1 bg-gray-100 text-[#111814] py-2.5 rounded-lg font-bold text-sm hover:bg-gray-200 transition-all">
                     Mis anuncios
                 </button>
+</div>
+<button class="w-full bg-[#111814] text-white py-3 rounded-lg font-bold text-sm flex items-center justify-center gap-2 shadow-md hover:bg-opacity-90 transition-all">
+<span class="material-symbols-outlined text-lg">add_circle</span>
+                Publicar nueva casa
+            </button>
 </div>
 </div>
 <!-- Subscription Card -->
@@ -104,16 +114,16 @@
 <div class="px-4 py-4">
 <h3 class="text-[#111814] text-lg font-bold mb-3 flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">family_restroom</span>
-                Sobre mi familia
-            </h3>
+            Sobre mi familia
+        </h3>
 <div class="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm">
 <div class="h-40 w-full bg-center bg-no-repeat bg-cover" data-alt="Padre jugando con dos niños en un parque" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC5Eq8knkvKfr0IOfpbeEIKxi_QkBNAiSlPFSghWBx3Mmz9OZyPnM1L3Vskis4zY8Pr0JR8qOtJqpWxnx8lFjQULsnr6mWVB3Lf8yxBOxedbmeJD2puwyFeQlnJXNJTKCwDp8yYpb0E4tSiflHMvz3xVS9-UtEzlil74Riptg2QsOiOFmikupNkU8PmNAvnea_vLFO9s0E2Ge9PTNe92Cs2A7TpKTjXhtC30whKUS2k1TtLrGcobfkPfP2s_Tk2rhAzD256c-nwXQM");'>
 </div>
 <div class="p-4">
 <p class="text-[#111814] font-bold text-base mb-1">Padre de 2 niños</p>
 <p class="text-gray-600 text-sm leading-relaxed">
-                        Compartimos tiempo los fines de semana. Busco un ambiente que respete las visitas y la convivencia familiar. Mis hijos son tranquilos y están acostumbrados a compartir espacios.
-                    </p>
+                    Compartimos tiempo los fines de semana. Busco un ambiente que respete las visitas y la convivencia familiar. Mis hijos son tranquilos y están acostumbrados a compartir espacios.
+                </p>
 </div>
 </div>
 </div>
@@ -121,44 +131,44 @@
 <div class="px-4 py-4">
 <h3 class="text-[#111814] text-lg font-bold mb-3 flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">style</span>
-                Mi estilo de vida
-            </h3>
+            Mi estilo de vida
+        </h3>
 <div class="flex flex-wrap gap-2">
 <span class="px-3 py-1.5 bg-gray-100 rounded-full text-xs font-semibold text-gray-700 flex items-center gap-1.5">
 <span class="material-symbols-outlined text-sm">filter_vintage</span> Tranquilo
-                </span>
+            </span>
 <span class="px-3 py-1.5 bg-gray-100 rounded-full text-xs font-semibold text-gray-700 flex items-center gap-1.5">
 <span class="material-symbols-outlined text-sm">movie</span> Cine
-                </span>
+            </span>
 <span class="px-3 py-1.5 bg-gray-100 rounded-full text-xs font-semibold text-gray-700 flex items-center gap-1.5">
 <span class="material-symbols-outlined text-sm">fitness_center</span> Deporte
-                </span>
+            </span>
 <span class="px-3 py-1.5 bg-gray-100 rounded-full text-xs font-semibold text-gray-700 flex items-center gap-1.5">
 <span class="material-symbols-outlined text-sm">smoke_free</span> No fumador
-                </span>
+            </span>
 <span class="px-3 py-1.5 bg-gray-100 rounded-full text-xs font-semibold text-gray-700 flex items-center gap-1.5">
 <span class="material-symbols-outlined text-sm">restaurant</span> Cocinillas
-                </span>
+            </span>
 </div>
 </div>
 <!-- Looking For Section -->
 <div class="px-4 py-4">
 <h3 class="text-[#111814] text-lg font-bold mb-3 flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">search</span>
-                Lo que busco
-            </h3>
+            Lo que busco
+        </h3>
 <div class="bg-gray-50 border border-dashed border-gray-200 rounded-xl p-4">
 <p class="text-gray-600 text-sm leading-relaxed">
-                    Busco compartir con personas empáticas que entiendan la etapa vital de un padre divorciado. Valoro mucho la limpieza en zonas comunes, el silencio a partir de las 22:00 y la buena comunicación para resolver cualquier inconveniente del día a día.
-                </p>
+                Busco compartir con personas empáticas que entiendan la etapa vital de un padre divorciado. Valoro mucho la limpieza en zonas comunes, el silencio a partir de las 22:00 y la buena comunicación para resolver cualquier inconveniente del día a día.
+            </p>
 </div>
 </div>
 <!-- Logout / Danger Area -->
 <div class="p-4 mt-4 pb-24">
 <button class="w-full flex items-center justify-center gap-2 py-3 text-red-500 font-bold border border-red-100 rounded-xl hover:bg-red-50 transition-colors">
 <span class="material-symbols-outlined">logout</span>
-                Cerrar sesión
-            </button>
+            Cerrar sesión
+        </button>
 </div>
 <!-- Bottom Navigation Bar -->
 <div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-white border-t border-gray-100 px-4 pb-6 pt-3 flex justify-between items-center shadow-[0_-4px_10px_rgba(0,0,0,0.03)]">

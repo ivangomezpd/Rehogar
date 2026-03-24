@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Coliving App Onboarding</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#11d462",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#102218",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: "Plus Jakarta Sans", sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-screen w-full flex-col max-w-md mx-auto overflow-hidden">
+<header class="flex items-center justify-end p-6">
+<button class="text-primary font-bold text-base hover:opacity-80 transition-opacity">Skip</button>
+</header>
+<main class="flex-1 flex flex-col items-center justify-start px-6">
+<div class="w-full aspect-square relative mb-12">
+<div class="absolute inset-0 bg-primary/10 rounded-full animate-pulse"></div>
+<div class="relative z-10 w-full h-full flex items-center justify-center rounded-2xl overflow-hidden shadow-2xl bg-white dark:bg-background-dark/50" data-alt="People laughing and sharing a meal in a modern shared kitchen" style="background-image: linear-gradient(135deg, rgba(17, 212, 98, 0.2) 0%, rgba(16, 34, 24, 0.1) 100%), url('https://lh3.googleusercontent.com/aida-public/AB6AXuBg27CQoWwvWcbKoxZ-RmpIrA7EtPLZwD3tQepVd39KCI7Uv3YgxbnIITdnvp9BCr1CLKRUIvkVlUTHvJ6HmWXxq0gPLYCAmRht8bRMp4MTbSGWagmmcPEZsFqe_RyYR0ru3XVEWMGluNghE62JurqgeHTZRYcsQ0umV-Sc0ta6EoyrlT7-ABTCaUonfdDOFheLelPmr0yU9GXlseREmiTvnfDYcUdZ0NsqQa7pmKPadPsNetDX2qZReY9x9pbkvLDC9WcS3VdeRds'); background-size: cover; background-position: center;">
+</div>
+</div>
+<div class="flex gap-2 mb-8">
+<div class="h-1.5 w-8 rounded-full bg-primary"></div>
+<div class="h-1.5 w-2 rounded-full bg-primary/30"></div>
+<div class="h-1.5 w-2 rounded-full bg-primary/30"></div>
+</div>
+<div class="text-center space-y-4">
+<h1 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight">
+                    Find your ideal community of peers
+                </h1>
+<p class="text-base text-slate-600 dark:text-slate-400 max-w-sm mx-auto">
+                    Connect with others who understand your journey and build a supportive home environment together.
+                </p>
+</div>
+</main>
+<footer class="p-6 pb-12 w-full">
+<div class="flex flex-col gap-4">
+<button class="w-full bg-primary hover:bg-primary/90 text-background-dark font-bold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2">
+                    Next 
+                    <span class="material-symbols-outlined font-bold">arrow_forward</span>
+</button>
+<div class="flex justify-center items-center gap-1 text-sm text-slate-500">
+                    Already have an account? <a class="text-primary font-semibold" href="#">Sign in</a>
+</div>
+</div>
+</footer>
+</div>
+<!-- Hidden Preload for Step 2 and 3 concept visual consistency -->
+<div class="hidden">
+<img data-alt="Two adults budgeting together happily in a shared living room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhTIjVBcRefqTXeL5IL2ExCCJyXATq9loaDjSl79etboX55s9MweSKblwKEs1OOczZ88OMzyATRqLPWe1BF_I7cjcJweAmop25UFZ1cT_CuZ1j4egG89qbS7Bx-RtWcDcIs_e1rQ9TYXfkVMBPeYAYuaYB39TFfK_37zkPwsaAWuTnxMXAD7wd76gZ0rnDT3p8MBNl9QefoYEE7MlF7B-MDaMYKCmtJqM6AtjfEPzzp9aW-bDKMGP_avapdxJjliRHp_VoLoGE8yA"/>
+<img data-alt="A clean digital family calendar showing custody schedules and events" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBa6fZghktJ1xSiTG1uCKkQSG5nBgJW6BX_25nY28U8a7UpWhv1e3bTDj9OxBLRVnR5Q8euWbED10_GVoYuZr93A-R_ZpfhBQXjgxucpDGSxpFjcUFhowfFIusbH0xY2sAcra2Q-nGg2FjuHpFjMNfDsp-aV0JZ5NS2rWCBxzZznvSFGqjEalCB9I6QpmdM4AWb6RBe4F9Db_OfN7uVKbGYOeleivqoVOtN9HxDm_rDGzrmevBMgggq0l795w_wZ0v1eaB67Ysl_hk"/>
+</div>
+</body></html>

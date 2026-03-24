@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Colive - Find Your New Beginning</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#11d462",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#102218",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="relative h-screen w-full overflow-hidden flex flex-col">
+<div class="absolute inset-0 z-0">
+<div class="w-full h-full bg-slate-200 dark:bg-slate-800" data-alt="A detailed city map with light green accents showing residential streets and parks" data-location="San Francisco, California" style="">
+<div class="relative w-full h-full">
+<div class="absolute top-1/4 left-1/3 bg-primary text-white px-3 py-1 rounded-full font-bold shadow-lg cursor-pointer hover:scale-110 transition-transform">650€</div>
+<div class="absolute top-1/2 left-1/2 bg-white text-slate-900 border-2 border-primary px-3 py-1 rounded-full font-bold shadow-lg cursor-pointer hover:scale-110 transition-transform">820€</div>
+<div class="absolute top-1/3 right-1/4 bg-primary text-white px-3 py-1 rounded-full font-bold shadow-lg cursor-pointer hover:scale-110 transition-transform">740€</div>
+<div class="absolute bottom-1/3 left-1/4 bg-primary text-white px-3 py-1 rounded-full font-bold shadow-lg cursor-pointer hover:scale-110 transition-transform">910€</div>
+</div>
+</div>
+</div>
+<div class="relative z-10 w-full p-4 flex flex-col gap-3 pointer-events-none">
+<div class="flex gap-2 w-full pointer-events-auto">
+<div class="flex-1 flex items-center bg-white dark:bg-background-dark shadow-xl rounded-xl px-4 h-14 border border-slate-200/50 dark:border-slate-700/50">
+<span class="material-symbols-outlined text-slate-400 mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-base w-full placeholder:text-slate-400" placeholder="Search neighborhoods..." type="text"/>
+</div>
+<button class="bg-white dark:bg-background-dark shadow-xl rounded-xl h-14 w-14 flex items-center justify-center border border-slate-200/50 dark:border-slate-700/50 text-slate-700 dark:text-slate-200">
+<span class="material-symbols-outlined">tune</span>
+</button>
+</div>
+<div class="flex gap-2 overflow-x-auto no-scrollbar pointer-events-auto">
+<button class="flex items-center gap-1 bg-primary text-white px-4 py-2 rounded-full whitespace-nowrap shadow-md text-sm font-semibold">
+<span>Gender</span>
+<span class="material-symbols-outlined text-xs">keyboard_arrow_down</span>
+</button>
+<button class="flex items-center gap-1 bg-white dark:bg-background-dark text-slate-700 dark:text-slate-200 px-4 py-2 rounded-full whitespace-nowrap shadow-md border border-slate-200/50 dark:border-slate-700/50 text-sm font-medium">
+<span>Pets Friendly</span>
+<span class="material-symbols-outlined text-xs">keyboard_arrow_down</span>
+</button>
+<button class="flex items-center gap-1 bg-white dark:bg-background-dark text-slate-700 dark:text-slate-200 px-4 py-2 rounded-full whitespace-nowrap shadow-md border border-slate-200/50 dark:border-slate-700/50 text-sm font-medium">
+<span>Rooms</span>
+<span class="material-symbols-outlined text-xs">keyboard_arrow_down</span>
+</button>
+<button class="flex items-center gap-1 bg-white dark:bg-background-dark text-slate-700 dark:text-slate-200 px-4 py-2 rounded-full whitespace-nowrap shadow-md border border-slate-200/50 dark:border-slate-700/50 text-sm font-medium">
+<span>Price</span>
+<span class="material-symbols-outlined text-xs">keyboard_arrow_down</span>
+</button>
+</div>
+</div>
+<div class="mt-auto relative z-10 flex flex-col pointer-events-none">
+<div class="flex flex-col items-end gap-3 px-4 mb-4 pointer-events-auto">
+<button class="bg-white dark:bg-background-dark shadow-lg rounded-full h-12 w-12 flex items-center justify-center text-slate-700 dark:text-slate-200 border border-slate-200/50 dark:border-slate-700/50">
+<span class="material-symbols-outlined">my_location</span>
+</button>
+<button class="bg-slate-900 dark:bg-primary text-white shadow-lg rounded-full px-5 h-12 flex items-center gap-2 font-semibold">
+<span class="material-symbols-outlined">list</span>
+<span>List View</span>
+</button>
+</div>
+<div class="flex gap-4 overflow-x-auto no-scrollbar pb-8 px-4 pointer-events-auto">
+<div class="min-w-[300px] bg-white dark:bg-background-dark rounded-xl shadow-2xl overflow-hidden flex flex-col border border-slate-200/50 dark:border-slate-700/50">
+<div class="relative h-40">
+<img alt="Modern house" class="w-full h-full object-cover" data-alt="Modern bright living room in a coliving apartment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRs2tKCrksxE65DSKldljbmihGIrHH0D6AacQjrx0HuyY8oDK2kxleQi1b0tqn5VVNAP3dPY1OyvfLJxWQwiAGJ5AWzmk4Fz1iqy6St2zs2SbKaGwsoB-6YxiThukJuVkr_pw3yNkN9uSURPVykpJ-eF3-d5ItklLJw-kYVEp9z6FZ0ta0ldw0GYW5JIuerPIIHEOvMfm46mrxwipZ2vVvYqbch7fPncd57FH9fnvQCbqMQwMpKHunbzPOlqSV35g8zh-hNakcSOA"/>
+<div class="absolute top-3 left-3 bg-primary/90 backdrop-blur-sm text-white px-2 py-1 rounded-lg text-xs font-bold">
+                            98% Match
+                        </div>
+<div class="absolute bottom-3 right-3 flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-white object-cover" data-alt="Profile of a middle-aged man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5CnATyijfxfeAmZEUPXIVUmjRm-9mEHQjgK95XEHanlLv3PzlqmzJIMrf62jJX0008y6ZBZS8y8th4ca_tyf4ZHYfQvfjSB2Z74evOk5qLGz6wgy1lP8d7-BAE8rjvqi_S0Zqgsk6sesaz4hgYbI4wGHtFddBvCDpWGJzOtuyI5Iwxz_IW-vlqgFwU4IrNfB6TUZr-nBko8rJQMnckWPo8Arteis-mvGE3W-5D4MHZP9WtRKPlt6CGJd5vv2lw2Jem5bU3yiEAq4"/>
+<img class="w-8 h-8 rounded-full border-2 border-white object-cover" data-alt="Profile of a smiling woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsEYFALb0U8A2cG3E4yXnhBo1MibvQ2o5tS2AFyOS3gOGktkQ60OE7SGtOtY-qHt1Mqtb18pe7t2wtIJlLJ4jiccbkRvFWmOQnTmgIpINjFnj_9ZOPIlsJp63RNpkZZUIeWPQrNlaVHqbzi0nr-sXl7I8HJnCAmnJg4fT8H9wOTMRmEqB9-wUMTUu9oEHpLxExuqjH7QKXycY3jzQivF94X7klxUkIOq9zbEzdskISgVi2rRH2g8k5M1YPRd7a1rAt5ZQVW8WImCI"/>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center text-[10px] font-bold text-slate-600">+2</div>
+</div>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-bold text-lg">Bright Marina Flat</h3>
+<span class="text-primary font-bold text-lg">650€<span class="text-xs font-normal text-slate-500">/mo</span></span>
+</div>
+<p class="text-sm text-slate-500 mb-3 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">location_on</span> Marina District, SF
+                        </p>
+<div class="flex items-center gap-3 text-xs font-medium text-slate-600 dark:text-slate-400">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">bed</span> 1 Room</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">pets</span> Pets ok</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">groups</span> 3 Mates</span>
+</div>
+</div>
+</div>
+<div class="min-w-[300px] bg-white dark:bg-background-dark rounded-xl shadow-2xl overflow-hidden flex flex-col border border-slate-200/50 dark:border-slate-700/50">
+<div class="relative h-40">
+<img alt="Contemporary home" class="w-full h-full object-cover" data-alt="Cozy contemporary home exterior at sunset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0zKxygd7DyvEUcLx_LQkqSeDVPhNT2iDBvle4txCLoVkSKyuUJuOZ-unm97fwBtTH0xENIP0IqQ4hV8Ntb3sqi94TRzMmJZ1AnwPr9-Tm60rKv9lydSQo02RYSCIerwqenlwSiOuDWlyuIEFkmvZH-svCHFFE5-wGPXw77wSplrKe5gvucr6EwN5vbzpYMJAS3JaNn01VtYWEijzTbEF9HNf2XEkTLAkY4Z5cvOxUXMC1lMSvAMxkp3CyIA5JPQlrxTDjvlRMuFo"/>
+<div class="absolute top-3 left-3 bg-primary/90 backdrop-blur-sm text-white px-2 py-1 rounded-lg text-xs font-bold">
+                            92% Match
+                        </div>
+<div class="absolute bottom-3 right-3 flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-white object-cover" data-alt="Profile of a professional woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSDUoVRsm-uTXmJBq_HUfp74eIrGyATmp8VV-PxQVZO4kCLSR5v7BnnlBvTkBOd5bGCvYeFKIx5_Fr2llURP38HsXIGOr0NdjHuCHogJ8pT1oQvLYEXl0usdJB3jR0qPRWF-v0n6Ik3eYJ9lIhf_KqNoy9Tlo1ir7sBOKXh2Bb_6SiBz3K2QHTYqbSSoA7npMysHKeVPrKdhLF-pKDtfD_DoUCDDEhcozFjHOdTbuYNjRrcynr5iddnHRMEi-0e3auxtuOSao_CmA"/>
+<img class="w-8 h-8 rounded-full border-2 border-white object-cover" data-alt="Profile of a friendly man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBY9l6dZMiREXSLYVw9U9mKsRQJCOihMhLf4Lay_La5UO_JUDLtpLH5nZzcwWv4QL1pGY0-3ZUZXNb8BmcsTqD340hGr9r9AzKE-pDpit1DckupWOE3m2ksBBp2BRazCpLqGf7D_4CRvM9LmXkOOM8OnWwOTgl1-nf3Y2oprVxW9_3-3Wm7UK5Cf1tzabnl118hDwRFhfwlrPTRLCIGweaKorUubMVWGuzuq7hyPnKF4opo9eh5AZEv1fRgOkqFYm3Qx9sIB-gwtIg"/>
+</div>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-bold text-lg">Sunset Heights</h3>
+<span class="text-primary font-bold text-lg">820€<span class="text-xs font-normal text-slate-500">/mo</span></span>
+</div>
+<p class="text-sm text-slate-500 mb-3 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">location_on</span> Noe Valley, SF
+                        </p>
+<div class="flex items-center gap-3 text-xs font-medium text-slate-600 dark:text-slate-400">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">bed</span> 2 Rooms</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">child_care</span> Kids ok</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">groups</span> 2 Mates</span>
+</div>
+</div>
+</div>
+<div class="min-w-[300px] bg-white dark:bg-background-dark rounded-xl shadow-2xl overflow-hidden flex flex-col border border-slate-200/50 dark:border-slate-700/50">
+<div class="relative h-40">
+<img alt="Luxury apartment" class="w-full h-full object-cover" data-alt="Spacious luxury apartment balcony with a view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEJJ_pWQR8Hno7bFYOmY1mGAuoEEnEGyK5xfmPDu_ialSbyQRRNQP8elkTzn0BC_0O25KmDfTAF1not6HqeR7C7iNHxTK3x8U_DZe_YeWhxzfgwsNUmM1Z75wN3TAPoLwRG6BY_l1TD9oJcWZK4p4Ly6NNw2rZySk9uoPuz0ayiO7UJS5RogEiLoNVQRyEqceDW4w0IOFHHCsriQjeLRtqshealVSq6L6OYE6i0etvPt8ZPcRLE9rWOPj7RM97df5OhDtxXfofdgU"/>
+<div class="absolute top-3 left-3 bg-primary/90 backdrop-blur-sm text-white px-2 py-1 rounded-lg text-xs font-bold">
+                            85% Match
+                        </div>
+<div class="absolute bottom-3 right-3 flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-white object-cover" data-alt="Profile of a thoughtful woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUwGBfkpGaa2iaLN9W_41iammrKOtIA_sexepyXMRvVxeUcmTYCmZKXV4xphtJlkPfqe7zFpRNZ406IQEQBheP6cV-dfxNGWK-sdLP27knifEvoqp98H6VKXB1IQiA_RtGc5R8s60JNOoVEo5jKSmmldBu5Ez6LloxJErthJ2lq8BmtB-lMPUr37pkU2pgBiDqMTWpL2KKxUuCoVSwFvjCwRJ3XmaAPJ27azn2j2dRof371fG9VDHAzGqZWdfOarKa1m3D_Z_G6GY"/>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center text-[10px] font-bold text-slate-600">+3</div>
+</div>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-bold text-lg">Pacific View Suite</h3>
+<span class="text-primary font-bold text-lg">740€<span class="text-xs font-normal text-slate-500">/mo</span></span>
+</div>
+<p class="text-sm text-slate-500 mb-3 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">location_on</span> Richmond, SF
+                        </p>
+<div class="flex items-center gap-3 text-xs font-medium text-slate-600 dark:text-slate-400">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">bed</span> 1 Room</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">pool</span> Pool</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">groups</span> 4 Mates</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<nav class="relative z-20 bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 flex justify-between items-center px-6 py-3">
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined fill-1">map</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Explore</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Matches</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Chat</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Profile</span>
+</a>
+</nav>
+</div>
+</body></html>

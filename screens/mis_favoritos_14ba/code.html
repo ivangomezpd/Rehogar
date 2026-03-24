@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mis Favoritos - Coliving</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#11d462",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#102218",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-[#111814] min-h-screen flex flex-col">
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-primary/10 px-4 py-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<button class="flex items-center justify-center size-10 rounded-full hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-[#111814]">arrow_back</span>
+</button>
+<h1 class="text-xl font-bold tracking-tight text-[#111814]">Mis Favoritos</h1>
+</div>
+<button class="flex items-center justify-center size-10 rounded-full hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-[#111814]">more_vert</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto pb-24">
+<div class="p-4 space-y-6 max-w-2xl mx-auto">
+<!-- Property Card 1 -->
+<div class="bg-white rounded-xl overflow-hidden shadow-sm border border-primary/5 group">
+<div class="relative aspect-[16/10] overflow-hidden">
+<img alt="Green Garden House exterior view" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Modern house with large windows and green garden" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDLXbVhw_OQoruqKDr7tXP6vNws-J4kQlYsRuuXkMCgZ2UU70k5Daq7MwyNxLy_Zr7nmwAHlJKMD28cEU7c0Y2igJ9_JAkbjmS9kfWK_y_yLq2yI4fyEoiKHr55N8q-f1iFfyiyqKGueL5iDQK6usHjeQDiFdWE0tCMh8SQpIv0GuztNMnzckqnp2svB4wyhzr_DpDRvIyRpVZSICkDTWVvfKVnMJnRwESheROB5LavEUxcn3HJhbzufeVIqx75edGbsmpoWfbz28"/>
+<button class="absolute top-3 right-3 z-10 size-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-lg text-primary">
+<span class="material-symbols-outlined fill">favorite</span>
+</button>
+<div class="absolute bottom-3 left-3 flex items-center gap-2 bg-white/90 backdrop-blur px-2 py-1 rounded-lg border border-primary/10 shadow-sm">
+<img alt="Host avatar" class="size-6 rounded-full object-cover" data-alt="Portrait of a friendly smiling middle-aged man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCryYimWczm3iYHrzDxiTfheyuPaY5dzzFNAmwfEuauGbC4KVicWL2Q6vm5xMzg96wpayqcpiZ9pkF5PkyJZx6MNovP53VVOGz_gE6YucAUeLarMld8CUPjNUBERV1FJeFxZMBEJgEphqEwXlKzF1S8slJ-jDPiLu6CJ8C8WtukjYKSQIwl2E8oHoKrFoOtlVVrS4rXy5Ak02VIk85PREPByuAX16g_J1AUwuoBpdxyv392QuuzGc7frzaymB_48iFZ_MbA9A5Aciw"/>
+<span class="text-[10px] font-semibold text-[#111814] uppercase tracking-wider">Host: Familia Garcia</span>
+</div>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-lg font-bold text-[#111814]">Green Garden House</h3>
+<div class="flex items-center gap-1 text-sm text-[#618972]">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span>Madrid, Spain</span>
+</div>
+</div>
+<div class="text-right">
+<p class="text-lg font-bold text-primary">€850</p>
+<p class="text-xs text-[#618972]">/ mes</p>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-primary/5 flex items-center justify-between">
+<div class="flex gap-4">
+<div class="flex items-center gap-1 text-xs text-[#618972]">
+<span class="material-symbols-outlined text-sm">bed</span>
+<span>1 hab</span>
+</div>
+<div class="flex items-center gap-1 text-xs text-[#618972]">
+<span class="material-symbols-outlined text-sm">group</span>
+<span>3 roommates</span>
+</div>
+</div>
+<button class="bg-primary/10 text-primary px-4 py-1.5 rounded-lg text-sm font-semibold hover:bg-primary hover:text-white transition-colors">
+                            Ver Detalles
+                        </button>
+</div>
+</div>
+</div>
+<!-- Property Card 2 -->
+<div class="bg-white rounded-xl overflow-hidden shadow-sm border border-primary/5 group">
+<div class="relative aspect-[16/10] overflow-hidden">
+<img alt="Urban Loft interior" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Bright modern loft apartment with industrial style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvtZQPcm-mvCmS6K1oPdPanMpRZBx9eg8RNRybLq0v6U8N2trhK4gk-GhS8WKPjVMCy_A_VgtAoQgCckRQWoa1XcStilV2eokb8gq6XX7VIGh_IAciRWK6wgjriV82QapZqcZTZlNvK7ltb-iADJk9r-OyVYicO6D7LRHPSbVxyGeGkMH0VICx9oXTvE3aCRIT0oc3q9VQAlgTvlp1UaHtWwqoKuOF10uM1Raf4GEArS49m6vxeykkaGKu67jwIA-XOcPI77slfCI"/>
+<button class="absolute top-3 right-3 z-10 size-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-lg text-primary">
+<span class="material-symbols-outlined fill">favorite</span>
+</button>
+<div class="absolute bottom-3 left-3 flex items-center gap-2 bg-white/90 backdrop-blur px-2 py-1 rounded-lg border border-primary/10 shadow-sm">
+<img alt="Host avatar" class="size-6 rounded-full object-cover" data-alt="Portrait of a young smiling woman host" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA57O-TxtP-_Uj-E50sOMqJqhBnzX41yoGMyglmWO68PnNZZhjK0tW3VSa-7MDsWYpAiuBFLGlxXDgY4Yv96DtAhGbSTJG0T51Q7kzlWSXn7Q1KNVqOyx9_DU4fOfpvkbgZfUYYVlgzRjXUbociqpyrmnOz9kVycXMX97-w6Aux2z9ONwQtfNm2JB7Wv3b0n4z3IOmYk_6FQMKZE4EQ-0nn46BtpeCL1QQ-6w5Ne4DbzMx71hazDcsw-7i5Eo-rDls3B5y-kyHwQ9U"/>
+<span class="text-[10px] font-semibold text-[#111814] uppercase tracking-wider">Host: Familia Ruiz</span>
+</div>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-lg font-bold text-[#111814]">Urban Loft Coliving</h3>
+<div class="flex items-center gap-1 text-sm text-[#618972]">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span>Barcelona, Spain</span>
+</div>
+</div>
+<div class="text-right">
+<p class="text-lg font-bold text-primary">€920</p>
+<p class="text-xs text-[#618972]">/ mes</p>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-primary/5 flex items-center justify-between">
+<div class="flex gap-4">
+<div class="flex items-center gap-1 text-xs text-[#618972]">
+<span class="material-symbols-outlined text-sm">bed</span>
+<span>1 hab</span>
+</div>
+<div class="flex items-center gap-1 text-xs text-[#618972]">
+<span class="material-symbols-outlined text-sm">group</span>
+<span>2 roommates</span>
+</div>
+</div>
+<button class="bg-primary/10 text-primary px-4 py-1.5 rounded-lg text-sm font-semibold hover:bg-primary hover:text-white transition-colors">
+                            Ver Detalles
+                        </button>
+</div>
+</div>
+</div>
+<!-- Property Card 3 -->
+<div class="bg-white rounded-xl overflow-hidden shadow-sm border border-primary/5 group">
+<div class="relative aspect-[16/10] overflow-hidden">
+<img alt="Sunny Terrace Home" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Apartment with a large sunlit balcony terrace" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfEZpDAEmtOWPVro7tnRVe-iJurfSlAmEDH0j-fwCJcRZfZhuYLWC0zyDNJmmzcCCjMQdof4EuOoj6HnkSTLHE2_whKi4dp__ZZG_Zg7UrINWi4W0kjghpKWakqdhxOpT4cmosURsRbhlySkJGSR0yNrQ-Zco8NoUeGkR-uXMPi0pgPeab5NYjlbty6USkiZpqqg89hG8kVy_1yo4WixrqJtuMcGuSrEt0GTXq5s38Ij8zU5BoFTQ_G5Gh98li-2SnUdoiqFfEaPY"/>
+<button class="absolute top-3 right-3 z-10 size-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-lg text-primary">
+<span class="material-symbols-outlined fill">favorite</span>
+</button>
+<div class="absolute bottom-3 left-3 flex items-center gap-2 bg-white/90 backdrop-blur px-2 py-1 rounded-lg border border-primary/10 shadow-sm">
+<img alt="Host avatar" class="size-6 rounded-full object-cover" data-alt="Portrait of a friendly elderly woman host" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjLCzLOot1xpFMFGYlpiY3es4DZ7DpRIENjIHY_pu50yk4LXtPD_b7PocIphvnkXx4x15qD7E2QfDYDwgJvHwp5bfRyfW9xbEUWlbve56-dV_8p0H2C6AfABPnGzNyJbd8EuvnczMRw1Ox1S7cBt3L-J-Le9CAypACauS17mL6H9UrUHdD4kk-7AO8xhR-KzafNXVjGYJ1opC9QtLevTC8rtiwCjEU2fyK9XZa0IuLKW7Q7p7oQ696-16I1pBvPIfydQwUzl4eQM8"/>
+<span class="text-[10px] font-semibold text-[#111814] uppercase tracking-wider">Host: Familia Moreno</span>
+</div>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-lg font-bold text-[#111814]">Sunny Terrace Home</h3>
+<div class="flex items-center gap-1 text-sm text-[#618972]">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span>Valencia, Spain</span>
+</div>
+</div>
+<div class="text-right">
+<p class="text-lg font-bold text-primary">€750</p>
+<p class="text-xs text-[#618972]">/ mes</p>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-primary/5 flex items-center justify-between">
+<div class="flex gap-4">
+<div class="flex items-center gap-1 text-xs text-[#618972]">
+<span class="material-symbols-outlined text-sm">bed</span>
+<span>1 hab</span>
+</div>
+<div class="flex items-center gap-1 text-xs text-[#618972]">
+<span class="material-symbols-outlined text-sm">group</span>
+<span>4 roommates</span>
+</div>
+</div>
+<button class="bg-primary/10 text-primary px-4 py-1.5 rounded-lg text-sm font-semibold hover:bg-primary hover:text-white transition-colors">
+                            Ver Detalles
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navbar -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-primary/10 pb-6 pt-2 px-6 flex justify-between items-center shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-[#618972] group-hover:text-primary transition-colors">explore</span>
+<span class="text-xs font-medium text-[#618972] group-hover:text-primary">Explorar</span>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-primary fill">favorite</span>
+<span class="text-xs font-bold text-primary">Favoritos</span>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-[#618972] group-hover:text-primary transition-colors">chat_bubble</span>
+<span class="text-xs font-medium text-[#618972] group-hover:text-primary">Mensajes</span>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-[#618972] group-hover:text-primary transition-colors">account_circle</span>
+<span class="text-xs font-medium text-[#618972] group-hover:text-primary">Perfil</span>
+</a>
+</nav>
+</body></html>

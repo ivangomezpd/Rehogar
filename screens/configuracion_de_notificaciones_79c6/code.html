@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#11d462",
+              "background-light": "#f6f8f7",
+              "background-dark": "#102218",
+            },
+            fontFamily: {
+              "display": ["Plus Jakarta Sans", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<title>Configuración de Notificaciones</title>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111814] min-h-screen">
+<div class="max-w-md mx-auto bg-white min-h-screen shadow-sm flex flex-col">
+<!-- Header -->
+<header class="sticky top-0 z-10 bg-white/80 backdrop-blur-md border-b border-[#f0f4f2] px-4 py-4 flex items-center gap-4">
+<button class="flex items-center justify-center p-2 hover:bg-background-light rounded-full transition-colors text-[#111814]">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="text-xl font-bold tracking-tight">Notificaciones</h1>
+</header>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto pb-24">
+<!-- Section: Push Notifications -->
+<section class="mt-6">
+<div class="px-6 mb-2">
+<h2 class="text-sm font-bold uppercase tracking-wider text-[#618972]">Notificaciones Push</h2>
+</div>
+<div class="bg-white">
+<!-- Item: Nuevos mensajes -->
+<div class="flex items-center justify-between px-6 py-4 border-b border-[#f0f4f2]">
+<div class="flex items-center gap-4">
+<div class="bg-primary/10 p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined">chat</span>
+</div>
+<div>
+<p class="font-medium text-[#111814]">Nuevos mensajes</p>
+<p class="text-sm text-[#618972]">Alertas de chats de compañeros</p>
+</div>
+</div>
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#f0f4f2] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary transition-all">
+<div class="h-full w-[27px] rounded-full bg-white shadow-md"></div>
+<input checked="" class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+<!-- Item: Nuevos matches -->
+<div class="flex items-center justify-between px-6 py-4 border-b border-[#f0f4f2]">
+<div class="flex items-center gap-4">
+<div class="bg-primary/10 p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined">group_add</span>
+</div>
+<div>
+<p class="font-medium text-[#111814]">Nuevos matches</p>
+<p class="text-sm text-[#618972]">Compatibilidad con perfiles</p>
+</div>
+</div>
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#f0f4f2] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary transition-all">
+<div class="h-full w-[27px] rounded-full bg-white shadow-md"></div>
+<input checked="" class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+<!-- Item: Favoritos -->
+<div class="flex items-center justify-between px-6 py-4 border-b border-[#f0f4f2]">
+<div class="flex items-center gap-4">
+<div class="bg-primary/10 p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined">favorite</span>
+</div>
+<div>
+<p class="font-medium text-[#111814]">Actualizaciones en favoritos</p>
+<p class="text-sm text-[#618972]">Cambios en casas guardadas</p>
+</div>
+</div>
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#f0f4f2] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary transition-all">
+<div class="h-full w-[27px] rounded-full bg-white shadow-md"></div>
+<input class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+<!-- Item: Recordatorios de visitas -->
+<div class="flex items-center justify-between px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="bg-primary/10 p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined">event</span>
+</div>
+<div>
+<p class="font-medium text-[#111814]">Recordatorios de visitas</p>
+<p class="text-sm text-[#618972]">Alertas antes de ver la casa</p>
+</div>
+</div>
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#f0f4f2] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary transition-all">
+<div class="h-full w-[27px] rounded-full bg-white shadow-md"></div>
+<input checked="" class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+</section>
+<!-- Section: Email Notifications -->
+<section class="mt-8">
+<div class="px-6 mb-2">
+<h2 class="text-sm font-bold uppercase tracking-wider text-[#618972]">Correo Electrónico</h2>
+</div>
+<div class="bg-white">
+<div class="flex items-center justify-between px-6 py-4 border-b border-[#f0f4f2]">
+<div class="flex items-center gap-4">
+<div class="bg-primary/10 p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined">mail</span>
+</div>
+<div>
+<p class="font-medium text-[#111814]">Resumen semanal</p>
+<p class="text-sm text-[#618972]">Mejores viviendas de la semana</p>
+</div>
+</div>
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#f0f4f2] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary transition-all">
+<div class="h-full w-[27px] rounded-full bg-white shadow-md"></div>
+<input class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+<div class="flex items-center justify-between px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="bg-primary/10 p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined">security</span>
+</div>
+<div>
+<p class="font-medium text-[#111814]">Alertas de seguridad</p>
+<p class="text-sm text-[#618972]">Inicios de sesión y cambios</p>
+</div>
+</div>
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#f0f4f2] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary transition-all">
+<div class="h-full w-[27px] rounded-full bg-white shadow-md"></div>
+<input checked="" class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+</section>
+<!-- Section: SMS -->
+<section class="mt-8">
+<div class="px-6 mb-2">
+<h2 class="text-sm font-bold uppercase tracking-wider text-[#618972]">SMS</h2>
+</div>
+<div class="bg-white">
+<div class="flex items-center justify-between px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="bg-primary/10 p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined">sms</span>
+</div>
+<div>
+<p class="font-medium text-[#111814]">Alertas importantes</p>
+<p class="text-sm text-[#618972]">Notificaciones críticas del sistema</p>
+</div>
+</div>
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#f0f4f2] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary transition-all">
+<div class="h-full w-[27px] rounded-full bg-white shadow-md"></div>
+<input checked="" class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto flex gap-2 border-t border-[#f0f4f2] bg-white px-4 pb-4 pt-2 shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-[#618972]" href="#">
+<span class="material-symbols-outlined">search</span>
+<p class="text-xs font-medium leading-normal tracking-[0.015em]">Explorar</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-[#618972]" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<p class="text-xs font-medium leading-normal tracking-[0.015em]">Favoritos</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-[#618972]" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+<p class="text-xs font-medium leading-normal tracking-[0.015em]">Mensajes</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-[#111814] bg-primary/10 rounded-xl py-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">person</span>
+<p class="text-xs font-medium leading-normal tracking-[0.015em]">Perfil</p>
+</a>
+</nav>
+</div>
+</body></html>
