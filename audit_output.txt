@@ -1,0 +1,287 @@
+﻿=== REHOGAR NAVIGATION AUDIT ===
+
+
+­ƒô▒ busqueda_avanzada_con_custodia
+  Links totales: 1 | Sin enlazar: 25
+  ÔØî Botones/links sin enlazar:
+     - [button] "Limpiar"
+     - [button] "Apartamento"
+     - [button] "Casa"
+     - [button] "Chalet"
+     - [button] "Estudio"
+     - [button] "Hombres"
+     - [button] "Mujeres"
+     - [button] "Mixto"
+     - [button] "child_care Beb├®s"
+     - [button] "child_friendly Peque├▒os"
+     - [button] "school Escolares"
+     - [button] "emoji_people Adolescentes"
+     - [button] "Fines de semana"
+     - [button] "Semanas alternas"
+     - [button] "Custodia completa"
+     - [button] "Sin hijos en casa"
+     - [button] "remove"
+     - [button] "add"
+     - [button] "­ƒñ½ Tranquilo"
+     - [button] "­ƒæï Social"
+     - [button] "­ƒº╣ Organizado"
+     - [button] "ÔÜ¢ Deporte"
+     - [button] "­ƒÄ¼ Cine"
+     - [button] "Aplicar filtros 124 casas"
+     - [profile-icon] "[Avatar / Foto de perfil en header]"
+  ­ƒöù Conecta con: explorar_casas
+
+­ƒô▒ calendario_compartido
+  Links totales: 4 | Sin enlazar: 24
+  ÔØî Botones/links sin enlazar:
+     - [a] "calendar_month Calendario"
+     - [a] "settings Ajustes"
+     - [button] "notifications"
+     - [button] "chevron_left"
+     - [button] "chevron_right"
+     - [button] "1"
+     - [button] "2"
+     - [button] "3"
+     - [button] "4"
+     - [button] "5"
+     - [button] "6"
+     - [button] "7"
+     - [button] "8"
+     - [button] "9"
+     - [button] "10"
+     - [button] "11"
+     - [button] "12"
+     - [button] "13"
+     - [button] "14"
+     - [button] "more_vert"
+     - [button] "more_vert"
+     - [button] "more_vert"
+     - [button] "add"
+     - [profile-icon] "[Avatar / Foto de perfil en header]"
+  ­ƒöù Conecta con: explorar_casas, mensajes_y_afinidad
+
+­ƒô▒ configuracion_de_notificaciones
+  Links totales: 5 | Sin enlazar: 0
+  Ô£à Todos los elementos est├ín enlazados
+  ­ƒöù Conecta con: perfil_de_usuario_con_rol_diferenciado, mis_favoritos, mensajes_y_afinidad
+
+­ƒô▒ detalle_de_la_casa
+  Links totales: 2 | Sin enlazar: 3
+  ÔØî Botones/links sin enlazar:
+     - [a] "search Explorar"
+     - [button] "share"
+     - [button] "send Contactar"
+  ­ƒöù Conecta con: explorar_casas
+
+­ƒô▒ explorar_casas
+  Links totales: 9 | Sin enlazar: 7
+  ÔØî Botones/links sin enlazar:
+     - [button] "notifications"
+     - [button] "person Solo hombres"
+     - [button] "woman Solo mujeres"
+     - [button] "pets Mascotas: S├¡"
+     - [button] "block No mascotas"
+     - [button] "Ver mapa"
+     - [profile-icon] "[Avatar / Foto de perfil en header]"
+  ­ƒöù Conecta con: busqueda_avanzada_con_custodia, detalle_de_la_casa, explorar_casas, mis_favoritos, mensajes_y_afinidad, perfil_de_usuario_con_rol_diferenciado
+
+­ƒô▒ mapa_con_zonas_escolares
+  Links totales: 4 | Sin enlazar: 12
+  ÔØî Botones/links sin enlazar:
+     - [a] "map Explore"
+     - [a] "favorite Matches"
+     - [a] "chat_bubble Chat"
+     - [a] "person Profile"
+     - [button] "tune"
+     - [button] "Gender keyboard_arrow_down"
+     - [button] "Pets Friendly keyboard_arrow_down"
+     - [button] "Rooms keyboard_arrow_down"
+     - [button] "Price keyboard_arrow_down"
+     - [button] "Zonas Escolaresschool"
+     - [button] "my_location"
+     - [button] "list List View"
+
+­ƒô▒ mapa_interactivo_de_casas
+  Links totales: 13 | Sin enlazar: 10
+  ÔØî Botones/links sin enlazar:
+     - [a] "map Explore"
+     - [a] "favorite Matches"
+     - [a] "chat_bubble Chat"
+     - [a] "person Profile"
+     - [button] "tune"
+     - [button] "Gender keyboard_arrow_down"
+     - [button] "Pets Friendly keyboard_arrow_down"
+     - [button] "Rooms keyboard_arrow_down"
+     - [button] "Price keyboard_arrow_down"
+     - [button] "my_location"
+  ­ƒöù Conecta con: explorar_casas, detalle_de_la_casa
+
+­ƒô▒ mensajes_y_afinidad
+  Links totales: 4 | Sin enlazar: 9
+  ÔØî Botones/links sin enlazar:
+     - [a] "home Home"
+     - [a] "group Matches"
+     - [a] "chat_bubble Messages"
+     - [a] "person Profile"
+     - [button] "menu"
+     - [button] "search"
+     - [button] "close"
+     - [button] "edit_square"
+     - [profile-icon] "[Avatar / Foto de perfil en header]"
+
+­ƒô▒ mis_favoritos
+  Links totales: 10 | Sin enlazar: 10
+  ÔØî Botones/links sin enlazar:
+     - [a] "explore Explorar"
+     - [button] "arrow_back"
+     - [button] "more_vert"
+     - [button] "favorite"
+     - [button] "Ver Detalles"
+     - [button] "favorite"
+     - [button] "Ver Detalles"
+     - [button] "favorite"
+     - [button] "Ver Detalles"
+     - [profile-icon] "[Avatar / Foto de perfil en header]"
+  ­ƒöù Conecta con: detalle_de_la_casa, mis_favoritos, mensajes_y_afinidad, perfil_de_usuario_con_rol_diferenciado
+
+­ƒô▒ mis_visitas
+  Links totales: 4 | Sin enlazar: 12
+  ÔØî Botones/links sin enlazar:
+     - [a] "search Explorar"
+     - [button] "arrow_back"
+     - [button] "notifications"
+     - [button] "Pr├│ximas visitas"
+     - [button] "Historial"
+     - [button] "close Cancelar"
+     - [button] "edit_calendar Cambiar fecha"
+     - [button] "close Cancelar"
+     - [button] "edit_calendar Cambiar fecha"
+     - [button] "Volver a agendar"
+     - [button] "add"
+     - [profile-icon] "[Avatar / Foto de perfil en header]"
+  ­ƒöù Conecta con: calendario_compartido, mis_favoritos, perfil_de_usuario_con_rol_diferenciado
+
+­ƒô▒ onboarding_de_la_app
+  Links totales: 1 | Sin enlazar: 3
+  ÔØî Botones/links sin enlazar:
+     - [a] "Sign in"
+     - [button] "Skip"
+     - [button] "Next arrow_forward"
+
+­ƒô▒ perfil_de_usuario_con_rol_diferenciado
+  Links totales: 4 | Sin enlazar: 7
+  ÔØî Botones/links sin enlazar:
+     - [a] "favorite Favoritos"
+     - [button] "settings"
+     - [button] "Editar Perfil"
+     - [button] "Mis anuncios"
+     - [button] "add_circle Publicar nueva casa"
+     - [button] "Gestionar"
+     - [button] "logout Cerrar sesi├│n"
+  ­ƒöù Conecta con: mis_favoritos, mensajes_y_afinidad, perfil_de_usuario_con_rol_diferenciado
+
+­ƒô▒ planes_de_suscripcion
+  Links totales: 3 | Sin enlazar: 3
+  ÔØî Botones/links sin enlazar:
+     - [a] "T├®rminos"
+     - [a] "Privacidad"
+     - [button] "Suscribirme ahora"
+  ­ƒöù Conecta con: perfil_de_usuario_con_rol_diferenciado
+
+­ƒô▒ publicar_casa_con_custodia
+  Links totales: 1 | Sin enlazar: 12
+  ÔØî Botones/links sin enlazar:
+     - [button] "balcony Terraza"
+     - [button] "pool Piscina"
+     - [button] "holiday_village Urbanizaci├│n"
+     - [button] "elevator Ascensor"
+     - [button] "garage Garaje"
+     - [button] "pets Aceptamos perros"
+     - [button] "smoke_free No fumadores"
+     - [button] "woman S├│lo mujeres"
+     - [button] "man S├│lo hombres"
+     - [button] "Guardar borrador"
+     - [button] "Continuar al paso 2 chevron_right"
+     - [profile-icon] "[Avatar / Foto de perfil en header]"
+  ­ƒöù Conecta con: perfil_de_usuario_con_rol_diferenciado
+
+­ƒô▒ seleccion_de_rol
+  Links totales: 1 | Sin enlazar: 5
+  ÔØî Botones/links sin enlazar:
+     - [a] "Log in"
+     - [button] "arrow_back"
+     - [button] "chevron_right"
+     - [button] "chevron_right"
+     - [button] "Continue"
+
+­ƒô▒ verificacion_de_identidad
+  Links totales: 1 | Sin enlazar: 1
+  ÔØî Botones/links sin enlazar:
+     - [button] "Comenzar Verificaci├│n arrow_forward"
+  ­ƒöù Conecta con: perfil_de_usuario_con_rol_diferenciado
+
+
+=== RESUMEN ===
+Total pantallas: 16
+Total botones sin enlazar: 143
+
+
+=== CONNECTIVITY JSON (para el mapa visual) ===
+{
+  "busqueda_avanzada_con_custodia": [
+    "explorar_casas"
+  ],
+  "calendario_compartido": [
+    "explorar_casas",
+    "mensajes_y_afinidad"
+  ],
+  "configuracion_de_notificaciones": [
+    "perfil_de_usuario_con_rol_diferenciado",
+    "mis_favoritos",
+    "mensajes_y_afinidad"
+  ],
+  "detalle_de_la_casa": [
+    "explorar_casas"
+  ],
+  "explorar_casas": [
+    "busqueda_avanzada_con_custodia",
+    "detalle_de_la_casa",
+    "explorar_casas",
+    "mis_favoritos",
+    "mensajes_y_afinidad",
+    "perfil_de_usuario_con_rol_diferenciado"
+  ],
+  "mapa_con_zonas_escolares": [],
+  "mapa_interactivo_de_casas": [
+    "explorar_casas",
+    "detalle_de_la_casa"
+  ],
+  "mensajes_y_afinidad": [],
+  "mis_favoritos": [
+    "detalle_de_la_casa",
+    "mis_favoritos",
+    "mensajes_y_afinidad",
+    "perfil_de_usuario_con_rol_diferenciado"
+  ],
+  "mis_visitas": [
+    "calendario_compartido",
+    "mis_favoritos",
+    "perfil_de_usuario_con_rol_diferenciado"
+  ],
+  "onboarding_de_la_app": [],
+  "perfil_de_usuario_con_rol_diferenciado": [
+    "mis_favoritos",
+    "mensajes_y_afinidad",
+    "perfil_de_usuario_con_rol_diferenciado"
+  ],
+  "planes_de_suscripcion": [
+    "perfil_de_usuario_con_rol_diferenciado"
+  ],
+  "publicar_casa_con_custodia": [
+    "perfil_de_usuario_con_rol_diferenciado"
+  ],
+  "seleccion_de_rol": [],
+  "verificacion_de_identidad": [
+    "perfil_de_usuario_con_rol_diferenciado"
+  ]
+}

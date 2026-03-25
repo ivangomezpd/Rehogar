@@ -1,0 +1,80 @@
+﻿Found 18 screens:
+
+busqueda_avanzada_con_custodia
+  [Ô£ô HTML] [Ô£ô IMG]
+  Navigation links: none
+
+calendario_compartido
+  [Ô£ô HTML] [Ô£ô IMG]
+  Navigation links: none
+
+configuracion_de_notificaciones
+  [Ô£ô HTML] [Ô£ô IMG]
+  Navigation links: none
+
+detalle_de_la_casa
+  [Ô£ô HTML] [Ô£ô IMG]
+  Navigation links: none
+
+explorar_casas
+  [Ô£ô HTML] [Ô£ô IMG]
+  Navigation links: none
+
+mapa_con_zonas_escolares
+  [Ô£ô HTML] [Ô£ô IMG]
+  Navigation links: none
+
+mapa_interactivo_de_casas
+  [Ô£ô HTML] [Ô£ô IMG]
+  Navigation links: none
+
+mensajes_y_afinidad
+  [Ô£ô HTML] [Ô£ô IMG]
+  Navigation links: none
+
+mis_favoritos
+  [Ô£ô HTML] [Ô£ô IMG]
+  Navigation links: none
+
+mis_visitas
+  [Ô£ô HTML] [Ô£ô IMG]
+  Navigation links: none
+
+onboarding_de_la_app
+  [Ô£ô HTML] [Ô£ô IMG]
+  Navigation links: none
+
+perfil_de_usuario
+  [Ô£ô HTML] [Ô£ô IMG]
+  Navigation links: none
+
+perfil_de_usuario_con_rol_diferenciado
+  [Ô£ô HTML] [Ô£ô IMG]
+  Navigation links: none
+
+planes_de_suscripcion
+  [Ô£ô HTML] [Ô£ô IMG]
+  Navigation links: none
+
+publicar_casa
+  [Ô£ô HTML] [Ô£ô IMG]
+  Navigation links: none
+
+publicar_casa_con_custodia
+  [Ô£ô HTML] [Ô£ô IMG]
+  Navigation links: none
+
+seleccion_de_rol
+  [Ô£ô HTML] [Ô£ô IMG]
+  Navigation links: none
+
+verificacion_de_identidad
+  [Ô£ô HTML] [Ô£ô IMG]
+  Navigation links: none
+
+=== SUMMARY ===
+Total screens: 18
+Missing HTML: none
+Missing screenshot: none
+Broken links: none
+No navigation links: busqueda_avanzada_con_custodia, calendario_compartido, configuracion_de_notificaciones, detalle_de_la_casa, explorar_casas, mapa_con_zonas_escolares, mapa_interactivo_de_casas, mensajes_y_afinidad, mis_favoritos, mis_visitas, onboarding_de_la_app, perfil_de_usuario, perfil_de_usuario_con_rol_diferenciado, planes_de_suscripcion, publicar_casa, publicar_casa_con_custodia, seleccion_de_rol, verificacion_de_identidad

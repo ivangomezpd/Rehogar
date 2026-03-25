@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-
-<html lang="es"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!DOCTYPE html><html lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Mis Visitas - Coliving App</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -44,24 +42,24 @@
 <!-- Header -->
 <header class="sticky top-0 z-10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
 <div class="flex items-center justify-between px-4 py-4 max-w-md mx-auto">
-<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+<a href="/screens-static/explorar_casas/code.html" class="cursor-pointer"><button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
 <span class="material-symbols-outlined block">arrow_back</span>
-</button>
+</button></a>
 <h1 class="text-lg font-bold tracking-tight">Mis Visitas</h1>
-<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+<a href="/screens-static/configuracion_de_notificaciones/code.html" class="cursor-pointer"><button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
 <span class="material-symbols-outlined block">notifications</span>
-</button>
+</button></a>
 </div>
 </header>
 <main class="flex-1 w-full max-w-md mx-auto px-4 py-6 space-y-6">
 <!-- Tab Navigation (Segmented Control) -->
 <div class="flex p-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-xl">
-<button class="flex-1 py-2 text-sm font-semibold rounded-lg bg-white dark:bg-slate-700 shadow-sm text-slate-900 dark:text-white transition-all">
+<a href="/screens-static/calendario_compartido/code.html" class="cursor-pointer"><button class="flex-1 py-2 text-sm font-semibold rounded-lg bg-white dark:bg-slate-700 shadow-sm text-slate-900 dark:text-white transition-all">
                 Próximas visitas
-            </button>
-<button class="flex-1 py-2 text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-all">
+            </button></a>
+<a href="/screens-static/calendario_compartido/code.html" class="cursor-pointer"><button class="flex-1 py-2 text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-all">
                 Historial
-            </button>
+            </button></a>
 </div>
 <!-- Section: This Week -->
 <div class="space-y-4">
@@ -91,14 +89,14 @@
 </div>
 </div>
 <div class="flex border-t border-slate-50 dark:border-slate-800">
-<button class="flex-1 py-3 text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors border-r border-slate-50 dark:border-slate-800 flex items-center justify-center gap-2">
+<a href="/screens-static/explorar_casas/code.html" class="cursor-pointer"><button class="flex-1 py-3 text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors border-r border-slate-50 dark:border-slate-800 flex items-center justify-center gap-2">
 <span class="material-symbols-outlined text-lg">close</span>
                         Cancelar
-                    </button>
-<button class="flex-1 py-3 text-sm font-semibold text-primary hover:bg-primary/5 transition-colors flex items-center justify-center gap-2">
+                    </button></a>
+<a href="/screens-static/calendario_compartido/code.html" class="cursor-pointer"><button class="flex-1 py-3 text-sm font-semibold text-primary hover:bg-primary/5 transition-colors flex items-center justify-center gap-2">
 <span class="material-symbols-outlined text-lg">edit_calendar</span>
                         Cambiar fecha
-                    </button>
+                    </button></a>
 </div>
 </div>
 <!-- Card 2: Pendiente -->
@@ -123,14 +121,14 @@
 </div>
 </div>
 <div class="flex border-t border-slate-50 dark:border-slate-800">
-<button class="flex-1 py-3 text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors border-r border-slate-50 dark:border-slate-800 flex items-center justify-center gap-2">
+<a href="/screens-static/explorar_casas/code.html" class="cursor-pointer"><button class="flex-1 py-3 text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors border-r border-slate-50 dark:border-slate-800 flex items-center justify-center gap-2">
 <span class="material-symbols-outlined text-lg">close</span>
                         Cancelar
-                    </button>
-<button class="flex-1 py-3 text-sm font-semibold text-primary hover:bg-primary/5 transition-colors flex items-center justify-center gap-2">
+                    </button></a>
+<a href="/screens-static/calendario_compartido/code.html" class="cursor-pointer"><button class="flex-1 py-3 text-sm font-semibold text-primary hover:bg-primary/5 transition-colors flex items-center justify-center gap-2">
 <span class="material-symbols-outlined text-lg">edit_calendar</span>
                         Cambiar fecha
-                    </button>
+                    </button></a>
 </div>
 </div>
 </div>
@@ -155,9 +153,9 @@
 </div>
 </div>
 <div class="p-3 text-center">
-<button class="w-full py-2 text-sm font-semibold text-primary/60 border border-primary/20 rounded-lg">
+<a href="/screens-static/calendario_compartido/code.html" class="cursor-pointer"><button class="w-full py-2 text-sm font-semibold text-primary/60 border border-primary/20 rounded-lg">
                         Volver a agendar
-                    </button>
+                    </button></a>
 </div>
 </div>
 </div>
@@ -165,26 +163,26 @@
 <!-- Bottom Navigation Bar -->
 <nav class="fixed bottom-0 w-full bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 px-6 py-3">
 <div class="max-w-md mx-auto flex justify-between items-center">
-<a class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors" href="#">
+<a class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors" href="/screens-static/explorar_casas/code.html">
 <span class="material-symbols-outlined">search</span>
 <span class="text-[10px] font-medium">Explorar</span>
 </a>
-<a class="flex flex-col items-center gap-1 text-primary transition-colors" href="#">
+<a class="flex flex-col items-center gap-1 text-primary transition-colors" href="/screens-static/calendario_compartido/code.html">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
 <span class="text-[10px] font-bold">Visitas</span>
 </a>
-<a class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors" href="#">
+<a class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors" href="/screens-static/mis_favoritos/code.html">
 <span class="material-symbols-outlined">favorite</span>
 <span class="text-[10px] font-medium">Favoritos</span>
 </a>
-<a class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors" href="#">
+<a class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors" href="/screens-static/perfil_de_usuario_con_rol_diferenciado/code.html">
 <span class="material-symbols-outlined">person</span>
 <span class="text-[10px] font-medium">Perfil</span>
 </a>
 </div>
 </nav>
 <!-- Floating Action Button for New Visit -->
-<button class="fixed bottom-20 right-6 w-14 h-14 bg-primary text-white rounded-full shadow-lg shadow-primary/30 flex items-center justify-center hover:scale-105 transition-transform active:scale-95">
+<a href="/screens-static/explorar_casas/code.html" class="cursor-pointer"><button class="fixed bottom-20 right-6 w-14 h-14 bg-primary text-white rounded-full shadow-lg shadow-primary/30 flex items-center justify-center hover:scale-105 transition-transform active:scale-95">
 <span class="material-symbols-outlined text-2xl">add</span>
-</button>
+</button></a>
 </body></html>
