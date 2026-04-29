@@ -10,6 +10,9 @@ app.use(express.json());
 // Serve static files (like index.html) from the root directory
 app.use(express.static(path.join(__dirname, '..')));
 
+// Serve public directory (for nav.js, etc.)
+app.use(express.static(path.join(__dirname, '../public')));
+
 // Serve Stitch screens static files
 app.use('/screens-static', express.static(path.join(__dirname, '../screens')));
 
