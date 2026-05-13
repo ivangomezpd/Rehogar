@@ -4,4 +4,8 @@ dist
 *.log
 .DS_Store
 setup.ps1
-package-lock.json
+data/
+data_temp/
+logs/
+Rehogar/
+.vscode/
