@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>New Beginnings - Coliving para Divorciados</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#11d462",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#102218",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-[#111814] selection:bg-primary/30">
+<div class="relative flex min-h-screen w-full flex-col max-w-md mx-auto bg-white shadow-2xl overflow-x-hidden">
+<!-- Header -->
+<header class="flex items-center bg-white px-4 pb-2 pt-6 justify-between sticky top-0 z-50">
+<a href="/screens-static/perfil_de_usuario_con_rol_diferenciado/code.html" class="cursor-pointer"><div class="flex size-10 shrink-0 items-center overflow-hidden rounded-full border-2 border-primary/20">
+<img alt="Profile picture" class="w-full h-full object-cover" data-alt="Close up portrait of a smiling middle-aged man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBStGgYncbu_LN-8TTrfhzMnHPxdrH077UmU-6kCcgaqxN8Js5pWpIK2_M6S1P6rUb5ypLXLuQJXfrByBgmgxy7TwaESCA4weI1oiVlkBJ6mWG8HbBPctBbzE2ZjaLWME1QIqEtdOQZg_JJrnimwtYpaNNiDNRgHCo_ZA66YutOrpT2D_Zb0g6tHRjOxBeNxIH2mXtj_iKVe0GD4_YB8TDoS9qPd6EIB0oY-L8RpbIqa-24vytvc2SaqCg6_IIeKZzwFVGcX-fy_4">
+</div></a>
+<div class="flex-1 px-3">
+<p class="text-xs text-[#618972] font-medium uppercase tracking-wider">Hola, Carlos</p>
+<h2 class="text-[#111814] text-lg font-bold leading-tight tracking-tight">Tu nuevo comienzo</h2>
+</div>
+<div class="flex w-10 items-center justify-end">
+<a href="/screens-static/configuracion_de_notificaciones/code.html" class="cursor-pointer"></a><a href="/screens-static/configuracion_de_notificaciones/code.html" class="relative flex items-center justify-center rounded-lg h-10 w-10 bg-background-light text-[#111814] hover:bg-primary/10 transition-colors" style=""></a><a href="/screens-static/configuracion_de_notificaciones/code.html" class="cursor-pointer">
+<span class="material-symbols-outlined text-[24px]">notifications</span>
+</a><a href="/screens-static/perfil_de_usuario_con_rol_diferenciado/code.html" class="cursor-pointer"><span class="absolute top-2 right-2 flex h-2 w-2 rounded-full bg-primary"></span></a>
+
+</div>
+</header>
+<!-- Search Bar -->
+<div class="px-4 py-4">
+<label class="flex flex-col w-full group">
+<div class="flex w-full items-stretch rounded-xl h-14 bg-[#f0f4f2] border-2 border-transparent focus-within:border-primary/30 focus-within:bg-white transition-all shadow-sm">
+<div class="text-[#618972] flex items-center justify-center pl-4">
+<a href="/screens-static/busqueda_avanzada_con_custodia/code.html" class="cursor-pointer"><span class="material-symbols-outlined text-[22px]">search</span></a>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-transparent focus:ring-0 h-full placeholder:text-[#618972] px-3 text-base font-medium" placeholder="¿A qué ciudad te mudas?" value="">
+<div class="flex items-center pr-3">
+<a href="/screens-static/busqueda_avanzada_con_custodia/code.html" class="block w-full cursor-pointer"><button class="p-2 rounded-lg bg-primary text-white shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</button></a>
+</div>
+</div>
+</label>
+</div>
+<!-- Quick Filters -->
+<div class="flex gap-3 px-4 pb-4 overflow-x-auto hide-scrollbar">
+<a href="/screens-static/busqueda_avanzada_con_custodia/code.html" class="cursor-pointer"><button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary text-white px-5 shadow-md shadow-primary/20 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[18px]">person</span>
+<p class="text-sm font-semibold">Solo hombres</p>
+</button></a>
+<a href="/screens-static/busqueda_avanzada_con_custodia/code.html" class="cursor-pointer"><button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-[#e0e7e3] text-[#111814] px-5 hover:bg-[#f0f4f2] transition-colors">
+<span class="material-symbols-outlined text-[18px]">woman</span>
+<p class="text-sm font-medium">Solo mujeres</p>
+</button></a>
+<a href="/screens-static/busqueda_avanzada_con_custodia/code.html" class="cursor-pointer"><button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-[#e0e7e3] text-[#111814] px-5 hover:bg-[#f0f4f2] transition-colors">
+<span class="material-symbols-outlined text-[18px]">pets</span>
+<p class="text-sm font-medium">Mascotas: Sí</p>
+</button></a>
+<a href="/screens-static/busqueda_avanzada_con_custodia/code.html" class="cursor-pointer"><button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-[#e0e7e3] text-[#111814] px-5 hover:bg-[#f0f4f2] transition-colors">
+<span class="material-symbols-outlined text-[18px]">block</span>
+<p class="text-sm font-medium">No mascotas</p>
+</button></a>
+</div>
+<!-- Main Content -->
+<main class="flex-1 pb-24">
+<div class="flex items-center justify-between px-4 pt-4 pb-2">
+<h2 class="text-[#111814] text-[20px] font-bold leading-tight tracking-tight">Comunidades para ti</h2>
+<a href="/screens-static/mapa_interactivo_de_casas/code.html" class="cursor-pointer"><button class="text-primary text-sm font-bold hover:underline">Ver mapa</button></a>
+</div>
+<!-- List of Cards -->
+<div class="flex flex-col gap-6 px-4 py-3">
+<!-- Card 1 -->
+<a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer"></a><a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer"></a><a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer"><div class="group relative flex flex-col gap-3 rounded-2xl bg-white border border-[#f0f4f2] p-2 shadow-sm hover:shadow-md transition-shadow"><a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer"></a><a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer">
+</a><div class="relative w-full aspect-[4/3] overflow-hidden rounded-xl"><a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer">
+</a><a href="/screens-static/detalle_de_la_casa/code.html" class="cursor-pointer"><img alt="Modern House" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Spacious modern living room with large windows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUtli94ZG3VYwOG9ZlT1egSgPczsqGmuUPKAjxEaRXpnyfoo-gDnwHqRbE96a1cGwo8CbvfuRXbp6TJuIwwmtw3-ctlAXjSvb-Xgzma_1ChZArrBeM8pNf5yriJaw-HWoWAC77vtd1yV4SZ8i5ypU-4pDrmDsIXoTcDNUdWLficvEWHBgzqtTo82bb6kgn03Nk88mEjQlCmY0hCT-j1aAlPXHuNkCJvpRXZmjjq-e8lbEZThrKSgGl9TjNQ3Hyr3cplgyHwuAzN7k"></a>
+<div class="absolute top-3 right-3 px-3 py-1.5 rounded-lg bg-white/90 backdrop-blur-sm shadow-sm">
+<p class="text-sm font-bold text-primary">€750<span class="text-[10px] text-[#618972] font-medium">/mes</span></p>
+</div>
+<!-- Host Family Badge -->
+<div class="absolute bottom-3 left-3 flex items-center gap-2 p-1.5 rounded-full bg-white/95 backdrop-blur-sm shadow-lg border border-white/50">
+<div class="flex -space-x-2">
+<img alt="Host 1" class="size-8 rounded-full border-2 border-white object-cover" data-alt="Portrait of a smiling woman in her 40s" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCom9VT1umHh6a-QznkYIx0TLRVMW1BSYAX5VnreXT80Y-5kuKJghfaIbIZkagDX7ufhKzEHXf0YocaE3s-ppiOidp0AHuuECrMeluv2n3bz7OcI5gc6FKwCKvmoZlPiVb6WeOFuOZ-9vF3ftKSSoX-XOmdG9QeP2h-MYiOoR3RFA2Q0iiKm_ttBR39K-j-o8KG7ZyguNhD2CEerhXE5wT54nd2EEKRE0-BuFyumJUDC4e5_h6jgfu6hgNwaDHX-V2cdG5Hgk2kXxA">
+<img alt="Host 2" class="size-8 rounded-full border-2 border-white object-cover" data-alt="Portrait of a friendly middle-aged man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3GBfT_zWuZJDAqDR7wAH5XEoxQ4xa3-fEoXppiHXlYE-svYxPnyQjzeXfTGsQ2Z-bGPDTvm6QRgZlcueRy9xOdfINM-6XOYESZ75W1PkiNTmFeTP-XLAHTXT4Hvn7k-8q35JYujjD-33wUb9tBF6UMYKvnZqkV_Dh-ELbi7xXDGs_-_eqUu1ilj-Cy5gSRoSOvYf22uzJ9FJyCtxZ27jAaQbZG4dnYWaX-ZQM3uhmWeK30m6HnZRgxPWNusqvW8Q3MNTtvA2X_zc">
+</div>
+<p class="pr-2 text-[11px] font-bold text-[#111814]">Familia anfitriona</p>
+</div>
+</div>
+<div class="px-2 pb-2">
+<div class="flex items-center gap-1 text-[#618972] mb-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+<p class="text-xs font-semibold uppercase tracking-wide">Poblenou, Barcelona</p>
+</div>
+<h3 class="text-lg font-bold text-[#111814] leading-snug">Ático luminoso con terraza compartida</h3>
+<div class="mt-2 flex gap-3 text-xs font-medium text-[#618972]">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">bed</span> 2 Libres</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">groups</span> 4 Totales</span>
+<span class="flex items-center gap-1 text-primary"><span class="material-symbols-outlined text-[16px]">check_circle</span> Verificado</span>
+</div>
+</div>
+</div></a>
+<!-- Card 2 -->
+<a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer"></a><a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer"></a><a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer"><div class="group relative flex flex-col gap-3 rounded-2xl bg-white border border-[#f0f4f2] p-2 shadow-sm hover:shadow-md transition-shadow"><a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer"></a><a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer">
+</a><div class="relative w-full aspect-[4/3] overflow-hidden rounded-xl"><a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer">
+</a><a href="/screens-static/detalle_de_la_casa/code.html" class="cursor-pointer"><img alt="Luxury apartment" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Exterior of a beautiful white luxury villa" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2pa94fZPrtiHJVq5RJGGIq5lSOjy5O5WHRQkDtPnczHfZ8eYZ_m0mAOsH3odx_2499XpIIaf7_ZFOGLYqBxkw4RHshoXfbP_kRFDzFitASCI7n2mfgJOMq2zpcqljW3DlT8fosdYw8oD80Ve_BTewxoth3IwfWfbrV2_crCoSz3cp6eOyE1bkaluZX1jMAgjETYuVf1PUSwqG5o5Rqp1Vb6cyr7x4ibqSTa40r8VSSBk6dvv_hrn-NpoJEGrIdDff-oM5GWko6Ss"></a>
+<div class="absolute top-3 right-3 px-3 py-1.5 rounded-lg bg-white/90 backdrop-blur-sm shadow-sm">
+<p class="text-sm font-bold text-primary">€620<span class="text-[10px] text-[#618972] font-medium">/mes</span></p>
+</div>
+<!-- Host Family Badge -->
+<div class="absolute bottom-3 left-3 flex items-center gap-2 p-1.5 rounded-full bg-white/95 backdrop-blur-sm shadow-lg border border-white/50">
+<div class="flex -space-x-2">
+<img alt="Host 3" class="size-8 rounded-full border-2 border-white object-cover" data-alt="Portrait of a smiling man with graying hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtUakHvpXyM7KucIdPPvYAl74Vme55pPxH-0qwAIIUydmNyD65eol8mfeXSHLCzVCFivr5cu8tb6XpA4LjyZYdapPFlWhYHtyHo3wF1lw_UjNVlQjMTqagQoF7Z0wrGHiCWEaLc_HB8Atds1wK90eQL3E579kgSM1fEN6QYJ64MkQ-kxKB5h9YBQT7zQ7prp3M3gG8LoIkwtAJHmy3n3YP-3JHh2J8689MBhGgZyq46rYwTE65UdS-Ah-94qPRoSYYf3VoaKHzfYU">
+</div>
+<p class="pr-2 text-[11px] font-bold text-[#111814]">Viviendo solo</p>
+</div>
+</div>
+<div class="px-2 pb-2">
+<div class="flex items-center gap-1 text-[#618972] mb-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+<p class="text-xs font-semibold uppercase tracking-wide">Chamberí, Madrid</p>
+</div>
+<h3 class="text-lg font-bold text-[#111814] leading-snug">Apartamento señorial: Solo hombres</h3>
+<div class="mt-2 flex gap-3 text-xs font-medium text-[#618972]">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">bed</span> 1 Libre</span>
+<span class="flex items-center gap-1 text-primary"><span class="material-symbols-outlined text-[16px]">pets</span> Mascotas OK</span>
+</div>
+</div>
+</div></a>
+<!-- Card 3 -->
+<a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer"></a><a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer"></a><a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer"><div class="group relative flex flex-col gap-3 rounded-2xl bg-white border border-[#f0f4f2] p-2 shadow-sm hover:shadow-md transition-shadow"><a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer"></a><a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer">
+</a><div class="relative w-full aspect-[4/3] overflow-hidden rounded-xl"><a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer">
+</a><a href="/screens-static/detalle_de_la_casa/code.html" class="cursor-pointer"><img alt="Warm kitchen" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Cozy wooden kitchen with plants and warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOSsjRi4W2WrhrWvFf5xFPi6SS0hBAHk9wudoDXi95m7H-fvq14c3E_riskqjY7J8cjuJ3Gu81XbqlTPw53bfgWCEqy9SJAGtO4qBr0IqJup3y1ZqZLlbcreYxxUtdOzd9QM8Gtik46UCiwEIY2W1HYVp4z5fvVk4oRgi1KZnSXeApGYSLowb5WqUJ5rjbglVLnvXjzSKNRCLsshr9Q9hZuyMTG7y2K57BcYmijUNVR88wfW_kP2r8v7s-RUDSai88NRhcNqr-1l0"></a>
+<div class="absolute top-3 right-3 px-3 py-1.5 rounded-lg bg-white/90 backdrop-blur-sm shadow-sm">
+<p class="text-sm font-bold text-primary">€550<span class="text-[10px] text-[#618972] font-medium">/mes</span></p>
+</div>
+<div class="absolute bottom-3 left-3 flex items-center gap-2 p-1.5 rounded-full bg-white/95 backdrop-blur-sm shadow-lg border border-white/50">
+<div class="flex -space-x-2">
+<img alt="Host 4" class="size-8 rounded-full border-2 border-white object-cover" data-alt="Portrait of a friendly woman with a warm smile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcGbBrNBUJxxLt4nOGD2wuUeheb64wBapdIkkvGeayg7OYYuqvxkXn_itQHMUR8sOssveFUblHTYfW4RZ1qSmzcKLHwnnruiQ6A4zOupjYYNT387PujI-JRG1kZ5GArB5B8JZrJaHawgatf-qB508B5Eqd12G6sb21jKW0jEirTrigFXIy8tdJmvQVXCz-divM1KKR9vlaltudQDoHxoqRJ5b1t94chytIXoahto6BTMgnVHZcw0znI5PhmmuSwrJ9xcsEKotpuis">
+<img alt="Host 5" class="size-8 rounded-full border-2 border-white object-cover" data-alt="Portrait of a casual man in a sweater" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDU-lGlaPws1rUeNVRP4DTgJE1p2n4tOSfUw31TyounEJLH6HxH91Q-_8OQpgyG5Z09tc0brGDzCqyQAYQcX3EWJC_BB7J-I60C1a1JGfDDEMZvK6ZjvO-Gum84Z79TwnNH6g9OArgFo4-_ahdm8bGKbxJ3Ulh8uc-_TalP1EJKAJQapCrpu4-p6bJHSu85lQdlK7Ohea0Xe0KCgWEDoQhdy64R4Pi0EUhB9OQuPaNCcLKiGylw8fUD1AryDAkCh8ZaaApvHmrfyX0">
+</div>
+<p class="pr-2 text-[11px] font-bold text-[#111814]">2 Residentes</p>
+</div>
+</div>
+<div class="px-2 pb-2">
+<div class="flex items-center gap-1 text-[#618972] mb-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+<p class="text-xs font-semibold uppercase tracking-wide">Ruzafa, Valencia</p>
+</div>
+<h3 class="text-lg font-bold text-[#111814] leading-snug">Casa Bohemia con patio interior</h3>
+<div class="mt-2 flex gap-3 text-xs font-medium text-[#618972]">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">bed</span> 2 Libres</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">woman</span> Solo Mujeres</span>
+</div>
+</div>
+</div></a>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 max-w-md mx-auto bg-white/80 backdrop-blur-md border-t border-[#f0f4f2] safe-area-inset-bottom">
+<div class="flex justify-around items-center h-20 px-4">
+<a class="flex flex-col items-center justify-center gap-1 text-primary" href="/screens-static/explorar_casas/code.html">
+<span class="material-symbols-outlined text-[28px] fill-[1]">home</span>
+<p class="text-[10px] font-bold tracking-wide">Inicio</p>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-[#618972] hover:text-primary transition-colors" href="/screens-static/mis_favoritos/code.html">
+<span class="material-symbols-outlined text-[28px]">favorite</span>
+<p class="text-[10px] font-medium tracking-wide">Favoritos</p>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-[#618972] hover:text-primary transition-colors" href="/screens-static/mensajes_y_afinidad/code.html">
+<div class="relative">
+<span class="material-symbols-outlined text-[28px]">chat_bubble</span>
+<span class="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[8px] font-bold text-white">3</span>
+</div>
+<p class="text-[10px] font-medium tracking-wide">Mensajes</p>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-[#618972] hover:text-primary transition-colors" href="/screens-static/perfil_de_usuario_con_rol_diferenciado/code.html">
+<span class="material-symbols-outlined text-[28px]">person</span>
+<p class="text-[10px] font-medium tracking-wide">Perfil</p>
+</a>
+</div>
+</nav>
+</div>
+  <script src="/nav.js"></script>
+</body></html>

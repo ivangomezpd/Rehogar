@@ -1,0 +1,270 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Coliving Messaging Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#11d462",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#102218",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-primary/10 px-4 py-3 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a href="/screens-static/explorar_casas/code.html" class="cursor-pointer"><button class="text-slate-700">
+<span class="material-symbols-outlined text-2xl">menu</span>
+</button></a>
+<h1 class="text-xl font-bold text-slate-900 tracking-tight">Messages</h1>
+</div>
+<div class="flex items-center gap-4">
+<a href="/screens-static/explorar_casas/code.html" class="cursor-pointer"><button class="relative text-slate-700">
+<span class="material-symbols-outlined text-2xl">search</span>
+</button></a>
+<a href="/screens-static/perfil_de_usuario_con_rol_diferenciado/code.html" class="cursor-pointer"><div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden border border-primary/30">
+<img class="w-full h-full object-cover" data-alt="User personal profile thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1wL4qdzQ-s8iPy1hMIKYS9JTeVIM2WkwSL4pFPOHkcg_HZJnAo_FRmhCOC1DT5PcjM6bR07yoOv5OVH9kxsudwtSn-FkQp_LGgyRN5fRbkA8nsFIPOZkJ8yKkY2Kapd7c5p4DoFaF3rc5qw5EwjP9MZPAq8jK_xH-8BRyHUP3r2jyo9NOtEkTICDurJRh0Mse8yGFCItKWw3UCU8KEmBvBMEV67fjQkX0AZK3cy7xxSh73PZ8T-dU7QyfjOtwnN0eYHyiL9n2wzk">
+</div></a>
+</div>
+</header>
+<main class="max-w-2xl mx-auto pb-24">
+<!-- Safety Tip Banner -->
+<div class="p-4">
+<div class="bg-primary/10 border border-primary/20 rounded-xl p-4 flex gap-4 items-start">
+<div class="bg-primary/20 p-2 rounded-lg text-primary shrink-0">
+<span class="material-symbols-outlined">shield_person</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-slate-900 mb-1">Safety First</p>
+<p class="text-xs text-slate-600 leading-relaxed">Always meet in public spaces and share your location with a friend during first viewings.</p>
+</div>
+<a href="/screens-static/explorar_casas/code.html" class="cursor-pointer"><button class="text-slate-400 hover:text-slate-600">
+<span class="material-symbols-outlined text-sm">close</span>
+</button></a>
+</div>
+</div>
+<!-- New Compatibility Requests -->
+<section class="mb-6">
+<div class="px-4 flex items-center justify-between mb-3">
+<h2 class="text-sm font-bold uppercase tracking-wider text-slate-500">New Compatibility Requests</h2>
+<span class="bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full">4 NEW</span>
+</div>
+<div class="flex gap-4 overflow-x-auto px-4 hide-scrollbar py-2">
+<!-- Request Item 1 -->
+<div class="flex flex-col items-center gap-2 shrink-0">
+<div class="relative">
+<div class="w-16 h-16 rounded-full border-2 border-primary p-0.5">
+<img class="w-full h-full rounded-full object-cover" data-alt="Profile picture of Sarah for a match request" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-Ku-34ggU84xl_DRV8iL3bMiN1wV22PSGyhaqXkyenXPKRoqagU4MbYH_xDLGQnsG5h3V1UeMSJtnKo4ecb4_PUixSyYQx1TeOcYyGBF2YvvZ6wpk18Rwcv5wq26pRxTQcYdgLlp_7jtX3p2p0Iioxd4Mnb7-Dl1q6sJp1T1ZbLOKZXeIQXo46hbonOMJMxZQbeTW_EftzCF0VLkusfFYZGw1_pmubmxsT7HYP85RbqTNNszbTFPVyHzPLJFOj4iamvy9C_MOjWc">
+</div>
+<div class="absolute -bottom-1 -right-1 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white">92%</div>
+</div>
+<span class="text-xs font-semibold text-slate-700">Sarah</span>
+</div>
+<!-- Request Item 2 -->
+<div class="flex flex-col items-center gap-2 shrink-0">
+<div class="relative">
+<div class="w-16 h-16 rounded-full border-2 border-primary p-0.5">
+<img class="w-full h-full rounded-full object-cover" data-alt="Profile picture of Michael for a match request" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtLZJJAcmMRreTH-g6EgOraWYBgFAjIsVATmEpr7erTP-uT0nr3Eeej7FzAMLoGKwreMkgCcdYxxX_H0_JrflIWYCiSTh-40STlNe8SbG7WtKlPDauK7ZoD3bWjYKHmM_yItc6B7B8PhR2_z4ROiq2zlMAz2GHC4GiJqBpEPgrNbIvvX1UAMAN19jlFRiI7mKu2iVu_fvNLcFd9HEZ88mMFZCqLZEJ8hZ3-yj-as8RBHl4wba_2RgKKD428EEeBDubpJowG26nRkg">
+</div>
+<div class="absolute -bottom-1 -right-1 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white">88%</div>
+</div>
+<span class="text-xs font-semibold text-slate-700">Michael</span>
+</div>
+<!-- Request Item 3 -->
+<div class="flex flex-col items-center gap-2 shrink-0">
+<div class="relative">
+<div class="w-16 h-16 rounded-full border-2 border-primary p-0.5">
+<img class="w-full h-full rounded-full object-cover" data-alt="Profile picture of Elena for a match request" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqiDYwQh9SP1HReYo7ilZqpbDnP5V7UlFF7iE1rpQ4xLUi1yY_qdCVhyN-g2vAIFcN30r-fBb1VVRCl1b-rHYcXSmrAL5NbfVBL2Zv_qtx1ON7OXSO2Bx9Zu6D0laA89MO8NYnTvknHthN7hSX0oey6sMsyK3sl2BxSeVHFrKFeTgCj7JmkrXzORNbstmQhW_2K-9JEJNARtG3gWlJg9VotX-oXqmWvvq7ro41DUK4P78z0eE5kyP7J-Ze5k41mJN-yy1UA77496U">
+</div>
+<div class="absolute -bottom-1 -right-1 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white">85%</div>
+</div>
+<span class="text-xs font-semibold text-slate-700">Elena</span>
+</div>
+<!-- Request Item 4 -->
+<div class="flex flex-col items-center gap-2 shrink-0">
+<div class="relative">
+<div class="w-16 h-16 rounded-full border-2 border-primary p-0.5">
+<img class="w-full h-full rounded-full object-cover" data-alt="Profile picture of David for a match request" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBFuaSDMgQasMbesZ81LRYB8xMcTl0u3048tmWK_4z4BqZKSUIpRVnh86a2i3mdyZlK7CvQFB9de8FsB4PJtGWPNa_Zr0r8GXb1mp3pOOT_5NY2kILIP4WXGJR06Cn6OEJ7np06VyposL-TMiAgjp6qV3DQWN56dWQb_wjQ-HN1VQEb9mDG5nylAjtbrPyXq35eu-shcnM-geA5mSJYaKsTDAhusW-4Dvo0tdF0BZtVCoI7dH3sRXaLZTTG8r5CGccm7YU8sgrsnA">
+</div>
+<div class="absolute -bottom-1 -right-1 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white">81%</div>
+</div>
+<span class="text-xs font-semibold text-slate-700">David</span>
+</div>
+</div>
+</section>
+<!-- Conversations List -->
+<section class="px-4">
+<h2 class="text-sm font-bold uppercase tracking-wider text-slate-500 mb-4">Your Conversations</h2>
+<div class="space-y-3">
+<!-- Conversation Card 1 -->
+<div class="bg-white p-4 rounded-xl border border-slate-100 hover:border-primary/30 transition-colors shadow-sm cursor-pointer group">
+<div class="flex gap-4">
+<div class="relative shrink-0">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="Portrait of Jessica, a verified host" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBh30o1DeApG1onXVQCfQEzWrw6v8U4YbUNKFWTcxsRqtlaFnIhmueGlN4TtSviDTqvGE3fugx1aNfzvsUbS-ZeEmPzW2hz9Y1Nr2v31iSeI2Fowp1h3VJHGHM0ywDdMf-oSs-u4JXA_Wch1ump2CbNGN7qYE8kI_5HAnjJqW8ctHK0lbqTtxp9g45Viy21Q2aiY16LmBBbjeD-0WWD2GD3aGpQsSR3lhcISnMbtJahtvN5R5_AGffL1tXq77pcNB81DFoPwwGHC_c">
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-primary border-2 border-white rounded-full"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<div class="flex items-center gap-2">
+<h3 class="font-bold text-slate-900 truncate">Jessica Miller</h3>
+<div class="flex items-center bg-primary/10 px-1.5 py-0.5 rounded text-[10px] font-bold text-primary border border-primary/20">
+<span class="material-symbols-outlined text-[12px] mr-1" style="font-variation-settings: 'FILL' 1">verified</span>
+                                        VERIFIED
+                                    </div>
+</div>
+<span class="text-[11px] text-slate-400 whitespace-nowrap">2m ago</span>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="text-xs font-bold text-primary bg-primary/5 px-2 py-0.5 rounded">94% Match</span>
+<span class="text-xs text-slate-400">•</span>
+<span class="text-xs text-slate-500">Host at Northside Villa</span>
+</div>
+<p class="text-sm text-slate-600 line-clamp-1 group-hover:text-slate-900 transition-colors font-medium">I'd love to chat more about our shared kitchen schedule...</p>
+</div>
+</div>
+</div>
+<!-- Conversation Card 2 -->
+<div class="bg-white p-4 rounded-xl border border-slate-100 hover:border-primary/30 transition-colors shadow-sm cursor-pointer group">
+<div class="flex gap-4">
+<div class="relative shrink-0">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="Portrait of Robert, a seeker match" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb-e8YKowcStP9gqJdT8wv9svSscpMnp8f2BXFH4_6M14KolG_UaHhS10i9m_oEAf-qabzXECuuHu9mr0Z5OE8UL3GRssV2SK3qYNQCiAyMyKBMciF89Ve8e25b_kbwyRH_zWj1uT9qwPs9lWF8MsvYnvSSSMC4ldhQLXPuzX1NzPax7lY0o7qRgkI6toOJyStWa9v7DnimVItzws0U65qWLL06QetiFVEb0L6EEypBC5F4FBgAcGpH7CF-0CeFC7FhZ7Bh8XStnU">
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-slate-300 border-2 border-white rounded-full"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<div class="flex items-center gap-2">
+<h3 class="font-bold text-slate-900 truncate">Robert Chen</h3>
+<div class="flex items-center bg-primary/10 px-1.5 py-0.5 rounded text-[10px] font-bold text-primary border border-primary/20">
+<span class="material-symbols-outlined text-[12px] mr-1" style="font-variation-settings: 'FILL' 1">verified</span>
+                                        VERIFIED
+                                    </div>
+</div>
+<span class="text-[11px] text-slate-400 whitespace-nowrap">1h ago</span>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="text-xs font-bold text-primary bg-primary/5 px-2 py-0.5 rounded">87% Match</span>
+<span class="text-xs text-slate-400">•</span>
+<span class="text-xs text-slate-500">Seeker</span>
+</div>
+<p class="text-sm text-slate-400 line-clamp-1">That sounds reasonable. I'm also looking for a quiet space.</p>
+</div>
+</div>
+</div>
+<!-- Conversation Card 3 -->
+<div class="bg-white p-4 rounded-xl border border-slate-100 hover:border-primary/30 transition-colors shadow-sm cursor-pointer group opacity-90">
+<div class="flex gap-4">
+<div class="relative shrink-0">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="Portrait of Amanda, a potential coliving partner" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyU943W-8TyTWjUcqtRTmCtJ03yFQV3iXIQjouDLsETLlbXmnTH_0E39pILnaPAJmcPrr7WkXFGSh-PjLncRqSWBSWGfRWWQCMmbA2bnrJQJgXMySNGZ2fxHlhXlHZjb2-nT6ZpxkoEr5C6yj27efDXWtHJC9A_UpAjNo-Y-_MHE7Hn0ULm19dB3VxHXKPBodFKUyL-OPJJzbJ2YoFJsn650eekR-JKK4hlBhaFp0q3P6psc37dmLB1T0JNlBTcI2oq92eUJEohNw">
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<div class="flex items-center gap-2">
+<h3 class="font-bold text-slate-900 truncate">Amanda S.</h3>
+</div>
+<span class="text-[11px] text-slate-400 whitespace-nowrap">Yesterday</span>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="text-xs font-bold text-primary bg-primary/5 px-2 py-0.5 rounded">79% Match</span>
+<span class="text-xs text-slate-400">•</span>
+<span class="text-xs text-slate-500">Host at Green Oaks</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1">done_all</span>
+<p class="text-sm text-slate-400 line-clamp-1">Is the weekend still good for a visit?</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Conversation Card 4 -->
+<div class="bg-white p-4 rounded-xl border border-slate-100 hover:border-primary/30 transition-colors shadow-sm cursor-pointer group opacity-80">
+<div class="flex gap-4">
+<div class="relative shrink-0">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="Portrait of Thomas, a coliving seeker" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAL2iGR2jrL0xo6zptTbuzB8HZql9JyAWikiryZbTpKi49K2MhuZ8zZHVCM4EX3H54H6ZRLO4uCsMiSvU2qdPm2pdo-y5fUzrcWp8fR16TZlUC7hu5DyeBNg3D46fi4tUM7zWgNbCgYY_2Q-uBxEWCb2VLyCePFoCSR9uZJF0JdxtCNMNXduJwL494HmVB8CjwGbJaDmbGZ8i5SZOVLFYN8G5u4Rjdxb72yjWGaPKgOMN9gdUdY0i5LIQWPtjEz0JteKBtaxty__Ts">
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<div class="flex items-center gap-2">
+<h3 class="font-bold text-slate-900 truncate">Thomas Wright</h3>
+<div class="flex items-center bg-primary/10 px-1.5 py-0.5 rounded text-[10px] font-bold text-primary border border-primary/20">
+<span class="material-symbols-outlined text-[12px] mr-1" style="font-variation-settings: 'FILL' 1">verified</span>
+                                        VERIFIED
+                                    </div>
+</div>
+<span class="text-[11px] text-slate-400 whitespace-nowrap">Aug 12</span>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="text-xs font-bold text-primary bg-primary/5 px-2 py-0.5 rounded">82% Match</span>
+<span class="text-xs text-slate-400">•</span>
+<span class="text-xs text-slate-500">Seeker</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-slate-300">done_all</span>
+<p class="text-sm text-slate-400 line-clamp-1">Great! I'll bring the paperwork then.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 px-6 py-2 pb-6 flex items-center justify-between z-50">
+<a class="flex flex-col items-center gap-1 text-slate-400" href="/screens-static/explorar_casas/code.html">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] font-bold">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="/screens-static/mis_favoritos/code.html">
+<span class="material-symbols-outlined">group</span>
+<span class="text-[10px] font-bold">Matches</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="/screens-static/mensajes_y_afinidad/code.html">
+<div class="relative">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">chat_bubble</span>
+<div class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 border-2 border-white rounded-full"></div>
+</div>
+<span class="text-[10px] font-bold">Messages</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="/screens-static/perfil_de_usuario_con_rol_diferenciado/code.html">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold">Profile</span>
+</a>
+</nav>
+<!-- Float Action Button -->
+<a href="/screens-static/explorar_casas/code.html" class="cursor-pointer"><button class="fixed bottom-24 right-6 w-14 h-14 bg-primary text-white rounded-full shadow-lg shadow-primary/30 flex items-center justify-center hover:scale-105 transition-transform z-40">
+<span class="material-symbols-outlined text-2xl">edit_square</span>
+</button></a>
+  <script src="/nav.js"></script>
+</body></html>
