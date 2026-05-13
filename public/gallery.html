@@ -1,61 +1,756 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galería - Rehogar Diseños</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rehogar — Galería de Pantallas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:     #1B6B52;
+      --green-mid: #2A9270;
+      --green-lt:  #E8F5F0;
+      --sand:      #F5F0E8;
+      --ink:       #1A1A18;
+      --muted:     #6B7280;
+      --border:    #D9E8E2;
+      --white:     #FAFAF8;
+      --radius:    16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--sand);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: var(--green);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .logo-text {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+
+    .header-badge {
+      background: var(--green-lt);
+      color: var(--green);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px 14px;
+      font-size: 0.78rem;
+      font-weight: 500;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 4rem 2rem 2rem;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--green);
+      color: white;
+      border-radius: 999px;
+      padding: 4px 16px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--green);
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    /* ── STATS ── */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: var(--green);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ── FILTROS ── */
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 0 2rem 2.5rem;
+    }
+
+    .filter-btn {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--green);
+      color: white;
+      border-color: var(--green);
+    }
+
+    /* ── GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      padding: 0 2rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: fadeUp 0.5s both;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(27,107,82,0.12);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card:nth-child(1)  { animation-delay: 0.05s; }
+    .card:nth-child(2)  { animation-delay: 0.10s; }
+    .card:nth-child(3)  { animation-delay: 0.15s; }
+    .card:nth-child(4)  { animation-delay: 0.20s; }
+    .card:nth-child(5)  { animation-delay: 0.25s; }
+    .card:nth-child(6)  { animation-delay: 0.30s; }
+    .card:nth-child(7)  { animation-delay: 0.35s; }
+    .card:nth-child(8)  { animation-delay: 0.40s; }
+    .card:nth-child(9)  { animation-delay: 0.45s; }
+    .card:nth-child(10) { animation-delay: 0.50s; }
+    .card:nth-child(11) { animation-delay: 0.55s; }
+    .card:nth-child(12) { animation-delay: 0.60s; }
+    .card:nth-child(13) { animation-delay: 0.65s; }
+    .card:nth-child(14) { animation-delay: 0.70s; }
+    .card:nth-child(15) { animation-delay: 0.75s; }
+    .card:nth-child(16) { animation-delay: 0.80s; }
+
+    .card-thumb {
+      height: 180px;
+      background: var(--green-lt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    .card-thumb .thumb-fallback {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-thumb .thumb-fallback span {
+      font-size: 2.4rem;
+    }
+
+    .card-num {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(255,255,255,0.92);
+      border-radius: 999px;
+      padding: 2px 10px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--green);
+    }
+
+    .card-tag {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .tag-entrada  { background: #FEF3C7; color: #92400E; }
+    .tag-explorar { background: #DBEAFE; color: #1E40AF; }
+    .tag-social   { background: #F3E8FF; color: #6B21A8; }
+    .tag-perfil   { background: #FCE7F3; color: #9D174D; }
+    .tag-mapa     { background: #D1FAE5; color: #065F46; }
+    .tag-gestion  { background: #FEE2E2; color: #991B1B; }
+
+    .card-body {
+      padding: 1.2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 1.2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .card-path {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-family: monospace;
+    }
+
+    .card-arrow {
+      width: 28px; height: 28px;
+      background: var(--green-lt);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--green);
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+
+    .card:hover .card-arrow {
+      background: var(--green);
+      color: white;
+    }
+
+    /* ── HIDDEN ── */
+    .card.hidden { display: none; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.82rem;
+      background: var(--white);
+    }
+
+    footer a { color: var(--green); text-decoration: none; }
+
+    /* ── API STATUS ── */
+    .api-bar {
+      background: var(--green);
+      color: white;
+      text-align: center;
+      padding: 10px 2rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .api-bar a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-family: monospace;
+      font-size: 0.78rem;
+      background: rgba(255,255,255,0.15);
+      padding: 2px 10px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    .api-bar a:hover { background: rgba(255,255,255,0.3); }
+
+    .dot-live {
+      width: 8px; height: 8px;
+      background: #4ADE80;
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+  </style>
 </head>
-<body class="bg-gray-100">
-    <div class="container mx-auto px-4 py-8">
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="text-3xl font-bold text-indigo-800">🎨 Galería de Diseños</h1>
-            <a href="/" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 transition">← Volver al Inicio</a>
-        </div>
-        
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-                <div class="text-4xl mb-3">🏠</div>
-                <h3 class="text-xl font-semibold">Explorar Casas</h3>
-                <p class="text-gray-600 mt-2">Listado de comunidades disponibles con filtros</p>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-                <div class="text-4xl mb-3">🔍</div>
-                <h3 class="text-xl font-semibold">Búsqueda Avanzada</h3>
-                <p class="text-gray-600 mt-2">Filtros detallados por ciudad y preferencias</p>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-                <div class="text-4xl mb-3">💬</div>
-                <h3 class="text-xl font-semibold">Mensajes y Afinidad</h3>
-                <p class="text-gray-600 mt-2">Sistema de comunicación y compatibilidad</p>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-                <div class="text-4xl mb-3">📝</div>
-                <h3 class="text-xl font-semibold">Publicar Casa</h3>
-                <p class="text-gray-600 mt-2">Flujo para añadir nuevas propiedades</p>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-                <div class="text-4xl mb-3">👤</div>
-                <h3 class="text-xl font-semibold">Perfil de Usuario</h3>
-                <p class="text-gray-600 mt-2">Configuración y datos personales</p>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-                <div class="text-4xl mb-3">⭐</div>
-                <h3 class="text-xl font-semibold">Mis Favoritos</h3>
-                <p class="text-gray-600 mt-2">Gestión de casas guardadas</p>
-            </div>
-        </div>
-        
-        <div class="mt-8 p-4 bg-yellow-100 rounded-lg border border-yellow-300">
-            <p class="text-center text-gray-700">
-                ℹ️ Esta es una galería de prototipos. Los diseños completos están sincronizados con Stitch.
-            </p>
-        </div>
+<body>
+
+<!-- API Bar -->
+<div class="api-bar">
+  <span><span class="dot-live"></span> &nbsp;Servidor activo</span>
+  <a href="/health">GET /health</a>
+  <a href="/api/casas">GET /api/casas</a>
+  <a href="/api/auth/me">GET /api/auth/me</a>
+  <a href="/api/visitas">GET /api/visitas</a>
+</div>
+
+<!-- Header -->
+<header>
+  <a href="/" class="logo">
+    <div class="logo-icon">🏠</div>
+    <span class="logo-text">Rehogar</span>
+  </a>
+  <span class="header-badge">16 pantallas · prototipo</span>
+</header>
+
+<!-- Hero -->
+<div class="hero">
+  <span class="hero-tag">Galería de Diseño</span>
+  <h1>Cada pantalla, <em>conectada</em></h1>
+  <p>Prototipo completo de Rehogar — plataforma de coliving para personas en proceso de separación. Navega entre las 16 pantallas del flujo completo.</p>
+  <div class="stats">
+    <div class="stat"><span class="stat-num">16</span><span class="stat-label">Pantallas</span></div>
+    <div class="stat"><span class="stat-num">6</span><span class="stat-label">Flujos</span></div>
+    <div class="stat"><span class="stat-num">15</span><span class="stat-label">Endpoints API</span></div>
+  </div>
+</div>
+
+<!-- Filtros -->
+<div class="filters">
+  <button class="filter-btn active" data-filter="all">Todas</button>
+  <button class="filter-btn" data-filter="entrada">Entrada</button>
+  <button class="filter-btn" data-filter="explorar">Explorar</button>
+  <button class="filter-btn" data-filter="social">Social</button>
+  <button class="filter-btn" data-filter="mapa">Mapas</button>
+  <button class="filter-btn" data-filter="perfil">Perfil</button>
+  <button class="filter-btn" data-filter="gestion">Gestión</button>
+</div>
+
+<!-- Grid -->
+<div class="grid" id="grid">
+
+  <!-- 1. Onboarding -->
+  <a class="card" data-category="entrada" href="/screens-static/onboarding_de_la_app/code.html">
+    <div class="card-thumb">
+      <img src="/Rehogar/screens/onboarding_de_la_app/screen.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="">
+      <div class="thumb-fallback" style="display:none"><span>👋</span></div>
+      <span class="card-num">01</span>
+      <span class="card-tag tag-entrada">Entrada</span>
     </div>
+    <div class="card-body">
+      <div class="card-title">Onboarding</div>
+      <div class="card-desc">Presentación de la app, propuesta de valor y acceso a registro o login.</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-path">onboarding_de_la_app</span>
+      <div class="card-arrow">→</div>
+    </div>
+  </a>
+
+  <!-- 2. Selección de Rol -->
+  <a class="card" data-category="entrada" href="/screens-static/seleccion_de_rol/code.html">
+    <div class="card-thumb">
+      <img src="/Rehogar/screens/seleccion_de_rol/screen.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="">
+      <div class="thumb-fallback" style="display:none"><span>🎭</span></div>
+      <span class="card-num">02</span>
+      <span class="card-tag tag-entrada">Entrada</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Selección de Rol</div>
+      <div class="card-desc">El usuario elige si es buscador de piso, anfitrión que ofrece habitación, o ambos.</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-path">seleccion_de_rol</span>
+      <div class="card-arrow">→</div>
+    </div>
+  </a>
+
+  <!-- 3. Verificación de Identidad -->
+  <a class="card" data-category="entrada" href="/screens-static/verificacion_de_identidad/code.html">
+    <div class="card-thumb">
+      <img src="/Rehogar/screens/verificacion_de_identidad/screen.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="">
+      <div class="thumb-fallback" style="display:none"><span>🪪</span></div>
+      <span class="card-num">03</span>
+      <span class="card-tag tag-entrada">Entrada</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Verificación de Identidad</div>
+      <div class="card-desc">Proceso de verificación del usuario para garantizar la seguridad de la comunidad.</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-path">verificacion_de_identidad</span>
+      <div class="card-arrow">→</div>
+    </div>
+  </a>
+
+  <!-- 4. Explorar Casas -->
+  <a class="card" data-category="explorar" href="/screens-static/explorar_casas/code.html">
+    <div class="card-thumb">
+      <img src="/Rehogar/screens/explorar_casas/screen.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="">
+      <div class="thumb-fallback" style="display:none"><span>🏘️</span></div>
+      <span class="card-num">04</span>
+      <span class="card-tag tag-explorar">Explorar</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Explorar Casas ★</div>
+      <div class="card-desc">Hub principal. Listado de casas con filtros rápidos de género, mascotas y custodia.</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-path">explorar_casas</span>
+      <div class="card-arrow">→</div>
+    </div>
+  </a>
+
+  <!-- 5. Búsqueda Avanzada -->
+  <a class="card" data-category="explorar" href="/screens-static/busqueda_avanzada_con_custodia/code.html">
+    <div class="card-thumb">
+      <img src="/Rehogar/screens/busqueda_avanzada_con_custodia/screen.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="">
+      <div class="thumb-fallback" style="display:none"><span>🔍</span></div>
+      <span class="card-num">05</span>
+      <span class="card-tag tag-explorar">Explorar</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Búsqueda Avanzada</div>
+      <div class="card-desc">Filtros detallados: tipo de vivienda, género, tipo de custodia y estilo de vida.</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-path">busqueda_avanzada_con_custodia</span>
+      <div class="card-arrow">→</div>
+    </div>
+  </a>
+
+  <!-- 6. Detalle de la Casa -->
+  <a class="card" data-category="explorar" href="/screens-static/detalle_de_la_casa/code.html">
+    <div class="card-thumb">
+      <img src="/Rehogar/screens/detalle_de_la_casa/screen.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="">
+      <div class="thumb-fallback" style="display:none"><span>🏡</span></div>
+      <span class="card-num">06</span>
+      <span class="card-tag tag-explorar">Explorar</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Detalle de la Casa</div>
+      <div class="card-desc">Ficha completa: fotos, amenities, perfil del anfitrión y botón de contacto.</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-path">detalle_de_la_casa</span>
+      <div class="card-arrow">→</div>
+    </div>
+  </a>
+
+  <!-- 7. Mapa Interactivo -->
+  <a class="card" data-category="mapa" href="/screens-static/mapa_interactivo_de_casas/code.html">
+    <div class="card-thumb">
+      <img src="/Rehogar/screens/mapa_interactivo_de_casas/screen.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="">
+      <div class="thumb-fallback" style="display:none"><span>🗺️</span></div>
+      <span class="card-num">07</span>
+      <span class="card-tag tag-mapa">Mapa</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Mapa Interactivo</div>
+      <div class="card-desc">Vista de casas disponibles en el mapa con marcadores y filtros geográficos.</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-path">mapa_interactivo_de_casas</span>
+      <div class="card-arrow">→</div>
+    </div>
+  </a>
+
+  <!-- 8. Mapa Zonas Escolares -->
+  <a class="card" data-category="mapa" href="/screens-static/mapa_con_zonas_escolares/code.html">
+    <div class="card-thumb">
+      <img src="/Rehogar/screens/mapa_con_zonas_escolares/screen.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="">
+      <div class="thumb-fallback" style="display:none"><span>🏫</span></div>
+      <span class="card-num">08</span>
+      <span class="card-tag tag-mapa">Mapa</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Mapa con Zonas Escolares</div>
+      <div class="card-desc">Capa sobre el mapa que muestra colegios cercanos, clave para familias con hijos.</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-path">mapa_con_zonas_escolares</span>
+      <div class="card-arrow">→</div>
+    </div>
+  </a>
+
+  <!-- 9. Mensajes y Afinidad -->
+  <a class="card" data-category="social" href="/screens-static/mensajes_y_afinidad/code.html">
+    <div class="card-thumb">
+      <img src="/Rehogar/screens/mensajes_y_afinidad/screen.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="">
+      <div class="thumb-fallback" style="display:none"><span>💬</span></div>
+      <span class="card-num">09</span>
+      <span class="card-tag tag-social">Social</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Mensajes y Afinidad</div>
+      <div class="card-desc">Chat entre usuarios con sistema de compatibilidad basado en perfil familiar.</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-path">mensajes_y_afinidad</span>
+      <div class="card-arrow">→</div>
+    </div>
+  </a>
+
+  <!-- 10. Mis Favoritos -->
+  <a class="card" data-category="gestion" href="/screens-static/mis_favoritos/code.html">
+    <div class="card-thumb">
+      <img src="/Rehogar/screens/mis_favoritos/screen.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="">
+      <div class="thumb-fallback" style="display:none"><span>⭐</span></div>
+      <span class="card-num">10</span>
+      <span class="card-tag tag-gestion">Gestión</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Mis Favoritos</div>
+      <div class="card-desc">Casas guardadas por el usuario con acceso rápido a detalles y contacto.</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-path">mis_favoritos</span>
+      <div class="card-arrow">→</div>
+    </div>
+  </a>
+
+  <!-- 11. Mis Visitas -->
+  <a class="card" data-category="gestion" href="/screens-static/mis_visitas/code.html">
+    <div class="card-thumb">
+      <img src="/Rehogar/screens/mis_visitas/screen.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="">
+      <div class="thumb-fallback" style="display:none"><span>🗓️</span></div>
+      <span class="card-num">11</span>
+      <span class="card-tag tag-gestion">Gestión</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Mis Visitas</div>
+      <div class="card-desc">Historial y próximas visitas agendadas con opciones de cancelar o reagendar.</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-path">mis_visitas</span>
+      <div class="card-arrow">→</div>
+    </div>
+  </a>
+
+  <!-- 12. Calendario Compartido -->
+  <a class="card" data-category="social" href="/screens-static/calendario_compartido/code.html">
+    <div class="card-thumb">
+      <img src="/Rehogar/screens/calendario_compartido/screen.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="">
+      <div class="thumb-fallback" style="display:none"><span>📅</span></div>
+      <span class="card-num">12</span>
+      <span class="card-tag tag-social">Social</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Calendario Compartido</div>
+      <div class="card-desc">Vista de calendario para coordinar visitas y semanas de custodia con compañeros.</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-path">calendario_compartido</span>
+      <div class="card-arrow">→</div>
+    </div>
+  </a>
+
+  <!-- 13. Perfil de Usuario -->
+  <a class="card" data-category="perfil" href="/screens-static/perfil_de_usuario_con_rol_diferenciado/code.html">
+    <div class="card-thumb">
+      <img src="/Rehogar/screens/perfil_de_usuario_con_rol_diferenciado/screen.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="">
+      <div class="thumb-fallback" style="display:none"><span>👤</span></div>
+      <span class="card-num">13</span>
+      <span class="card-tag tag-perfil">Perfil</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Perfil de Usuario</div>
+      <div class="card-desc">Vista diferenciada por rol — buscador o anfitrión — con acceso a ajustes y plan.</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-path">perfil_de_usuario_con_rol_diferenciado</span>
+      <div class="card-arrow">→</div>
+    </div>
+  </a>
+
+  <!-- 14. Publicar Casa -->
+  <a class="card" data-category="gestion" href="/screens-static/publicar_casa_con_custodia/code.html">
+    <div class="card-thumb">
+      <img src="/Rehogar/screens/publicar_casa_con_custodia/screen.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="">
+      <div class="thumb-fallback" style="display:none"><span>📝</span></div>
+      <span class="card-num">14</span>
+      <span class="card-tag tag-gestion">Gestión</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Publicar Casa</div>
+      <div class="card-desc">Formulario paso a paso para anfitriones: datos, amenities y preferencias de custodia.</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-path">publicar_casa_con_custodia</span>
+      <div class="card-arrow">→</div>
+    </div>
+  </a>
+
+  <!-- 15. Planes de Suscripción -->
+  <a class="card" data-category="perfil" href="/screens-static/planes_de_suscripcion/code.html">
+    <div class="card-thumb">
+      <img src="/Rehogar/screens/planes_de_suscripcion/screen.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="">
+      <div class="thumb-fallback" style="display:none"><span>💎</span></div>
+      <span class="card-num">15</span>
+      <span class="card-tag tag-perfil">Perfil</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Planes de Suscripción</div>
+      <div class="card-desc">Comparativa de planes Free, Basic y Premium con llamada a la acción de suscripción.</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-path">planes_de_suscripcion</span>
+      <div class="card-arrow">→</div>
+    </div>
+  </a>
+
+  <!-- 16. Configuración de Notificaciones -->
+  <a class="card" data-category="perfil" href="/screens-static/configuracion_de_notificaciones/code.html">
+    <div class="card-thumb">
+      <img src="/Rehogar/screens/configuracion_de_notificaciones/screen.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="">
+      <div class="thumb-fallback" style="display:none"><span>🔔</span></div>
+      <span class="card-num">16</span>
+      <span class="card-tag tag-perfil">Perfil</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Configuración de Notificaciones</div>
+      <div class="card-desc">Control granular de alertas: mensajes, visitas, matches y novedades del sistema.</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-path">configuracion_de_notificaciones</span>
+      <div class="card-arrow">→</div>
+    </div>
+  </a>
+
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>Rehogar · <a href="/health">API Status</a> · <a href="https://github.com/ivangomezpd/Rehogar" target="_blank">GitHub</a> · Hecho con 🏠 para nuevos comienzos</p>
+</footer>
+
+<script>
+  // Filtros
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.card').forEach(card => {
+        if (filter === 'all' || card.dataset.category === filter) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>
+
 </body>
 </html>
