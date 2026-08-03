@@ -44,7 +44,7 @@
 <div class="relative h-screen w-full overflow-hidden flex flex-col">
 <div class="absolute inset-0 z-0">
 <div class="w-full h-full bg-slate-200 dark:bg-slate-800" data-alt="A detailed city map with light green accents showing residential streets and parks" data-location="San Francisco, California" style="">
-<div class="relative w-full h-full">
+<div id="map-pins" class="relative w-full h-full">
 <a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer"><div class="absolute top-1/4 left-1/3 bg-primary text-white px-3 py-1 rounded-full font-bold shadow-lg cursor-pointer hover:scale-110 transition-transform">650€</div></a>
 <a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer"><div class="absolute top-1/2 left-1/2 bg-white text-slate-900 border-2 border-primary px-3 py-1 rounded-full font-bold shadow-lg cursor-pointer hover:scale-110 transition-transform">820€</div></a>
 <a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer"><div class="absolute top-1/3 right-1/4 bg-primary text-white px-3 py-1 rounded-full font-bold shadow-lg cursor-pointer hover:scale-110 transition-transform">740€</div></a>
@@ -91,7 +91,7 @@
 <span>List View</span>
 </button></a>
 </div>
-<div class="flex gap-4 overflow-x-auto no-scrollbar pb-8 px-4 pointer-events-auto">
+<div id="map-cards" class="flex gap-4 overflow-x-auto no-scrollbar pb-8 px-4 pointer-events-auto">
 <div class="min-w-[300px] bg-white dark:bg-background-dark rounded-xl shadow-2xl overflow-hidden flex flex-col border border-slate-200/50 dark:border-slate-700/50">
 <div class="relative h-40">
 <a href="/screens-static/detalle_de_la_casa/code.html" class="cursor-pointer"><img alt="Modern house" class="w-full h-full object-cover" data-alt="Modern bright living room in a coliving apartment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRs2tKCrksxE65DSKldljbmihGIrHH0D6AacQjrx0HuyY8oDK2kxleQi1b0tqn5VVNAP3dPY1OyvfLJxWQwiAGJ5AWzmk4Fz1iqy6St2zs2SbKaGwsoB-6YxiThukJuVkr_pw3yNkN9uSURPVykpJ-eF3-d5ItklLJw-kYVEp9z6FZ0ta0ldw0GYW5JIuerPIIHEOvMfm46mrxwipZ2vVvYqbch7fPncd57FH9fnvQCbqMQwMpKHunbzPOlqSV35g8zh-hNakcSOA"></a>
@@ -192,5 +192,63 @@
 </a>
 </nav>
 </div>
+  <script>
+(function () {
+  var pinsEl = document.getElementById('map-pins');
+  var cardsEl = document.getElementById('map-cards');
+  if (!pinsEl || !cardsEl) return;
+  var posiciones = [
+    ['25%', '33%'], ['50%', '50%'], ['33%', '75%'],
+    ['66%', '25%'], ['75%', '60%'], ['40%', '15%'],
+    ['60%', '80%'], ['20%', '60%']
+  ];
+  var token = localStorage.getItem('rehogar_token');
+  var opts = token
+    ? { headers: { 'Authorization': 'Bearer ' + token } }
+    : undefined;
+  fetch('/api/casas?limite=8', opts)
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      var casas = (data && data.casas) || [];
+      if (!casas.length) return;
+      pinsEl.innerHTML = '';
+      cardsEl.innerHTML = '';
+      casas.forEach(function (casa, i) {
+        var pos = posiciones[i % posiciones.length];
+        var pin = document.createElement('a');
+        pin.href = '/screens-static/detalle_de_la_casa/code.html?id=' + casa.id;
+        pin.className = 'absolute bg-primary text-white px-3 py-1 rounded-full font-bold shadow-lg cursor-pointer hover:scale-110 transition-transform';
+        pin.style.top = pos[0];
+        pin.style.left = pos[1];
+        pin.textContent = casa.precio + '€';
+        pinsEl.appendChild(pin);
+        var foto = (casa.fotos && casa.fotos[0]) || '';
+        var img = foto
+          ? '<img alt="' + (casa.titulo || '') + '" class="w-full h-full object-cover" src="' + foto + '">'
+          : '<div class="w-full h-full bg-slate-300 dark:bg-slate-700 flex items-center justify-center"><span class="material-symbols-outlined text-4xl text-slate-500">home</span></div>';
+        var card = document.createElement('div');
+        card.className = 'min-w-[300px] bg-white dark:bg-background-dark rounded-xl shadow-2xl overflow-hidden flex flex-col border border-slate-200/50 dark:border-slate-700/50';
+        card.innerHTML =
+          '<div class="relative h-40">' +
+            '<a href="/screens-static/detalle_de_la_casa/code.html?id=' + casa.id + '" class="block h-full">' + img + '</a>' +
+          '</div>' +
+          '<div class="p-4">' +
+            '<div class="flex justify-between items-start mb-1">' +
+              '<h3 class="font-bold text-lg">' + (casa.titulo || '') + '</h3>' +
+              '<span class="text-primary font-bold text-lg">' + casa.precio + '€<span class="text-xs font-normal text-slate-500">/mo</span></span>' +
+            '</div>' +
+            '<p class="text-sm text-slate-500 mb-3 flex items-center gap-1">' +
+              '<span class="material-symbols-outlined text-sm">location_on</span> ' + (casa.ciudad || '') +
+            '</p>' +
+            '<div class="flex items-center gap-3 text-xs font-medium text-slate-600 dark:text-slate-400">' +
+              '<span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">bed</span> ' + (casa.habitaciones || 1) + ' Room</span>' +
+            '</div>' +
+          '</div>';
+        cardsEl.appendChild(card);
+      });
+    })
+    .catch(function () {});
+})();
+  </script>
   <script src="/nav.js"></script>
 </body></html>
