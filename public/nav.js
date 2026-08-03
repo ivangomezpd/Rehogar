@@ -58,6 +58,11 @@
 
   function setLink(el, route) {
     const url = ROUTES[route] || route;
+    // Respetar enlaces explícitos: si el elemento ya tiene href real, no
+    // sobreescribirlo por heurística de texto (a menos que use data-nav).
+    if (el.tagName === 'A' && el.getAttribute('href') && !el.getAttribute('data-nav')) {
+      return;
+    }
     if (el.tagName === 'A') {
       el.href = url;
     } else {
@@ -70,9 +75,28 @@
     }
   }
 
+  // ─── Enlaces deterministas data-nav ────────────────────────────────────────
+  // Añade data-nav="ruta" al HTML para que la navegación no dependa del texto.
+  // Se vincula PRIMERO para que su handler gane sobre las heurísticas.
+  function connectDataNav() {
+    document.querySelectorAll('[data-nav]').forEach(el => {
+      const url = ROUTES[el.getAttribute('data-nav')] || el.getAttribute('data-nav');
+      if (!url) return;
+      el.style.cursor = 'pointer';
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        window.location.href = url;
+      });
+      if (el.tagName === 'A') el.href = url;
+    });
+  }
+
   // ─── Bottom navigation — presente en casi todas las pantallas ─────────────
   function connectBottomNav() {
     document.querySelectorAll('nav a, footer a').forEach(a => {
+      if (a.getAttribute('data-nav')) return;
+      if (a.getAttribute('href') && a.getAttribute('href') !== '#') return;
       const t = text(a);
       const icon = a.querySelector('.material-symbols-outlined');
       const iconText = icon ? icon.textContent.trim() : '';
@@ -674,6 +698,7 @@
 
   // ─── Init ─────────────────────────────────────────────────────────────────
   function init() {
+    connectDataNav();
     connectBottomNav();
     connectProfileAvatar();
     connectNotificationsBtn();
