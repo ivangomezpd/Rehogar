@@ -62,10 +62,10 @@
             </button></a>
 </div>
 <!-- Section: This Week -->
-<div class="space-y-4">
+<div id="visitas-semana" class="space-y-4">
 <div class="flex items-center justify-between">
 <h2 class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Esta semana</h2>
-<span class="text-xs font-medium px-2 py-0.5 bg-primary/10 text-primary rounded-full">2 visitas</span>
+<span id="visitas-count" class="text-xs font-medium px-2 py-0.5 bg-primary/10 text-primary rounded-full">2 visitas</span>
 </div>
 <!-- Card 1: Confirmada -->
 <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
@@ -133,8 +133,8 @@
 </div>
 </div>
 <!-- Section: Coming Up Later -->
-<div class="space-y-4 pb-24">
-<h2 class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Próximamente</h2>
+<div id="visitas-proximas" class="space-y-4 pb-24">
+<h2 id="visitas-prox-title" class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Próximamente</h2>
 <!-- Card 3: Cancelada Style (Just for visual variety) -->
 <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden opacity-75">
 <div class="p-4 flex gap-4">
@@ -185,5 +185,133 @@
 <a href="/screens-static/explorar_casas/code.html" class="cursor-pointer"><button class="fixed bottom-20 right-6 w-14 h-14 bg-primary text-white rounded-full shadow-lg shadow-primary/30 flex items-center justify-center hover:scale-105 transition-transform active:scale-95">
 <span class="material-symbols-outlined text-2xl">add</span>
 </button></a>
+  <script>
+(function () {
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  var semana = document.getElementById('visitas-semana');
+  var proximas = document.getElementById('visitas-proximas');
+  var count = document.getElementById('visitas-count');
+  var proxTitle = document.getElementById('visitas-prox-title');
+  var token = localStorage.getItem('rehogar_token');
+
+  var MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+
+  function fmtFecha(s) {
+    if (!s) return '';
+    var p = String(s).split(' ')[0].split('-');
+    if (p.length !== 3) return s;
+    return Number(p[2]) + ' ' + (MESES[Number(p[1]) - 1] || p[1]) + ', ' + p[0];
+  }
+
+  function fmtHora(h) {
+    if (!h) return '';
+    var p = String(h).split(':');
+    var hr = Number(p[0]);
+    var min = p[1] || '00';
+    return hr + ':' + min;
+  }
+
+  function badge(v) {
+    var map = {
+      'confirmada': ['Confirmada', 'text-primary bg-primary/10'],
+      'pendiente': ['Pendiente', 'text-amber-500 bg-amber-500/10'],
+      'cancelada': ['Cancelada', 'text-slate-400 bg-slate-100 dark:bg-slate-800'],
+      'completada': ['Completada', 'text-sky-500 bg-sky-500/10']
+    };
+    var m = map[v.estado] || [v.estado, 'text-slate-400 bg-slate-100'];
+    return '<span class="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded ' + m[1] + '">' + esc(m[0]) + '</span>';
+  }
+
+  function card(v) {
+    var title = v.casa_titulo || v.anfitrion_nombre || v.solicitante_nombre || 'Casa';
+    var canCancel = v.estado === 'pendiente' || v.estado === 'confirmada';
+    var actions = canCancel
+      ? '<div class="flex border-t border-slate-50 dark:border-slate-800">' +
+          '<button class="flex-1 py-3 text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors border-r border-slate-50 dark:border-slate-800 flex items-center justify-center gap-2" data-cancel="' + v.id + '">' +
+            '<span class="material-symbols-outlined text-lg">close</span> Cancelar' +
+          '</button>' +
+          '<a href="/screens-static/calendario_compartido/code.html" class="cursor-pointer flex-1"><button class="w-full py-3 text-sm font-semibold text-primary hover:bg-primary/5 transition-colors flex items-center justify-center gap-2">' +
+            '<span class="material-symbols-outlined text-lg">edit_calendar</span> Cambiar fecha' +
+          '</button></a>' +
+        '</div>'
+      : '<div class="p-3 text-center"><a href="/screens-static/calendario_compartido/code.html" class="cursor-pointer"><button class="w-full py-2 text-sm font-semibold text-primary/60 border border-primary/20 rounded-lg">Volver a agendar</button></a></div>';
+    return '' +
+      '<div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">' +
+        '<div class="p-4 flex gap-4">' +
+          '<div class="w-24 h-24 rounded-lg bg-gradient-to-br from-primary/25 via-background-light to-background-light bg-center flex items-center justify-center shrink-0">' +
+            '<span class="material-symbols-outlined text-[40px] text-primary">home</span>' +
+          '</div>' +
+          '<div class="flex-1 flex flex-col justify-between py-0.5">' +
+            '<div class="space-y-1">' +
+              '<div class="flex items-center justify-between">' + badge(v) + '</div>' +
+              '<h3 class="text-base font-bold leading-tight">' + esc(title) + '</h3>' +
+              '<div class="flex items-center gap-1.5 text-slate-500 dark:text-slate-400 text-sm">' +
+                '<span class="material-symbols-outlined text-sm">calendar_today</span><span>' + fmtFecha(v.fecha) + '</span>' +
+              '</div>' +
+              '<div class="flex items-center gap-1.5 text-slate-500 dark:text-slate-400 text-sm">' +
+                '<span class="material-symbols-outlined text-sm">schedule</span><span>' + fmtHora(v.hora) + '</span>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        actions +
+      '</div>';
+  }
+
+  function render(visitas) {
+    var hoy = new Date().toISOString().split('T')[0];
+    var up = visitas.filter(function (v) {
+      return v.estado !== 'cancelada' && v.estado !== 'completada' && (v.fecha || hoy) >= hoy;
+    });
+    var resto = visitas.filter(function (v) { return up.indexOf(v) === -1; });
+    if (semana) {
+      if (up.length) semana.innerHTML = '<div class="flex items-center justify-between"><h2 class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Próximas visitas</h2></div>' + up.map(card).join('');
+      else semana.innerHTML = '<div class="flex flex-col items-center justify-center text-center py-12 px-6 gap-3"><span class="material-symbols-outlined text-[48px] text-slate-300">event</span><p class="text-lg font-bold">No hay visitas próximas</p><p class="text-sm text-slate-500">Agenda una visita desde una casa para verla aquí.</p></div>';
+    }
+    if (count) count.textContent = visitas.length + (visitas.length === 1 ? ' visita' : ' visitas');
+    if (proxTitle) proxTitle.textContent = resto.length ? 'Historial' : 'Próximamente';
+    if (proximas) {
+      if (resto.length) proximas.innerHTML = resto.map(card).join('');
+      else if (up.length) proximas.innerHTML = '';
+    }
+  }
+
+  function loginCta() {
+    if (semana) semana.innerHTML = '<div class="flex flex-col items-center justify-center text-center py-16 px-6 gap-4"><span class="material-symbols-outlined text-[56px] text-slate-300">event</span><p class="text-lg font-bold">Inicia sesión</p><p class="text-sm text-slate-500">Para ver tus visitas necesitas estar identificado.</p><a href="/screens-static/login/code.html" class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 rounded-2xl shadow-lg shadow-primary/20 transition-all">Iniciar sesión</a></div>';
+    if (proximas) proximas.innerHTML = '';
+  }
+
+  if (!token) { loginCta(); return; }
+  fetch('/api/visitas', { headers: { 'Authorization': 'Bearer ' + token } })
+    .then(function (r) {
+      if (r.status === 401) { loginCta(); return null; }
+      return r.json().catch(function () { return []; });
+    })
+    .then(function (v) {
+      if (v === null) return;
+      if (!v || !v.length) { render([]); return; }
+      render(v);
+      var root = semana || proximas;
+      if (root) root.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-cancel]');
+        if (!btn) return;
+        e.preventDefault();
+        var id = btn.getAttribute('data-cancel');
+        fetch('/api/visitas/' + id, {
+          method: 'PATCH',
+          headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ estado: 'cancelada' })
+        }).then(function (r) { return r.json(); }).then(function () {
+          fetch('/api/visitas', { headers: { 'Authorization': 'Bearer ' + token } })
+            .then(function (r2) { return r2.json(); })
+            .then(render).catch(function () {});
+        }).catch(function () {});
+      });
+    })
+    .catch(function () {});
+})();
+  </script>
   <script src="/nav.js"></script>
 </body></html>

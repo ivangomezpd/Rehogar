@@ -128,7 +128,7 @@
 <!-- Conversations List -->
 <section class="px-4">
 <h2 class="text-sm font-bold uppercase tracking-wider text-slate-500 mb-4">Your Conversations</h2>
-<div class="space-y-3">
+<div id="conversations-list" class="space-y-3">
 <!-- Conversation Card 1 -->
 <div class="bg-white p-4 rounded-xl border border-slate-100 hover:border-primary/30 transition-colors shadow-sm cursor-pointer group">
 <div class="flex gap-4">
@@ -266,5 +266,79 @@
 <a href="/screens-static/explorar_casas/code.html" class="cursor-pointer"><button class="fixed bottom-24 right-6 w-14 h-14 bg-primary text-white rounded-full shadow-lg shadow-primary/30 flex items-center justify-center hover:scale-105 transition-transform z-40">
 <span class="material-symbols-outlined text-2xl">edit_square</span>
 </button></a>
+  <script>
+(function () {
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function relTime(s) {
+    if (!s) return '';
+    var d = new Date(String(s).replace(' ', 'T'));
+    if (isNaN(d.getTime())) return '';
+    var diff = (Date.now() - d.getTime()) / 1000;
+    if (diff < 60) return 'now';
+    if (diff < 3600) return Math.floor(diff / 60) + 'm ago';
+    if (diff < 86400) return Math.floor(diff / 3600) + 'h ago';
+    if (diff < 604800) return Math.floor(diff / 86400) + 'd ago';
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+  var list = document.getElementById('conversations-list');
+  var token = localStorage.getItem('rehogar_token');
+
+  function showState(html) { if (list) list.innerHTML = html; }
+
+  function loginCta() {
+    showState('<div class="flex flex-col items-center justify-center text-center py-16 px-6 gap-4">' +
+      '<span class="material-symbols-outlined text-[56px] text-slate-300">chat_bubble</span>' +
+      '<p class="text-lg font-bold text-slate-900">Sign in to see messages</p>' +
+      '<p class="text-sm text-slate-500">You need an account to view your conversations.</p>' +
+      '<a href="/screens-static/login/code.html" class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 rounded-2xl shadow-lg shadow-primary/20 transition-all">Sign in</a>' +
+    '</div>');
+  }
+
+  function emptyState() {
+    showState('<div class="flex flex-col items-center justify-center text-center py-16 px-6 gap-4">' +
+      '<span class="material-symbols-outlined text-[56px] text-slate-300">chat_bubble</span>' +
+      '<p class="text-lg font-bold text-slate-900">No conversations yet</p>' +
+      '<p class="text-sm text-slate-500">When you contact a host, your chats will appear here.</p>' +
+      '<a href="/screens-static/explorar_casas/code.html" class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 rounded-2xl shadow-lg shadow-primary/20 transition-all">Explore homes</a>' +
+    '</div>');
+  }
+
+  function conv(c) {
+    var avatar = c.otro_avatar
+      ? '<img class="w-14 h-14 rounded-full object-cover" src="' + esc(c.otro_avatar) + '" alt="' + esc(c.otro_nombre) + '">'
+      : '<div class="w-14 h-14 rounded-full bg-primary text-white flex items-center justify-center text-lg font-bold">' + esc((c.otro_nombre || '?').charAt(0).toUpperCase()) + '</div>';
+    return '' +
+      '<div class="bg-white p-4 rounded-xl border border-slate-100 hover:border-primary/30 transition-colors shadow-sm cursor-pointer group">' +
+        '<div class="flex gap-4">' +
+          '<div class="relative shrink-0">' + avatar +
+            '<div class="absolute bottom-0 right-0 w-4 h-4 bg-primary border-2 border-white rounded-full"></div>' +
+          '</div>' +
+          '<div class="flex-1 min-w-0">' +
+            '<div class="flex justify-between items-start mb-1">' +
+              '<h3 class="font-bold text-slate-900 truncate">' + esc(c.otro_nombre) + '</h3>' +
+              '<span class="text-[11px] text-slate-400 whitespace-nowrap">' + relTime(c.ultimo_fecha) + '</span>' +
+            '</div>' +
+            '<p class="text-sm text-slate-600 line-clamp-1 group-hover:text-slate-900 transition-colors font-medium">' + esc(c.ultimo_mensaje || '') + '</p>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+  }
+
+  if (!token) { loginCta(); return; }
+  fetch('/api/mensajes', { headers: { 'Authorization': 'Bearer ' + token } })
+    .then(function (r) {
+      if (r.status === 401) { loginCta(); return null; }
+      return r.json().catch(function () { return []; });
+    })
+    .then(function (msgs) {
+      if (msgs === null) return;
+      if (!msgs || !msgs.length) { emptyState(); return; }
+      showState(msgs.map(conv).join(''));
+    })
+    .catch(function () {});
+})();
+  </script>
   <script src="/nav.js"></script>
 </body></html>
