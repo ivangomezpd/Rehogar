@@ -56,11 +56,11 @@
 <div class="p-4">
 <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-4">
 <div class="flex items-center justify-between mb-4">
-<a href="/screens-static/mis_visitas/code.html" class="cursor-pointer"><button class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+<a id="cal-prev" href="/screens-static/mis_visitas/code.html" class="cursor-pointer"><button class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
 <span class="material-symbols-outlined">chevron_left</span>
 </button></a>
-<h2 class="text-base font-bold">Octubre 2023</h2>
-<a href="/screens-static/mis_visitas/code.html" class="cursor-pointer"><button class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+<h2 id="calendar-head" class="text-base font-bold">Octubre 2023</h2>
+<a id="cal-next" href="/screens-static/mis_visitas/code.html" class="cursor-pointer"><button class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
 <span class="material-symbols-outlined">chevron_right</span>
 </button></a>
 </div>
@@ -73,7 +73,7 @@
 <div class="text-xs font-bold text-slate-400 py-2">SA</div>
 <div class="text-xs font-bold text-slate-400 py-2">DO</div>
 </div>
-<div class="grid grid-cols-7 gap-1">
+<div id="calendar-grid" class="grid grid-cols-7 gap-1">
 <!-- Placeholder days for Oct 2023 starting Sunday -->
 <div class="h-10"></div><div class="h-10"></div><div class="h-10"></div><div class="h-10"></div><div class="h-10"></div><div class="h-10"></div>
 <a href="/screens-static/mis_visitas/code.html" class="cursor-pointer"><button class="h-10 w-full flex flex-col items-center justify-center rounded-lg hover:bg-slate-50 relative">
@@ -136,7 +136,7 @@
 <h3 class="text-lg font-bold">Eventos de hoy</h3>
 <span class="text-sm font-medium text-slate-500">Miércoles, 4 Oct</span>
 </div>
-<div class="space-y-3">
+<div id="agenda-list" class="space-y-3">
 <!-- Event Card 1: Kids -->
 <div class="bg-white dark:bg-slate-900 p-4 rounded-xl border-l-4 border-primary shadow-sm flex items-start justify-between">
 <div class="flex items-start gap-3">
@@ -214,5 +214,92 @@
 </a>
 </div>
 </nav>
+  <script>
+(function () {
+  var token = localStorage.getItem('rehogar_token');
+  if (!token) return;
+  var head = document.getElementById('calendar-head');
+  var grid = document.getElementById('calendar-grid');
+  var agenda = document.getElementById('agenda-list');
+  var prevBtn = document.getElementById('cal-prev');
+  var nextBtn = document.getElementById('cal-next');
+  var hoySub = document.querySelector('.text-sm.font-medium.text-slate-500');
+  if (!head || !grid || !agenda) return;
+  var meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  var visitasPorDia = {};
+  var mes = new Date();
+  mes.setDate(1);
+  var hoy = new Date();
+  function keyFecha(d) {
+    var y = d.getFullYear(), m = ('0' + (d.getMonth() + 1)).slice(-2), dd = ('0' + d.getDate()).slice(-2);
+    return y + '-' + m + '-' + dd;
+  }
+  function renderMes() {
+    head.textContent = meses[mes.getMonth()] + ' ' + mes.getFullYear();
+    var primero = new Date(mes.getFullYear(), mes.getMonth(), 1);
+    var offset = (primero.getDay() + 6) % 7;
+    var diasEnMes = new Date(mes.getFullYear(), mes.getMonth() + 1, 0).getDate();
+    var html = '';
+    for (var i = 0; i < offset; i++) html += '<div class="h-10"></div>';
+    for (var d = 1; d <= diasEnMes; d++) {
+      var fecha = new Date(mes.getFullYear(), mes.getMonth(), d);
+      var esHoy = keyFecha(fecha) === keyFecha(hoy);
+      var visitas = visitasPorDia[keyFecha(fecha)] || [];
+      var dots = visitas.slice(0, 3).map(function () { return '<div class="size-1 rounded-full bg-primary"></div>'; }).join('');
+      html += '<a href="/screens-static/mis_visitas/code.html" class="cursor-pointer"><button class="h-10 w-full flex flex-col items-center justify-center rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 relative' + (esHoy ? ' bg-primary/20 border border-primary' : '') + '">' +
+        '<span class="text-sm ' + (esHoy ? 'font-bold text-primary' : 'font-medium') + '">' + d + '</span>' +
+        (dots ? '<div class="flex gap-0.5 mt-0.5">' + dots + '</div>' : '') +
+        '</button></a>';
+    }
+    grid.innerHTML = html;
+  }
+  function fmtHora(h) {
+    if (!h) return '';
+    var p = String(h).split(':');
+    return (p[0] || '') + ':' + (p[1] || '00');
+  }
+  function renderAgenda() {
+    var hk = keyFecha(hoy);
+    if (hoySub) {
+      hoySub.textContent = hoy.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'short' });
+    }
+    var v = visitasPorDia[hk] || [];
+    if (!v.length) {
+      agenda.innerHTML = '<div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">' +
+        '<div class="flex items-center gap-3">' +
+        '<div class="bg-slate-100 dark:bg-slate-800 p-2 rounded-lg"><span class="material-symbols-outlined text-slate-500">event_available</span></div>' +
+        '<div><h4 class="font-bold text-slate-900 dark:text-white">Sin visitas hoy</h4>' +
+        '<p class="text-sm text-slate-500">No tienes visitas programadas para hoy</p></div></div></div>';
+      return;
+    }
+    agenda.innerHTML = v.map(function (vis) {
+      var color = vis.estado === 'cancelada' ? 'border-slate-400 opacity-60' : 'border-primary';
+      return '<div class="bg-white dark:bg-slate-900 p-4 rounded-xl border-l-4 ' + color + ' shadow-sm flex items-start justify-between">' +
+        '<div class="flex items-start gap-3">' +
+        '<div class="bg-primary/10 p-2 rounded-lg"><span class="material-symbols-outlined text-primary">home</span></div>' +
+        '<div><h4 class="font-bold text-slate-900 dark:text-white">Visita: ' + (vis.casa_titulo || 'Casa') + '</h4>' +
+        '<p class="text-sm text-slate-500">' + fmtHora(vis.hora) + ' · ' + (vis.estado || '') + '</p></div></div>' +
+        '<a href="/screens-static/mis_visitas/code.html" class="cursor-pointer"><button class="text-slate-400"><span class="material-symbols-outlined">more_vert</span></button></a></div>';
+    }).join('');
+  }
+  fetch('/api/visitas', { headers: { 'Authorization': 'Bearer ' + token } })
+    .then(function (r) {
+      if (r.status === 401) { localStorage.removeItem('rehogar_token'); window.location.href = '/screens-static/login/code.html'; throw new Error('unauth'); }
+      return r.json();
+    })
+    .then(function (list) {
+      list.forEach(function (vis) {
+        if (!vis.fecha) return;
+        var k = vis.fecha.slice(0, 10);
+        (visitasPorDia[k] = visitasPorDia[k] || []).push(vis);
+      });
+      renderMes();
+      renderAgenda();
+    })
+    .catch(function () {});
+  prevBtn.addEventListener('click', function () { mes.setMonth(mes.getMonth() - 1); renderMes(); });
+  nextBtn.addEventListener('click', function () { mes.setMonth(mes.getMonth() + 1); renderMes(); });
+})();
+  </script>
   <script src="/nav.js"></script>
 </body></html>
