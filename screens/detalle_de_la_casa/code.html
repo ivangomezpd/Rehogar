@@ -158,7 +158,7 @@
 </div>
 </div>
 <a href="/screens-static/mis_visitas/code.html" class="cursor-pointer"><button class="border-2 border-primary text-primary font-bold py-3.5 px-6 rounded-2xl transition-all flex items-center gap-2 active:scale-95 hover:bg-primary/5"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>Visita</button></a>
-<a href="/screens-static/mensajes_y_afinidad/code.html" class="cursor-pointer">
+<a id="btn-contactar" href="/screens-static/mensajes_y_afinidad/code.html" class="cursor-pointer">
     <button class="bg-primary hover:bg-primary/90 text-white font-bold py-3.5 px-10 rounded-2xl shadow-lg shadow-primary/20 transition-all flex items-center gap-2 active:scale-95">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
         Contactar
@@ -178,6 +178,8 @@
     .then(function (r) { return r.json().catch(function () { return {}; }); })
     .then(function (c) {
       if (!c || !c.id) return;
+      window.__casaAnfitrion = c.anfitrion_id;
+      window.__casaTitulo = c.titulo;
       var titulo = document.getElementById('casa-titulo');
       var ciudad = document.getElementById('casa-ciudad');
       var m2 = document.getElementById('casa-m2');
@@ -207,6 +209,24 @@
       }
     })
     .catch(function () {});
+  var contactar = document.getElementById('btn-contactar');
+  if (contactar) contactar.addEventListener('click', function (e) {
+    var token = localStorage.getItem('rehogar_token');
+    if (!token) { window.location.href = '/screens-static/login/code.html'; return; }
+    var anfitrion = window.__casaAnfitrion;
+    if (!anfitrion) return;
+    e.preventDefault();
+    var titulo = window.__casaTitulo || 'tu casa';
+    fetch('/api/mensajes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ receptor_id: anfitrion, contenido: 'Hola, me interesa ' + titulo })
+    }).then(function () {
+      window.location.href = '/screens-static/mensajes_y_afinidad/code.html';
+    }).catch(function () {
+      window.location.href = '/screens-static/mensajes_y_afinidad/code.html';
+    });
+  });
 })();
   </script>
   <script src="/nav.js"></script>
