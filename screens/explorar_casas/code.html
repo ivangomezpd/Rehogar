@@ -47,10 +47,10 @@
 <!-- Header -->
 <header class="flex items-center bg-white px-4 pb-2 pt-6 justify-between sticky top-0 z-50">
 <a href="/screens-static/perfil_de_usuario_con_rol_diferenciado/code.html" class="cursor-pointer"><div class="flex size-10 shrink-0 items-center overflow-hidden rounded-full border-2 border-primary/20">
-<img alt="Profile picture" class="w-full h-full object-cover" data-alt="Close up portrait of a smiling middle-aged man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBStGgYncbu_LN-8TTrfhzMnHPxdrH077UmU-6kCcgaqxN8Js5pWpIK2_M6S1P6rUb5ypLXLuQJXfrByBgmgxy7TwaESCA4weI1oiVlkBJ6mWG8HbBPctBbzE2ZjaLWME1QIqEtdOQZg_JJrnimwtYpaNNiDNRgHCo_ZA66YutOrpT2D_Zb0g6tHRjOxBeNxIH2mXtj_iKVe0GD4_YB8TDoS9qPd6EIB0oY-L8RpbIqa-24vytvc2SaqCg6_IIeKZzwFVGcX-fy_4">
+<img id="profile-avatar" alt="Profile picture" class="w-full h-full object-cover" data-alt="Close up portrait of a smiling middle-aged man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBStGgYncbu_LN-8TTrfhzMnHPxdrH077UmU-6kCcgaqxN8Js5pWpIK2_M6S1P6rUb5ypLXLuQJXfrByBgmgxy7TwaESCA4weI1oiVlkBJ6mWG8HbBPctBbzE2ZjaLWME1QIqEtdOQZg_JJrnimwtYpaNNiDNRgHCo_ZA66YutOrpT2D_Zb0g6tHRjOxBeNxIH2mXtj_iKVe0GD4_YB8TDoS9qPd6EIB0oY-L8RpbIqa-24vytvc2SaqCg6_IIeKZzwFVGcX-fy_4">
 </div></a>
 <div class="flex-1 px-3">
-<p class="text-xs text-[#618972] font-medium uppercase tracking-wider">Hola, Carlos</p>
+<p id="greeting" class="text-xs text-[#618972] font-medium uppercase tracking-wider">Hola, Carlos</p>
 <h2 class="text-[#111814] text-lg font-bold leading-tight tracking-tight">Tu nuevo comienzo</h2>
 </div>
 <div class="flex w-10 items-center justify-end">
@@ -102,7 +102,7 @@
 <a href="/screens-static/mapa_interactivo_de_casas/code.html" class="cursor-pointer"><button class="text-primary text-sm font-bold hover:underline">Ver mapa</button></a>
 </div>
 <!-- List of Cards -->
-<div class="flex flex-col gap-6 px-4 py-3">
+<div id="casas-container" class="flex flex-col gap-6 px-4 py-3">
 <!-- Card 1 -->
 <a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer"></a><a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer"></a><a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer"><div class="group relative flex flex-col gap-3 rounded-2xl bg-white border border-[#f0f4f2] p-2 shadow-sm hover:shadow-md transition-shadow"><a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer"></a><a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer">
 </a><div class="relative w-full aspect-[4/3] overflow-hidden rounded-xl"><a href="/screens-static/detalle_de_la_casa/code.html" class="block h-full cursor-pointer">
@@ -213,5 +213,68 @@
 </div>
 </nav>
 </div>
+  <script>
+(function () {
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function renderCards(casas) {
+    var container = document.getElementById('casas-container');
+    if (!container || !casas.length) return;
+    container.innerHTML = casas.map(function (c) {
+      var foto = (c.fotos && c.fotos.length) ? c.fotos[0] : null;
+      var img = foto
+        ? '<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="' + esc(foto) + '" alt="' + esc(c.titulo) + '">'
+        : '<div class="w-full h-full bg-gradient-to-br from-primary/25 via-background-light to-background-light flex items-center justify-center"><span class="material-symbols-outlined text-[64px] text-primary">home</span></div>';
+      var host = c.anfitrion_nombre ? c.anfitrion_nombre : 'Familia anfitriona';
+      var avatar = c.anfitrion_avatar
+        ? '<img class="size-8 rounded-full border-2 border-white object-cover" src="' + esc(c.anfitrion_avatar) + '" alt="Host">'
+        : '<div class="size-8 rounded-full border-2 border-white bg-primary text-white flex items-center justify-center text-xs font-bold">' + esc(host.charAt(0).toUpperCase()) + '</div>';
+      var badge = c.anfitrion_verificado ? '<span class="flex items-center gap-1 text-primary"><span class="material-symbols-outlined text-[16px]">check_circle</span> Verificado</span>' : '';
+      var genero = (c.genero_ok && c.genero_ok !== 'mixto')
+        ? '<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">' + (c.genero_ok === 'mujeres' ? 'woman' : 'person') + '</span> Solo ' + (c.genero_ok === 'mujeres' ? 'Mujeres' : 'Hombres') + '</span>'
+        : '';
+      return '' +
+        '<a href="/screens-static/detalle_de_la_casa/code.html?id=' + c.id + '" class="block h-full cursor-pointer">' +
+          '<div class="group relative flex flex-col gap-3 rounded-2xl bg-white border border-[#f0f4f2] p-2 shadow-sm hover:shadow-md transition-shadow">' +
+            '<div class="relative w-full aspect-[4/3] overflow-hidden rounded-xl">' + img +
+              '<div class="absolute top-3 right-3 px-3 py-1.5 rounded-lg bg-white/90 backdrop-blur-sm shadow-sm"><p class="text-sm font-bold text-primary">€' + esc(c.precio) + '<span class="text-[10px] text-[#618972] font-medium">/mes</span></p></div>' +
+              '<div class="absolute bottom-3 left-3 flex items-center gap-2 p-1.5 rounded-full bg-white/95 backdrop-blur-sm shadow-lg border border-white/50">' +
+                '<div class="flex -space-x-2">' + avatar + '</div>' +
+                '<p class="pr-2 text-[11px] font-bold text-[#111814]">' + esc(host) + '</p>' +
+              '</div>' +
+            '</div>' +
+            '<div class="px-2 pb-2">' +
+              '<div class="flex items-center gap-1 text-[#618972] mb-1"><span class="material-symbols-outlined text-[14px]">location_on</span><p class="text-xs font-semibold uppercase tracking-wide">' + esc(c.ciudad) + '</p></div>' +
+              '<h3 class="text-lg font-bold text-[#111814] leading-snug">' + esc(c.titulo) + '</h3>' +
+              '<div class="mt-2 flex gap-3 text-xs font-medium text-[#618972]">' +
+                '<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">bed</span> ' + esc(c.habitaciones) + ' Libres</span>' +
+                genero + badge +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</a>';
+    }).join('');
+  }
+  fetch('/api/casas')
+    .then(function (r) { return r.json().catch(function () { return {}; }); })
+    .then(function (data) { renderCards((data && data.casas) || []); })
+    .catch(function () {});
+  var token = localStorage.getItem('rehogar_token');
+  if (token) {
+    fetch('/api/auth/me', { headers: { 'Authorization': 'Bearer ' + token } })
+      .then(function (r) { return r.json().catch(function () { return {}; }); })
+      .then(function (u) {
+        if (u && u.nombre) {
+          var g = document.getElementById('greeting');
+          var avatar = document.getElementById('profile-avatar');
+          if (g) g.textContent = 'Hola, ' + u.nombre;
+          if (avatar && u.avatar) avatar.src = u.avatar;
+        }
+      })
+      .catch(function () {});
+  }
+})();
+  </script>
   <script src="/nav.js"></script>
 </body></html>
