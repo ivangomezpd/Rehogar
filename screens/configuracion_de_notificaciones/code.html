@@ -195,5 +195,45 @@
 </a>
 </nav>
 </div>
+  <script>
+(function () {
+  var keys = ['mensajes', 'matches', 'favoritos', 'visitas', 'resumen', 'seguridad', 'sms'];
+  var labels = document.querySelectorAll('section label');
+  function load(key) {
+    var saved;
+    try { saved = JSON.parse(localStorage.getItem(key) || '{}'); } catch (e) { saved = {}; }
+    labels.forEach(function (l, i) {
+      var inp = l.querySelector('input[type="checkbox"]');
+      if (inp && saved[keys[i]] !== undefined) inp.checked = saved[keys[i]];
+    });
+  }
+  function attach(key) {
+    labels.forEach(function (l, i) {
+      var inp = l.querySelector('input[type="checkbox"]');
+      if (!inp) return;
+      inp.addEventListener('change', function () {
+        var saved = {};
+        try { saved = JSON.parse(localStorage.getItem(key) || '{}'); } catch (e) {}
+        saved[keys[i]] = inp.checked;
+        localStorage.setItem(key, JSON.stringify(saved));
+      });
+    });
+  }
+  load('rehogar_notif');
+  attach('rehogar_notif');
+  var token = localStorage.getItem('rehogar_token');
+  if (token) {
+    fetch('/api/auth/me', { headers: { 'Authorization': 'Bearer ' + token } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (u) {
+        if (!u || !u.id) return;
+        var k = 'rehogar_notif_' + u.id;
+        load(k);
+        attach(k);
+      })
+      .catch(function () {});
+  }
+})();
+  </script>
   <script src="/nav.js"></script>
 </body></html>
