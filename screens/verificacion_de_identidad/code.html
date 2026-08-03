@@ -56,10 +56,10 @@
 <div class="flex flex-col gap-3 p-4 bg-white dark:bg-background-dark">
 <div class="flex gap-6 justify-between items-center">
 <p class="text-[#111814] dark:text-white text-sm font-semibold leading-normal">Progreso de seguridad</p>
-<span class="bg-primary/10 text-primary text-xs font-bold px-2 py-1 rounded-full">Paso 1 de 2</span>
+<span id="prog-label" class="bg-primary/10 text-primary text-xs font-bold px-2 py-1 rounded-full">Paso 1 de 2</span>
 </div>
 <div class="h-2 w-full rounded-full bg-background-light dark:bg-white/10 overflow-hidden">
-<div class="h-full rounded-full bg-primary transition-all duration-500" style="width: 50%;"></div>
+<div id="prog-bar" class="h-full rounded-full bg-primary transition-all duration-500" style="width: 50%;"></div>
 </div>
 </div>
 <!-- Hero Section & Context -->
@@ -102,18 +102,18 @@
 </div>
 </div>
 <!-- Step 2 Card -->
-<div class="group relative flex flex-col gap-4 rounded-xl border border-background-light dark:border-white/10 bg-white dark:bg-white/5 p-4 opacity-70 grayscale transition-all">
+<div id="step2" class="group relative flex flex-col gap-4 rounded-xl border border-background-light dark:border-white/10 bg-white dark:bg-white/5 p-4 opacity-70 grayscale transition-all">
 <div class="flex items-center justify-between">
 <div class="flex items-center gap-3">
 <div class="flex h-10 w-10 items-center justify-center rounded-full bg-background-light dark:bg-white/10 text-[#111814]/40 dark:text-white/40">
 <span class="material-symbols-outlined">face</span>
 </div>
 <div>
-<p class="text-sm font-bold text-[#111814] dark:text-white">Selfie de Seguridad</p>
+<p id="step2-title" class="text-sm font-bold text-[#111814] dark:text-white">Selfie de Seguridad</p>
 <p class="text-xs text-[#111814]/60 dark:text-white/50">Validación biométrica en vivo</p>
 </div>
 </div>
-<span class="material-symbols-outlined text-background-light dark:text-white/10">lock</span>
+<span id="step2-icon" class="material-symbols-outlined text-background-light dark:text-white/10">lock</span>
 </div>
 </div>
 <!-- Trust Footer Section -->
@@ -134,10 +134,32 @@
     <span class="text-xs font-normal">Explorar casas</span>
 </button></a>
 <a href="/screens-static/publicar_casa_con_custodia/code.html" class="flex-1 cursor-pointer"><button class="w-full bg-background-light dark:bg-white/10 border border-primary/30 hover:border-primary text-[#111814] dark:text-white font-bold py-3 rounded-xl flex flex-col items-center justify-center transition-transform active:scale-[0.98]">
-    <span class="text-sm">Anfitri�n</span>
+    <span class="text-sm">Anfitri�n</span>
     <span class="text-xs font-normal">Publicar casa</span>
 </button></a>
 </div>
 </div>
+  <script>
+(function () {
+  var token = localStorage.getItem('rehogar_token');
+  if (!token) return;
+  fetch('/api/auth/me', { headers: { 'Authorization': 'Bearer ' + token } })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (u) {
+      if (!u || !u.verificado) return;
+      var lbl = document.getElementById('prog-label');
+      if (lbl) lbl.textContent = 'Verificado';
+      var bar = document.getElementById('prog-bar');
+      if (bar) bar.style.width = '100%';
+      var s2 = document.getElementById('step2');
+      if (s2) { s2.classList.remove('opacity-70', 'grayscale'); s2.classList.add('border-primary'); }
+      var t2 = document.getElementById('step2-title');
+      if (t2) t2.textContent = 'Selfie de Seguridad · Verificada';
+      var ic = document.getElementById('step2-icon');
+      if (ic) { ic.textContent = 'check_circle'; ic.classList.remove('text-background-light', 'dark:text-white/10'); ic.classList.add('text-primary'); }
+    })
+    .catch(function () {});
+})();
+  </script>
   <script src="/nav.js"></script>
 </body></html>
