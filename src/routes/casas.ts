@@ -7,7 +7,7 @@ import { validate, schemas } from "../utils/validate";
 const router = Router();
 
 router.get("/", (req: Request, res: Response) => {
-  const { ciudad, tipo, genero_ok, mascotas, precio_min, precio_max, habitaciones_min, busqueda, pagina = "1", limite = "20" } = req.query;
+  const { ciudad, tipo, genero_ok, mascotas, precio_min, precio_max, habitaciones_min, custodia_ok, busqueda, pagina = "1", limite = "20" } = req.query;
   const conditions: string[] = ["c.activa = 1"];
   const params: any[] = [];
   if (ciudad)        { conditions.push("c.ciudad LIKE ?");     params.push(`%${ciudad}%`); }
@@ -17,6 +17,7 @@ router.get("/", (req: Request, res: Response) => {
   if (precio_min)    { conditions.push("c.precio >= ?");        params.push(Number(precio_min)); }
   if (precio_max)    { conditions.push("c.precio <= ?");        params.push(Number(precio_max)); }
   if (habitaciones_min){ conditions.push("c.habitaciones >= ?");params.push(Number(habitaciones_min)); }
+  if (custodia_ok)   { conditions.push("c.custodia_ok = ?");    params.push(custodia_ok); }
   if (busqueda)      { conditions.push("(c.titulo LIKE ? OR c.descripcion LIKE ?)"); params.push(`%${busqueda}%`,`%${busqueda}%`); }
   const where = conditions.join(" AND ");
   const offset = (Number(pagina) - 1) * Number(limite);
@@ -36,8 +37,8 @@ router.get("/:id", (req: Request, res: Response) => {
 
 router.post("/", authMiddleware, validate(schemas.casa), (req: AuthRequest, res: Response) => {
   if (req.user!.rol === "buscador") return res.status(403).json({ error: "Solo los anfitriones pueden publicar casas" });
-  const { titulo, ciudad, precio, habitaciones = 1, banos = 1, tipo, genero_ok, mascotas = false, descripcion, amenities } = req.body;
-  const result = db.prepare("INSERT INTO casas (anfitrion_id,titulo,descripcion,ciudad,precio,habitaciones,banos,tipo,genero_ok,mascotas,amenities) VALUES (?,?,?,?,?,?,?,?,?,?,?)").run(req.user!.id, titulo, descripcion||null, ciudad, precio, habitaciones, banos, tipo||null, genero_ok||null, mascotas?1:0, amenities?JSON.stringify(amenities):null);
+  const { titulo, ciudad, precio, habitaciones = 1, banos = 1, tipo, genero_ok, mascotas = false, descripcion, amenities, fotos, custodia_ok } = req.body;
+  const result = db.prepare("INSERT INTO casas (anfitrion_id,titulo,descripcion,ciudad,precio,habitaciones,banos,tipo,genero_ok,mascotas,amenities,fotos,custodia_ok) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)").run(req.user!.id, titulo, descripcion||null, ciudad, precio, habitaciones, banos, tipo||null, genero_ok||null, mascotas?1:0, amenities?JSON.stringify(amenities):null, fotos?JSON.stringify(fotos):null, custodia_ok||null);
   return res.status(201).json({ id: result.lastInsertRowid, ok: true });
 });
 

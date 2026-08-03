@@ -267,7 +267,7 @@
     }).join('');
   }
 
-  var estado = { ciudad: '', genero: null, mascotas: null, tipo: null, precio_min: null, precio_max: null, habitaciones_min: null };
+  var estado = { ciudad: '', genero: null, mascotas: null, tipo: null, precio_min: null, precio_max: null, habitaciones_min: null, custodia_ok: null };
 
   function loadCasas() {
     var params = [];
@@ -278,6 +278,7 @@
     if (estado.precio_min !== null) params.push('precio_min=' + estado.precio_min);
     if (estado.precio_max !== null) params.push('precio_max=' + estado.precio_max);
     if (estado.habitaciones_min !== null) params.push('habitaciones_min=' + estado.habitaciones_min);
+    if (estado.custodia_ok) params.push('custodia_ok=' + encodeURIComponent(estado.custodia_ok));
     var qs = params.length ? '?' + params.join('&') : '';
     var filtrado = params.length > 0;
     fetch('/api/casas' + qs)
@@ -343,6 +344,10 @@
       if (saved.coexistence) {
         if (saved.coexistence.gender && saved.coexistence.gender !== 'mixto') estado.genero = saved.coexistence.gender;
         if (saved.coexistence.petsAllowed) estado.mascotas = 'true';
+      }
+      if (saved.family) {
+        if (saved.family.childrenCount > 0) estado.habitaciones_min = Math.max(estado.habitaciones_min || 0, 2);
+        if (saved.family.custody && saved.family.custody !== 'sin_hijos') estado.custodia_ok = saved.family.custody;
       }
       if (searchInput && estado.ciudad) searchInput.value = estado.ciudad;
       setChip('qf-hombres', estado.genero === 'hombres');

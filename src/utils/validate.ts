@@ -28,7 +28,9 @@ export const schemas = {
     genero_ok: z.string().optional(),
     mascotas: z.boolean().optional(),
     descripcion: z.string().max(2000).optional(),
-    amenities: z.array(z.string()).optional(),
+    amenities: z.array(z.string()).max(30).optional(),
+    fotos: z.array(z.string().url('URL de foto inválida')).max(10).optional(),
+    custodia_ok: z.string().max(50).optional(),
   }),
 
   // Enviar mensaje
