@@ -42,8 +42,9 @@ app.use("/nav.js", express.static(path.join(__dirname,"..","public","nav.js")));
 app.use("/uploads", express.static(path.join(__dirname,"..","public","uploads")));
 app.use(express.static(path.join(__dirname,"..","public")));
 
-const screensDir = path.join(__dirname,"..","Rehogar","screens");
-app.use("/screens-static", express.static(fs.existsSync(screensDir) ? screensDir : path.join(__dirname,"..","screens")));
+const screensDir = path.join(__dirname,"..","screens");
+app.use("/screens", express.static(screensDir));
+app.use("/screens-static", express.static(screensDir));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/casas", casasRoutes);
