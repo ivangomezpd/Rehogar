@@ -67,7 +67,7 @@
 <div class="text-[#618972] flex items-center justify-center pl-4">
 <a href="/screens-static/busqueda_avanzada_con_custodia/code.html" class="cursor-pointer"><span class="material-symbols-outlined text-[22px]">search</span></a>
 </div>
-<input class="form-input flex w-full min-w-0 flex-1 border-none bg-transparent focus:ring-0 h-full placeholder:text-[#618972] px-3 text-base font-medium" placeholder="¿A qué ciudad te mudas?" value="">
+<input id="search-input" class="form-input flex w-full min-w-0 flex-1 border-none bg-transparent focus:ring-0 h-full placeholder:text-[#618972] px-3 text-base font-medium" placeholder="¿A qué ciudad te mudas?" value="">
 <div class="flex items-center pr-3">
 <a href="/screens-static/busqueda_avanzada_con_custodia/code.html" class="block w-full cursor-pointer"><button class="p-2 rounded-lg bg-primary text-white shadow-lg shadow-primary/20">
 <span class="material-symbols-outlined text-[20px]">tune</span>
@@ -78,19 +78,19 @@
 </div>
 <!-- Quick Filters -->
 <div class="flex gap-3 px-4 pb-4 overflow-x-auto hide-scrollbar">
-<a href="/screens-static/busqueda_avanzada_con_custodia/code.html" class="cursor-pointer"><button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary text-white px-5 shadow-md shadow-primary/20 transition-transform active:scale-95">
+<a id="qf-hombres" href="/screens-static/busqueda_avanzada_con_custodia/code.html" class="cursor-pointer"><button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary text-white px-5 shadow-md shadow-primary/20 transition-transform active:scale-95">
 <span class="material-symbols-outlined text-[18px]">person</span>
 <p class="text-sm font-semibold">Solo hombres</p>
 </button></a>
-<a href="/screens-static/busqueda_avanzada_con_custodia/code.html" class="cursor-pointer"><button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-[#e0e7e3] text-[#111814] px-5 hover:bg-[#f0f4f2] transition-colors">
+<a id="qf-mujeres" href="/screens-static/busqueda_avanzada_con_custodia/code.html" class="cursor-pointer"><button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-[#e0e7e3] text-[#111814] px-5 hover:bg-[#f0f4f2] transition-colors">
 <span class="material-symbols-outlined text-[18px]">woman</span>
 <p class="text-sm font-medium">Solo mujeres</p>
 </button></a>
-<a href="/screens-static/busqueda_avanzada_con_custodia/code.html" class="cursor-pointer"><button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-[#e0e7e3] text-[#111814] px-5 hover:bg-[#f0f4f2] transition-colors">
+<a id="qf-mascotas-si" href="/screens-static/busqueda_avanzada_con_custodia/code.html" class="cursor-pointer"><button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-[#e0e7e3] text-[#111814] px-5 hover:bg-[#f0f4f2] transition-colors">
 <span class="material-symbols-outlined text-[18px]">pets</span>
 <p class="text-sm font-medium">Mascotas: Sí</p>
 </button></a>
-<a href="/screens-static/busqueda_avanzada_con_custodia/code.html" class="cursor-pointer"><button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-[#e0e7e3] text-[#111814] px-5 hover:bg-[#f0f4f2] transition-colors">
+<a id="qf-mascotas-no" href="/screens-static/busqueda_avanzada_con_custodia/code.html" class="cursor-pointer"><button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-[#e0e7e3] text-[#111814] px-5 hover:bg-[#f0f4f2] transition-colors">
 <span class="material-symbols-outlined text-[18px]">block</span>
 <p class="text-sm font-medium">No mascotas</p>
 </button></a>
@@ -218,9 +218,19 @@
   function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
-  function renderCards(casas) {
-    var container = document.getElementById('casas-container');
-    if (!container || !casas.length) return;
+  var container = document.getElementById('casas-container');
+  var emptyBlock = '<div class="flex flex-col items-center justify-center text-center py-16 px-6 gap-3">' +
+    '<span class="material-symbols-outlined text-[56px] text-[#618972]">search_off</span>' +
+    '<p class="text-lg font-bold text-[#111814]">No se encontraron casas</p>' +
+    '<p class="text-sm text-[#618972]">Prueba a cambiar el buscador o los filtros.</p>' +
+  '</div>';
+
+  function renderCards(casas, forceEmpty) {
+    if (!container) return;
+    if (!casas.length) {
+      if (forceEmpty) container.innerHTML = emptyBlock;
+      return;
+    }
     container.innerHTML = casas.map(function (c) {
       var foto = (c.fotos && c.fotos.length) ? c.fotos[0] : null;
       var img = foto
@@ -256,10 +266,64 @@
         '</a>';
     }).join('');
   }
-  fetch('/api/casas')
-    .then(function (r) { return r.json().catch(function () { return {}; }); })
-    .then(function (data) { renderCards((data && data.casas) || []); })
-    .catch(function () {});
+
+  var estado = { busqueda: '', genero: null, mascotas: null };
+
+  function loadCasas() {
+    var params = [];
+    if (estado.busqueda) params.push('busqueda=' + encodeURIComponent(estado.busqueda));
+    if (estado.genero) params.push('genero_ok=' + estado.genero);
+    if (estado.mascotas !== null) params.push('mascotas=' + estado.mascotas);
+    var qs = params.length ? '?' + params.join('&') : '';
+    var filtrado = params.length > 0;
+    fetch('/api/casas' + qs)
+      .then(function (r) { return r.json().catch(function () { return {}; }); })
+      .then(function (data) { renderCards((data && data.casas) || [], filtrado); })
+      .catch(function () {});
+  }
+
+  function setChip(id, on) {
+    var a = document.getElementById(id);
+    if (!a) return;
+    var btn = a.querySelector('button');
+    if (!btn) return;
+    var active = 'flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary text-white px-5 shadow-md shadow-primary/20 transition-transform active:scale-95';
+    var inactive = 'flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-[#e0e7e3] text-[#111814] px-5 hover:bg-[#f0f4f2] transition-colors';
+    btn.className = on ? active : inactive;
+  }
+
+  function bindChip(id, key, value) {
+    var a = document.getElementById(id);
+    if (!a) return;
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      var prev = estado[key];
+      if (prev === value) { estado[key] = null; setChip(id, false); }
+      else {
+        if (key === 'genero') { estado.genero = value; setChip('qf-hombres', value === 'hombres'); setChip('qf-mujeres', value === 'mujeres'); }
+        if (key === 'mascotas') { estado.mascotas = value; setChip('qf-mascotas-si', value === 'true'); setChip('qf-mascotas-no', value === 'false'); }
+      }
+      loadCasas();
+    });
+  }
+
+  var searchInput = document.getElementById('search-input');
+  if (searchInput) {
+    var timer = null;
+    searchInput.addEventListener('input', function () {
+      clearTimeout(timer);
+      var val = this.value.trim();
+      timer = setTimeout(function () { estado.busqueda = val; loadCasas(); }, 400);
+    });
+  }
+
+  bindChip('qf-hombres', 'genero', 'hombres');
+  bindChip('qf-mujeres', 'genero', 'mujeres');
+  bindChip('qf-mascotas-si', 'mascotas', 'true');
+  bindChip('qf-mascotas-no', 'mascotas', 'false');
+
+  loadCasas();
+
   var token = localStorage.getItem('rehogar_token');
   if (token) {
     fetch('/api/auth/me', { headers: { 'Authorization': 'Bearer ' + token } })
