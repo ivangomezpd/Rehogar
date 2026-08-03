@@ -61,7 +61,7 @@
 <!-- Profile Hero Section -->
 <div class="flex p-6 flex-col items-center border-b border-gray-50">
 <div class="relative">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full min-h-32 w-32 border-4 border-primary/10" data-alt="Retrato de hombre de mediana edad sonriendo amablemente" style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuCV4jiQmvZ5ucB_FsxDkTsIXpvxSnqbJIwzwxlJkrGqe_uh_8_osgOO0dR5kGWD6_hbhKOqnjSGWJnUO5CsmyPl1l9oXFQeuuKAvxOOWyl1yGzZD1v9lr3kQezyO1VxtQthYwU5w5bdu_pCkt-97RGeGZt43sdngUsBGo4jEBw6jQ_s34SqyHFCGm1btnkk4PtA9vONgpqBMFsOcVadxHYMkyrrqYxRNORakz0V1jGhvQYby8kCNm8vd7Q0Rj-QZdggoIRw-JMNbCA&quot;);">
+<div id="profile-avatar" class="bg-center bg-no-repeat aspect-square bg-cover rounded-full min-h-32 w-32 border-4 border-primary/10" data-alt="Retrato de hombre de mediana edad sonriendo amablemente" style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuCV4jiQmvZ5ucB_FsxDkTsIXpvxSnqbJIwzwxlJkrGqe_uh_8_osgOO0dR5kGWD6_hbhKOqnjSGWJnUO5CsmyPl1l9oXFQeuuKAvxOOWyl1yGzZD1v9lr3kQezyO1VxtQthYwU5w5bdu_pCkt-97RGeGZt43sdngUsBGo4jEBw6jQ_s34SqyHFCGm1btnkk4PtA9vONgpqBMFsOcVadxHYMkyrrqYxRNORakz0V1jGhvQYby8kCNm8vd7Q0Rj-QZdggoIRw-JMNbCA&quot;);">
 </div>
 <div class="absolute bottom-1 right-1 bg-primary text-white p-1 rounded-full border-2 border-white flex items-center justify-center">
 <span class="material-symbols-outlined text-sm">verified</span>
@@ -70,12 +70,12 @@
 <div class="mt-4 text-center">
 <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-primary/10 text-primary rounded-full mb-2">
 <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">house</span>
-<span class="text-[10px] font-bold uppercase tracking-wider">Ofertante (Host)</span>
+<span id="profile-rol" class="text-[10px] font-bold uppercase tracking-wider">Ofertante (Host)</span>
 </div>
-<p class="text-[#111814] text-2xl font-bold tracking-tight">Carlos, 42 aÃ±os</p>
+<p id="profile-name" class="text-[#111814] text-2xl font-bold tracking-tight">Carlos, 42 aÃ±os</p>
 <div class="flex items-center justify-center gap-1 text-gray-500 mt-1">
 <span class="material-symbols-outlined text-sm">location_on</span>
-<p class="text-sm font-medium">Madrid, EspaÃ±a</p>
+<p id="profile-ciudad" class="text-sm font-medium">Madrid, EspaÃ±a</p>
 </div>
 </div>
 <div class="mt-6 flex w-full flex-col gap-3">
@@ -83,18 +83,18 @@
 <a href="/screens-static/verificacion_de_identidad/code.html" class="cursor-pointer"><button class="flex-1 bg-primary text-white py-2.5 rounded-lg font-bold text-sm shadow-sm hover:bg-opacity-90 transition-all">
                     Editar Perfil
                 </button></a>
-<a href="/screens-static/publicar_casa_con_custodia/code.html" class="cursor-pointer"><button class="flex-1 bg-gray-100 text-[#111814] py-2.5 rounded-lg font-bold text-sm hover:bg-gray-200 transition-all">
+<a href="/screens-static/publicar_casa_con_custodia/code.html" class="cursor-pointer"><button id="btn-anuncios" class="flex-1 bg-gray-100 text-[#111814] py-2.5 rounded-lg font-bold text-sm hover:bg-gray-200 transition-all">
                     Mis anuncios
                 </button></a>
 </div>
-<a href="/screens-static/publicar_casa_con_custodia/code.html" class="cursor-pointer"><button class="w-full bg-[#111814] text-white py-3 rounded-lg font-bold text-sm flex items-center justify-center gap-2 shadow-md hover:bg-opacity-90 transition-all">
+<a href="/screens-static/publicar_casa_con_custodia/code.html" class="cursor-pointer"><button id="btn-publicar" class="w-full bg-[#111814] text-white py-3 rounded-lg font-bold text-sm flex items-center justify-center gap-2 shadow-md hover:bg-opacity-90 transition-all">
 <span class="material-symbols-outlined text-lg">add_circle</span>
                 Publicar nueva casa
             </button></a>
 </div>
 </div>
 <!-- Subscription Card -->
-<div class="p-4">
+<div id="plan-card" class="p-4">
 <div class="bg-primary/10 border border-primary/20 rounded-xl p-4 flex items-center justify-between">
 <div class="flex items-center gap-3">
 <div class="bg-primary text-white p-2 rounded-lg">
@@ -102,7 +102,7 @@
 </div>
 <div>
 <p class="text-xs font-bold text-primary uppercase tracking-wider">Plan Actual</p>
-<p class="text-lg font-bold text-[#111814]">Premium Gold</p>
+<p id="profile-plan" class="text-lg font-bold text-[#111814]">Premium Gold</p>
 </div>
 </div>
 <a href="/screens-static/planes_de_suscripcion/code.html" class="cursor-pointer"><button class="text-primary text-sm font-bold border-b border-primary">Gestionar</button></a>
@@ -163,10 +163,10 @@
 </div>
 <!-- Logout / Danger Area -->
 <div class="p-4 mt-4 pb-24">
-<a href="/screens-static/onboarding_de_la_app/code.html" class="cursor-pointer"><button class="w-full flex items-center justify-center gap-2 py-3 text-red-500 font-bold border border-red-100 rounded-xl hover:bg-red-50 transition-colors">
+<button id="logout-btn" class="w-full flex items-center justify-center gap-2 py-3 text-red-500 font-bold border border-red-100 rounded-xl hover:bg-red-50 transition-colors">
 <span class="material-symbols-outlined">logout</span>
             Cerrar sesiÃ³n
-        </button></a>
+        </button>
 </div>
 <!-- Bottom Navigation Bar -->
 <div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-white border-t border-gray-100 px-4 pb-6 pt-3 flex justify-between items-center shadow-[0_-4px_10px_rgba(0,0,0,0.03)]">
@@ -189,5 +189,43 @@
 </a>
 </div>
 </div>
+  <script>
+(function () {
+  var token = localStorage.getItem('rehogar_token');
+  if (!token) { window.location.href = '/screens-static/login/code.html'; return; }
+  fetch('/api/auth/me', { headers: { 'Authorization': 'Bearer ' + token } })
+    .then(function (r) {
+      if (r.status === 401) { localStorage.removeItem('rehogar_token'); window.location.href = '/screens-static/login/code.html'; return null; }
+      return r.json().catch(function () { return {}; });
+    })
+    .then(function (u) {
+      if (!u) return;
+      var nombre = document.getElementById('profile-name');
+      var rol = document.getElementById('profile-rol');
+      var avatar = document.getElementById('profile-avatar');
+      var ciudad = document.getElementById('profile-ciudad');
+      var plan = document.getElementById('profile-plan');
+      if (nombre && u.nombre) nombre.textContent = u.nombre;
+      if (rol && u.rol) rol.textContent = u.rol === 'anfitrion' ? 'Ofertante (Host)' : 'Buscador';
+      if (avatar && u.avatar) avatar.style.backgroundImage = 'url("' + u.avatar + '")';
+      if (ciudad && u.ciudad) ciudad.textContent = u.ciudad;
+      if (plan && u.plan) plan.textContent = u.plan;
+      if (u.rol && u.rol !== 'anfitrion') {
+        var anuncios = document.getElementById('btn-anuncios');
+        var publicar = document.getElementById('btn-publicar');
+        var planCard = document.getElementById('plan-card');
+        if (anuncios) anuncios.closest('a').classList.add('hidden');
+        if (publicar) publicar.closest('a').classList.add('hidden');
+        if (planCard) planCard.classList.add('hidden');
+      }
+    })
+    .catch(function () {});
+  var logout = document.getElementById('logout-btn');
+  if (logout) logout.addEventListener('click', function () {
+    localStorage.removeItem('rehogar_token');
+    window.location.href = '/';
+  });
+})();
+  </script>
   <script src="/nav.js"></script>
 </body></html>
