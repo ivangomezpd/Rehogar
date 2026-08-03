@@ -86,6 +86,12 @@ Crear cuenta
   var form = document.getElementById('register-form');
   var err = document.getElementById('error');
   var btn = document.getElementById('submit-btn');
+  var rolSel = document.getElementById('rol');
+  var rolGuardado = localStorage.getItem('rehogar_rol');
+  if (rolSel && rolGuardado) {
+    rolSel.value = rolGuardado;
+    localStorage.removeItem('rehogar_rol');
+  }
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
     var nombre = document.getElementById('nombre').value.trim();

@@ -46,7 +46,7 @@
 <div class="space-y-6">
 <!-- Offerer Card -->
 <a href="/screens-static/verificacion_de_identidad/code.html" class="group cursor-pointer" style="">
-</a><div class="flex flex-col items-stretch justify-start rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden transition-all hover:border-primary hover:ring-2 hover:ring-primary/20"><a href="/screens-static/verificacion_de_identidad/code.html" class="group cursor-pointer" style="">
+</a><div id="card-anfitrion" class="flex flex-col items-stretch justify-start rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden transition-all hover:border-primary hover:ring-2 hover:ring-primary/20"><a href="/screens-static/verificacion_de_identidad/code.html" class="group cursor-pointer" style="">
 <div class="w-full bg-center bg-no-repeat aspect-[16/7] bg-cover" data-alt="A modern cozy living room with plants" style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuA2drCWnM1yOczCC-0_z7QAqIobziGqZKWfBtQoQ3uIeFsx71IXpURGOfKt6klT1YrlJr4bshFLbupcSgKR3yQEGncbEP2roS-HSkQrZTNF6_NYdR5eTmiv9MOhf0_1c7_kEOYQbtZbLLP-HkhJJ0aVfhwME7PQzoylOYbN_NcohzAK8VWnIA2VcToEFZEikSj8UbykEeesYWf13JpvQ2cr5tvRU3dEJCg2BzwYGf0yRl-aIybK9u7vBbjyA-LG_Bl7j1u9E57t8aU&quot;);"></div>
 </a><div class="flex w-full grow flex-col items-stretch justify-center gap-2 p-5"><a href="/screens-static/verificacion_de_identidad/code.html" class="group cursor-pointer" style="">
 </a><div class="flex items-center gap-3"><a href="/screens-static/verificacion_de_identidad/code.html" class="group cursor-pointer" style="">
@@ -64,7 +64,7 @@
 
 <!-- Seeker Card -->
 <a href="/screens-static/verificacion_de_identidad/code.html" class="group cursor-pointer" style="">
-</a><div class="flex flex-col items-stretch justify-start rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden transition-all hover:border-primary hover:ring-2 hover:ring-primary/20"><a href="/screens-static/verificacion_de_identidad/code.html" class="group cursor-pointer" style="">
+</a><div id="card-buscador" class="flex flex-col items-stretch justify-start rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden transition-all hover:border-primary hover:ring-2 hover:ring-primary/20"><a href="/screens-static/verificacion_de_identidad/code.html" class="group cursor-pointer" style="">
 <div class="w-full bg-center bg-no-repeat aspect-[16/7] bg-cover" data-alt="Happy friends hanging out in a bright apartment" style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuCpb_1J4HPLKlelP5dmxjRNUL8KfuUibTn1NYoFyC2afW3MLtSqMJqillu16KUpn0NFoA8jNpXrw9G7XiT9aZKYnPa9DBJFjWwDKwf4vf7YvOEvohKMIde6yEU4BHNzHfSdd-GP1iHxc__6FznDJK9mLu0Z4nxOD1SWFQIAqHEHzYjHbrhBo28pmP7a7uFUze654R6L6qaCwJlzl8fCvTPyv_wYZzt-s4X2trDNPgRIyuOnwU7X0pzXSIORhb8acGD2qvX9wfjebm4&quot;);"></div>
 </a><div class="flex w-full grow flex-col items-stretch justify-center gap-2 p-5"><a href="/screens-static/verificacion_de_identidad/code.html" class="group cursor-pointer" style="">
 </a><div class="flex items-center gap-3"><a href="/screens-static/verificacion_de_identidad/code.html" class="group cursor-pointer" style="">
@@ -91,5 +91,14 @@
 </main>
 <div class="h-6 bg-white dark:bg-background-dark"></div>
 </div>
+  <script>
+(function () {
+  var anfitrion = document.getElementById('card-anfitrion');
+  var buscador = document.getElementById('card-buscador');
+  function setRol(r) { localStorage.setItem('rehogar_rol', r); }
+  if (anfitrion) anfitrion.addEventListener('click', function () { setRol('anfitrion'); });
+  if (buscador) buscador.addEventListener('click', function () { setRol('buscador'); });
+})();
+  </script>
   <script src="/nav.js"></script>
 </body></html>
