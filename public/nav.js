@@ -28,7 +28,6 @@
     notificaciones:  '/screens-static/configuracion_de_notificaciones/code.html',
     seleccionRol:    '/screens-static/seleccion_de_rol/code.html',
     onboarding:      '/screens-static/onboarding_de_la_app/code.html',
-    programarVisita: '/screens-static/programar_visita/code.html',
   };
 
   // ─── Navegar ──────────────────────────────────────────────────────────────
