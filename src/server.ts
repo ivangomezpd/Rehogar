@@ -77,6 +77,7 @@ app.use("/api/visitas", visitasRouter);
 
 app.get("/health", (_req,res) => res.json({ status:"ok", env:process.env.NODE_ENV, ts:new Date().toISOString() }));
 app.get("/gallery", (_req,res) => { const p=path.join(__dirname,"..","public","gallery.html"); fs.existsSync(p)?res.sendFile(p):res.status(404).send("Galeria no encontrada"); });
+app.get("/home", (_req,res) => { const p=path.join(__dirname,"..","public","home.html"); fs.existsSync(p)?res.sendFile(p):res.status(404).send("Home no encontrada"); });
 app.get("/", (_req,res) => { const p=path.join(__dirname,"..","index.html"); fs.existsSync(p)?res.sendFile(p):res.redirect("/gallery"); });
 app.use((_req,res) => res.status(404).json({ error:"Ruta no encontrada" }));
 app.use((err:any,_req:express.Request,res:express.Response,_next:express.NextFunction) => { logger.error(err); res.status(500).json({ error:"Error interno del servidor" }); });

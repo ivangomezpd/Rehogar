@@ -68,6 +68,8 @@ En producción `JWT_SECRET` es obligatorio (el servidor aborta si falta).
 
 Sírvidas en `/screens-static/<nombre>/code.html` (galería en `/gallery`). El rol se propaga desde la selección de rol (`localStorage.rehogar_rol`) al formulario de registro.
 
+La **landing promocional** se sirve en `/` (`public/index.html`) y la home del prototipo en `/home` (`public/home.html`).
+
 ## Tests
 
 Batería funcional (API + pantallas HTTP 200): `node C:\Users\igomez\AppData\Local\Temp\opencode\bateria.cjs` (requiere `REPO` apuntando a la raíz del repo).

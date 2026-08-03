@@ -1,314 +1,237 @@
 <!DOCTYPE html>
-
 <html lang="es">
-
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Rehogar - Tu nuevo comienzo</title>
+    <title>Rehogar · Coliving para personas divorciadas o separadas</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
-    <script id="tailwind-config">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <script>
         tailwind.config = {
-            darkMode: "class",
             theme: {
                 extend: {
                     colors: {
                         "primary": "#11d462",
+                        "primary-dark": "#0cae50",
                         "background-light": "#f6f8f7",
                         "background-dark": "#102218",
+                        "ink": "#111814",
                     },
-                    fontFamily: {
-                        "display": ["Plus Jakarta Sans"]
-                    },
-                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                    fontFamily: { "display": ["Plus Jakarta Sans", "sans-serif"] },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
                 },
             },
-        }
+        };
     </script>
     <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-    </style>
-    <style>
-        body {
-            min-height: max(884px, 100dvh);
-        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
+<body class="bg-background-light text-ink antialiased">
+    <div class="flex min-h-screen w-full flex-col">
 
-<body class="bg-background-light dark:bg-background-dark text-[#111814] selection:bg-primary/30">
-    <div class="relative flex min-h-screen w-full flex-col max-w-md mx-auto bg-white shadow-2xl overflow-x-hidden">
-        <!-- Header -->
-        <header class="flex items-center bg-white px-4 pb-2 pt-6 justify-between sticky top-0 z-50">
-            <div class="flex size-10 shrink-0 items-center overflow-hidden rounded-full border-2 border-primary/20">
-                <img alt="Profile picture" class="w-full h-full object-cover"
-                    data-alt="Close up portrait of a smiling middle-aged man"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBStGgYncbu_LN-8TTrfhzMnHPxdrH077UmU-6kCcgaqxN8Js5pWpIK2_M6S1P6rUb5ypLXLuQJXfrByBgmgxy7TwaESCA4weI1oiVlkBJ6mWG8HbBPctBbzE2ZjaLWME1QIqEtdOQZg_JJrnimwtYpaNNiDNRgHCo_ZA66YutOrpT2D_Zb0g6tHRjOxBeNxIH2mXtj_iKVe0GD4_YB8TDoS9qPd6EIB0oY-L8RpbIqa-24vytvc2SaqCg6_IIeKZzwFVGcX-fy_4" />
-            </div>
-            <div class="flex-1 px-3">
-                <p class="text-xs text-[#618972] font-medium uppercase tracking-wider">Hola, Carlos</p>
-                <h2 class="text-[#111814] text-lg font-bold leading-tight tracking-tight">Tu nuevo comienzo</h2>
-            </div>
-            <div class="flex w-10 items-center justify-end">
-                <button
-                    class="relative flex items-center justify-center rounded-lg h-10 w-10 bg-background-light text-[#111814] hover:bg-primary/10 transition-colors">
-                    <span class="material-symbols-outlined text-[24px]">notifications</span>
-                    <span class="absolute top-2 right-2 flex h-2 w-2 rounded-full bg-primary"></span>
-                </button>
+        <!-- Nav -->
+        <header class="sticky top-0 z-50 bg-background-light/80 backdrop-blur-md border-b border-[#e0e7e3]">
+            <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+                <a href="/" class="flex items-center gap-2">
+                    <span class="flex size-10 items-center justify-center rounded-full bg-primary text-white shadow-lg shadow-primary/30">
+                        <span class="material-symbols-outlined text-[22px]">home_work</span>
+                    </span>
+                    <span class="text-xl font-extrabold tracking-tight">Rehogar</span>
+                </a>
+                <nav class="hidden items-center gap-8 text-sm font-semibold text-[#618972] md:flex">
+                    <a href="#como-funciona" class="hover:text-primary transition-colors">Cómo funciona</a>
+                    <a href="#audiencias" class="hover:text-primary transition-colors">Anfitriones y buscadores</a>
+                    <a href="#funciones" class="hover:text-primary transition-colors">Funciones</a>
+                    <a href="/gallery" class="hover:text-primary transition-colors">Ver la demo</a>
+                </nav>
+                <div class="flex items-center gap-3">
+                    <a href="/screens-static/login/code.html" class="hidden text-sm font-bold text-[#111814] hover:text-primary transition-colors sm:block">Entrar</a>
+                    <a href="/screens-static/seleccion_de_rol/code.html" class="rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-primary/20 hover:bg-primary-dark transition-colors">Comenzar</a>
+                </div>
             </div>
         </header>
 
-        <!-- Search Bar -->
-        <div class="px-4 py-4">
-            <label class="flex flex-col w-full group">
-                <div
-                    class="flex w-full items-stretch rounded-xl h-14 bg-[#f0f4f2] border-2 border-transparent focus-within:border-primary/30 focus-within:bg-white transition-all shadow-sm">
-                    <div class="text-[#618972] flex items-center justify-center pl-4">
-                        <span class="material-symbols-outlined text-[22px]">search</span>
-                    </div>
-                    <input
-                        class="form-input flex w-full min-w-0 flex-1 border-none bg-transparent focus:ring-0 h-full placeholder:text-[#618972] px-3 text-base font-medium"
-                        placeholder="&iquest;A qu&eacute; ciudad te mudas?" value="" />
-                    <div class="flex items-center pr-3">
-                        <a href="/screens-static/busqueda_avanzada_con_custodia/code.html" class="p-2 rounded-lg bg-primary text-white shadow-lg shadow-primary/20">
-                            <span class="material-symbols-outlined text-[20px]">tune</span>
-                        </a>
-                    </div>
-                </div>
-            </label>
-        </div>
-
-        <!-- Quick Filters -->
-        <div class="flex gap-3 px-4 pb-4 overflow-x-auto hide-scrollbar">
-            <button
-                class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary text-white px-5 shadow-md shadow-primary/20 transition-transform active:scale-95">
-                <span class="material-symbols-outlined text-[18px]">person</span>
-                <p class="text-sm font-semibold">Solo hombres</p>
-            </button>
-            <button
-                class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-[#e0e7e3] text-[#111814] px-5 hover:bg-[#f0f4f2] transition-colors">
-                <span class="material-symbols-outlined text-[18px]">woman</span>
-                <p class="text-sm font-medium">Solo mujeres</p>
-            </button>
-            <button
-                class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-[#e0e7e3] text-[#111814] px-5 hover:bg-[#f0f4f2] transition-colors">
-                <span class="material-symbols-outlined text-[18px]">pets</span>
-                <p class="text-sm font-medium">Mascotas: S&iacute;</p>
-            </button>
-            <button
-                class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-[#e0e7e3] text-[#111814] px-5 hover:bg-[#f0f4f2] transition-colors">
-                <span class="material-symbols-outlined text-[18px]">block</span>
-                <p class="text-sm font-medium">No mascotas</p>
-            </button>
-        </div>
-
-        <!-- Main Content -->
-        <main class="flex-1 pb-24">
-            <div class="flex items-center justify-between px-4 pt-4 pb-2">
-                <h2 class="text-[#111814] text-[20px] font-bold leading-tight tracking-tight">Comunidades para ti</h2>
-                <button class="text-primary text-sm font-bold hover:underline">Ver mapa</button>
-            </div>
-
-            <!-- List of Cards -->
-            <div class="flex flex-col gap-6 px-4 py-3">
-                <!-- Card 1 -->
-                <div onclick="window.location.href='/screens-static/detalle_de_la_casa/code.html'"
-                    class="group relative flex flex-col gap-3 rounded-2xl bg-white border border-[#f0f4f2] p-2 shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-                    <div class="relative w-full aspect-[4/3] overflow-hidden rounded-xl">
-                        <img alt="Modern House"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            data-alt="Spacious modern living room with large windows"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUtli94ZG3VYwOG9ZlT1egSgPczsqGmuUPKAjxEaRXpnyfoo-gDnwHqRbE96a1cGwo8CbvfuRXbp6TJuIwwmtw3-ctlAXjSvb-Xgzma_1ChZArrBeM8pNf5yriJaw-HWoWAC77vtd1yV4SZ8i5ypU-4pDrmDsIXoTcDNUdWLficvEWHBgzqtTo82bb6kgn03Nk88mEjQlCmY0hCT-j1aAlPXHuNkCJvpRXZmjjq-e8lbEZThrKSgGl9TjNQ3Hyr3cplgyHwuAzN7k" />
-                        <button
-                            class="absolute top-3 right-3 z-10 size-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-lg text-[#618972] hover:text-primary transition-colors">
-                            <span class="material-symbols-outlined">favorite</span>
-                        </button>
-                        <div
-                            class="absolute top-3 left-3 px-3 py-1.5 rounded-lg bg-white/90 backdrop-blur-sm shadow-sm">
-                            <p class="text-sm font-bold text-primary">&euro;750<span
-                                    class="text-[10px] text-[#618972] font-medium">/mes</span> <span
-                                    class="text-[8px] text-[#618972] block font-normal">+~60&euro; sumin.</span></p>
-                        </div>
-                        <!-- Host Family Badge -->
-                        <div
-                            class="absolute bottom-3 left-3 flex items-center gap-2 p-1.5 rounded-full bg-white/95 backdrop-blur-sm shadow-lg border border-white/50">
-                            <div class="flex -space-x-2">
-                                <img alt="Host 1" class="size-8 rounded-full border-2 border-white object-cover"
-                                    data-alt="Portrait of a smiling woman in her 40s"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCom9VT1umHh6a-QznkYIx0TLRVMW1BSYAX5VnreXT80Y-5kuKJghfaIbIZkagDX7ufhKzEHXf0YocaE3s-ppiOidp0AHuuECrMeluv2n3bz7OcI5gc6FKwCKvmoZlPiVb6WeOFuOZ-9vF3ftKSSoX-XOmdG9QeP2h-MYiOoR3RFA2Q0iiKm_ttBR39K-j-o8KG7ZyguNhD2CEerhXE5wT54nd2EEKRE0-BuFyumJUDC4e5_h6jgfu6hgNwaDHX-V2cdG5Hgk2kXxA" />
-                                <img alt="Host 2" class="size-8 rounded-full border-2 border-white object-cover"
-                                    data-alt="Portrait of a friendly middle-aged man"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3GBfT_zWuZJDAqDR7wAH5XEoxQ4xa3-fEoXppiHXlYE-svYxPnyQjzeXfTGsQ2Z-bGPDTvm6QRgZlcueRy9xOdfINM-6XOYESZ75W1PkiNTmFeTP-XLAHTXT4Hvn7k-8q35JYujjD-33wUb9tBF6UMYKvnZqkV_Dh-ELbi7xXDGs_-_eqUu1ilj-Cy5gSRoSOvYf22uzJ9FJyCtxZ27jAaQbZG4dnYWaX-ZQM3uhmWeK30m6HnZRgxPWNusqvW8Q3MNTtvA2X_zc" />
-                            </div>
-                            <p class="pr-2 text-[11px] font-bold text-[#111814]">Familia anfitriona</p>
-                        </div>
-                    </div>
-                    <div class="px-2 pb-2">
-                        <div class="flex items-center gap-1 text-[#618972] mb-1">
-                            <span class="material-symbols-outlined text-[14px]">location_on</span>
-                            <p class="text-xs font-semibold uppercase tracking-wide">Poblenou, Barcelona</p>
-                        </div>
-                        <h3 class="text-lg font-bold text-[#111814] leading-snug">&Aacute;tico luminoso con terraza compartida
-                        </h3>
-                        <div class="mt-2 flex gap-3 text-xs font-medium text-[#618972]">
-                            <span class="flex items-center gap-1"><span
-                                    class="material-symbols-outlined text-[16px]">bed</span> 2 Libres</span>
-                            <span class="flex items-center gap-1"><span
-                                    class="material-symbols-outlined text-[16px]">groups</span> 4 Totales</span>
-                            <span class="flex items-center gap-1 text-primary"><span
-                                    class="material-symbols-outlined text-[16px]">check_circle</span> Verificado</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div onclick="window.location.href='/screens-static/detalle_de_la_casa/code.html'"
-                    class="group relative flex flex-col gap-3 rounded-2xl bg-white border border-[#f0f4f2] p-2 shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-                    <div class="relative w-full aspect-[4/3] overflow-hidden rounded-xl">
-                        <img alt="Luxury apartment"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            data-alt="Exterior of a beautiful white luxury villa"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2pa94fZPrtiHJVq5RJGGIq5lSOjy5O5WHRQkDtPnczHfZ8eYZ_m0mAOsH3odx_2499XpIIaf7_ZFOGLYqBxkw4RHshoXfbP_kRFDzFitASCI7n2mfgJOMq2zpcqljW3DlT8fosdYw8oD80Ve_BTewxoth3IwfWfbrV2_crCoSz3cp6eOyE1bkaluZX1jMAgjETYuVf1PUSwqG5o5Rqp1Vb6cyr7x4ibqSTa40r8VSSBk6dvv_hrn-NpoJEGrIdDff-oM5GWko6Ss" />
-                        <button
-                            class="absolute top-3 right-3 z-10 size-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-lg text-[#618972] hover:text-primary transition-colors">
-                            <span class="material-symbols-outlined">favorite</span>
-                        </button>
-                        <div
-                            class="absolute top-3 left-3 px-3 py-1.5 rounded-lg bg-white/90 backdrop-blur-sm shadow-sm">
-                            <p class="text-sm font-bold text-primary">&euro;620<span
-                                    class="text-[10px] text-[#618972] font-medium">/mes</span> <span
-                                    class="text-[8px] text-[#618972] block font-normal">+~50&euro; sumin.</span></p>
-                        </div>
-                        <!-- Host Family Badge -->
-                        <div
-                            class="absolute bottom-3 left-3 flex items-center gap-2 p-1.5 rounded-full bg-white/95 backdrop-blur-sm shadow-lg border border-white/50">
-                            <div class="flex -space-x-2">
-                                <img alt="Host 3" class="size-8 rounded-full border-2 border-white object-cover"
-                                    data-alt="Portrait of a smiling man with graying hair"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtUakHvpXyM7KucIdPPvYAl74Vme55pPxH-0qwAIIUydmNyD65eol8mfeXSHLCzVCFivr5cu8tb6XpA4LjyZYdapPFlWhYHtyHo3wF1lw_UjNVlQjMTqagQoF7Z0wrGHiCWEaLc_HB8Atds1wK90eQL3E579kgSM1fEN6QYJ64MkQ-kxKB5h9YBQT7zQ7prp3M3gG8LoIkwtAJHmy3n3YP-3JHh2J8689MBhGgZyq46rYwTE65UdS-Ah-94qPRoSYYf3VoaKHzfYU" />
-                            </div>
-                            <p class="pr-2 text-[11px] font-bold text-[#111814]">Viviendo solo</p>
-                        </div>
-                    </div>
-                    <div class="px-2 pb-2">
-                        <div class="flex items-center gap-1 text-[#618972] mb-1">
-                            <span class="material-symbols-outlined text-[14px]">location_on</span>
-                            <p class="text-xs font-semibold uppercase tracking-wide">Chamber&iacute;, Madrid</p>
-                        </div>
-                        <h3 class="text-lg font-bold text-[#111814] leading-snug">Apartamento se&ntilde;orial: Solo hombres
-                        </h3>
-                        <div class="mt-2 flex gap-3 text-xs font-medium text-[#618972]">
-                            <span class="flex items-center gap-1"><span
-                                    class="material-symbols-outlined text-[16px]">bed</span> 1 Libre</span>
-                            <span class="flex items-center gap-1 text-primary"><span
-                                    class="material-symbols-outlined text-[16px]">pets</span> Mascotas OK</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div onclick="window.location.href='/screens-static/detalle_de_la_casa/code.html'"
-                    class="group relative flex flex-col gap-3 rounded-2xl bg-white border border-[#f0f4f2] p-2 shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-                    <div class="relative w-full aspect-[4/3] overflow-hidden rounded-xl">
-                        <img alt="Warm kitchen"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            data-alt="Cozy wooden kitchen with plants and warm lighting"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOSsjRi4W2WrhrWvFf5xFPi6SS0hBAHk9wudoDXi95m7H-fvq14c3E_riskqjY7J8cjuJ3Gu81XbqlTPw53bfgWCEqy9SJAGtO4qBr0IqJup3y1ZqZLlbcreYxxUtdOzd9QM8Gtik46UCiwEIY2W1HYVp4z5fvVk4oRgi1KZnSXeApGYSLowb5WqUJ5rjbglVLnvXjzSKNRCLsshr9Q9hZuyMTG7y2K57BcYmijUNVR88wfW_kP2r8v7s-RUDSai88NRhcNqr-1l0" />
-                        <button
-                            class="absolute top-3 right-3 z-10 size-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-lg text-[#618972] hover:text-primary transition-colors">
-                            <span class="material-symbols-outlined">favorite</span>
-                        </button>
-                        <div
-                            class="absolute top-3 left-3 px-3 py-1.5 rounded-lg bg-white/90 backdrop-blur-sm shadow-sm">
-                            <p class="text-sm font-bold text-primary">&euro;550<span
-                                    class="text-[10px] text-[#618972] font-medium">/mes</span> <span
-                                    class="text-[8px] text-[#618972] block font-normal">+~45&euro; sumin.</span></p>
-                        </div>
-                        <div
-                            class="absolute bottom-3 left-3 flex items-center gap-2 p-1.5 rounded-full bg-white/95 backdrop-blur-sm shadow-lg border border-white/50">
-                            <div class="flex -space-x-2">
-                                <img alt="Host 4" class="size-8 rounded-full border-2 border-white object-cover"
-                                    data-alt="Portrait of a friendly woman with a warm smile"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcGbBrNBUJxxLt4nOGD2wuUeheb64wBapdIkkvGeayg7OYYuqvxkXn_itQHMUR8sOssveFUblHTYfW4RZ1qSmzcKLHwnnruiQ6A4zOupjYYNT387PujI-JRG1kZ5GArB5B8JZrJaHawgatf-qB508B5Eqd12G6sb21jKW0jEirTrigFXIy8tdJmvQVXCz-divM1KKR9vlaltudQDoHxoqRJ5b1t94chytIXoahto6BTMgnVHZcw0znI5PhmmuSwrJ9xcsEKotpuis" />
-                                <img alt="Host 5" class="size-8 rounded-full border-2 border-white object-cover"
-                                    data-alt="Portrait of a casual man in a sweater"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDU-lGlaPws1rUeNVRP4DTgJE1p2n4tOSfUw31TyounEJLH6HxH91Q-_8OQpgyG5Z09tc0brGDzCqyQAYQcX3EWJC_BB7J-I60C1a1JGfDDEMZvK6ZjvO-Gum84Z79TwnNH6g9OArgFo4-_ahdm8bGKbxJ3Ulh8uc-_TalP1EJKAJQapCrpu4-p6bJHSu85lQdlK7Ohea0Xe0KCgWEDoQhdy64R4Pi0EUhB9OQuPaNCcLKiGylw8fUD1AryDAkCh8ZaaApvHmrfyX0" />
-                            </div>
-                            <p class="pr-2 text-[11px] font-bold text-[#111814]">2 Residentes</p>
-                        </div>
-                    </div>
-                    <div class="px-2 pb-2">
-                        <div class="flex items-center gap-1 text-[#618972] mb-1">
-                            <span class="material-symbols-outlined text-[14px]">location_on</span>
-                            <p class="text-xs font-semibold uppercase tracking-wide">Ruzafa, Valencia</p>
-                        </div>
-                        <h3 class="text-lg font-bold text-[#111814] leading-snug">Casa Bohemia con patio interior</h3>
-                        <div class="mt-2 flex gap-3 text-xs font-medium text-[#618972]">
-                            <span class="flex items-center gap-1"><span
-                                    class="material-symbols-outlined text-[16px]">bed</span> 2 Libres</span>
-                            <span class="flex items-center gap-1"><span
-                                    class="material-symbols-outlined text-[16px]">woman</span> Solo Mujeres</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Gallery Link -->
-                <div class="mt-8 mb-4 text-center">
-                    <a href="/gallery" class="text-xs text-[#618972] hover:text-primary transition-colors font-medium underline underline-offset-4 decoration-primary/30">
-                        🎨 Ver Galería de Diseños Prototipo
+        <!-- Hero -->
+        <section class="relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-background-dark via-background-dark to-[#0d1a12]"></div>
+            <div class="absolute -top-24 right-0 size-96 rounded-full bg-primary/10 blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 size-72 rounded-full bg-primary/5 blur-3xl"></div>
+            <div class="relative mx-auto max-w-6xl px-4 py-20 text-center md:py-28">
+                <span class="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-bold text-primary">
+                    <span class="material-symbols-outlined text-[16px]">family_restroom</span>
+                    Coliving tras la separación
+                </span>
+                <h1 class="mx-auto mt-6 max-w-3xl text-4xl font-extrabold leading-tight tracking-tight text-white md:text-6xl">
+                    Tu nuevo comienzo,<br />
+                    <span class="text-primary">sin renunciar a tus hijos</span>
+                </h1>
+                <p class="mx-auto mt-6 max-w-2xl text-lg text-[#bfd2c7]">
+                    Rehogar conecta a personas divorciadas o separadas que quieren compartir piso con otras que entienden tu situación:
+                    custodia compartida, hijos a fin de semana y convivencia tranquila.
+                </p>
+                <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                    <a href="/screens-static/explorar_casas/code.html" class="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-base font-bold text-white shadow-xl shadow-primary/25 hover:bg-primary-dark transition-colors sm:w-auto">
+                        <span class="material-symbols-outlined">search</span> Buscar casa
+                    </a>
+                    <a href="/screens-static/publicar_casa_con_custodia/code.html" class="flex w-full items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 py-4 text-base font-bold text-white hover:bg-white/10 transition-colors sm:w-auto">
+                        <span class="material-symbols-outlined">add_home</span> Publicar mi casa
                     </a>
                 </div>
-            </div>
-        </main>
-
-        <!-- Bottom Navigation Bar -->
-        <nav
-            class="fixed bottom-0 left-0 right-0 z-50 max-w-md mx-auto bg-white/80 backdrop-blur-md border-t border-[#f0f4f2] safe-area-inset-bottom">
-            <div class="flex justify-around items-center h-20 px-4">
-                <a class="flex flex-col items-center justify-center gap-1 text-primary" href="/">
-                    <span class="material-symbols-outlined text-[28px] fill-[1]">home</span>
-                    <p class="text-[10px] font-bold tracking-wide">Inicio</p>
-                </a>
-                <a class="flex flex-col items-center justify-center gap-1 text-[#618972] hover:text-primary transition-colors"
-                    href="/screens-static/mis_favoritos/code.html">
-                    <span class="material-symbols-outlined text-[28px]">favorite</span>
-                    <p class="text-[10px] font-medium tracking-wide">Favoritos</p>
-                </a>
-                <a class="flex flex-col items-center justify-center gap-1 text-[#618972] hover:text-primary transition-colors"
-                    href="/screens-static/mensajes_y_afinidad/code.html">
-                    <div class="relative">
-                        <span class="material-symbols-outlined text-[28px]">chat_bubble</span>
-                        <span
-                            class="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[8px] font-bold text-white">3</span>
+                <div class="mx-auto mt-14 grid max-w-2xl grid-cols-3 gap-6 border-t border-white/10 pt-8">
+                    <div>
+                        <p class="text-3xl font-extrabold text-white">3</p>
+                        <p class="mt-1 text-xs font-semibold text-[#8fae9d]">tipos de convivencia</p>
                     </div>
-                    <p class="text-[10px] font-medium tracking-wide">Mensajes</p>
+                    <div>
+                        <p class="text-3xl font-extrabold text-white">100%</p>
+                        <p class="mt-1 text-xs font-semibold text-[#8fae9d]">identidad verificada</p>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-extrabold text-white">18</p>
+                        <p class="mt-1 text-xs font-semibold text-[#8fae9d]">pantallas listas</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Audiencias -->
+        <section id="audiencias" class="mx-auto max-w-6xl px-4 py-20">
+            <h2 class="text-center text-3xl font-extrabold tracking-tight md:text-4xl">Para ti, sea cual sea tu lado</h2>
+            <p class="mx-auto mt-4 max-w-2xl text-center text-[#618972]">Dos perfiles, un mismo objetivo: una convivencia que respete tu nueva vida.</p>
+            <div class="mt-12 grid gap-6 md:grid-cols-2">
+                <a href="/screens-static/seleccion_de_rol/code.html" class="group rounded-2xl border border-[#e0e7e3] bg-white p-8 shadow-sm hover:shadow-lg transition-all">
+                    <span class="flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                        <span class="material-symbols-outlined text-[28px]">key</span>
+                    </span>
+                    <h3 class="mt-6 text-2xl font-extrabold">Soy anfitrión</h3>
+                    <p class="mt-3 text-[#618972]">Tengo una casa con espacio libre y quiero compartirla con alguien afín, con normas claras sobre custodia y visitas de hijos.</p>
+                    <ul class="mt-6 space-y-3 text-sm font-medium text-[#111814]">
+                        <li class="flex items-center gap-2"><span class="text-primary material-symbols-outlined text-[18px]">check_circle</span>Publica tu casa con fotos y datos reales</li>
+                        <li class="flex items-center gap-2"><span class="text-primary material-symbols-outlined text-[18px]">check_circle</span>Define tu política de custodia y mascotas</li>
+                        <li class="flex items-center gap-2"><span class="text-primary material-symbols-outlined text-[18px]">check_circle</span>Recibe solicitudes, visita y decide</li>
+                    </ul>
+                    <span class="mt-8 inline-flex items-center gap-1 font-bold text-primary group-hover:gap-2 transition-all">Empezar como anfitrión <span class="material-symbols-outlined text-[18px]">arrow_forward</span></span>
                 </a>
-                <a class="flex flex-col items-center justify-center gap-1 text-[#618972] hover:text-primary transition-colors"
-                    href="/screens-static/perfil_de_usuario_con_rol_diferenciado/code.html">
-                    <span class="material-symbols-outlined text-[28px]">person</span>
-                    <p class="text-[10px] font-medium tracking-wide">Perfil</p>
+                <a href="/screens-static/busqueda_avanzada_con_custodia/code.html" class="group rounded-2xl border border-[#e0e7e3] bg-white p-8 shadow-sm hover:shadow-lg transition-all">
+                    <span class="flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                        <span class="material-symbols-outlined text-[28px]">travel_explore</span>
+                    </span>
+                    <h3 class="mt-6 text-2xl font-extrabold">Estoy buscando</h3>
+                    <p class="mt-3 text-[#618972]">Quiero un hogar donde mis hijos tengan su sitio cuando los tenga, sin filtros ni malentendidos.</p>
+                    <ul class="mt-6 space-y-3 text-sm font-medium text-[#111814]">
+                        <li class="flex items-center gap-2"><span class="text-primary material-symbols-outlined text-[18px]">check_circle</span>Filtra por habitación para tus hijos</li>
+                        <li class="flex items-center gap-2"><span class="text-primary material-symbols-outlined text-[18px]">check_circle</span>Elige casas que aceptan custodia compartida</li>
+                        <li class="flex items-center gap-2"><span class="text-primary material-symbols-outlined text-[18px]">check_circle</span>Envía mensajes y organiza visitas</li>
+                    </ul>
+                    <span class="mt-8 inline-flex items-center gap-1 font-bold text-primary group-hover:gap-2 transition-all">Empezar como buscador <span class="material-symbols-outlined text-[18px]">arrow_forward</span></span>
                 </a>
             </div>
-        </nav>
-    </div>
-  <script src="/nav.js"></script>
-</body>
+        </section>
 
+        <!-- Cómo funciona -->
+        <section id="como-funciona" class="bg-white border-y border-[#e0e7e3]">
+            <div class="mx-auto max-w-6xl px-4 py-20">
+                <h2 class="text-center text-3xl font-extrabold tracking-tight md:text-4xl">Cómo funciona</h2>
+                <div class="mt-12 grid gap-8 md:grid-cols-3">
+                    <div class="text-center">
+                        <span class="mx-auto flex size-12 items-center justify-center rounded-full bg-primary/10 text-lg font-extrabold text-primary">1</span>
+                        <h3 class="mt-5 text-lg font-extrabold">Crea tu perfil</h3>
+                        <p class="mt-2 text-sm text-[#618972]">Elige tu rol, regístrate y verifica tu identidad. Tu plan (gratis, basic o premium) se aplica al instante.</p>
+                    </div>
+                    <div class="text-center">
+                        <span class="mx-auto flex size-12 items-center justify-center rounded-full bg-primary/10 text-lg font-extrabold text-primary">2</span>
+                        <h3 class="mt-5 text-lg font-extrabold">Publica o encuentra</h3>
+                        <p class="mt-2 text-sm text-[#618972]">Los anfitriones publican su casa con fotos y su política de custodia; quien busca filtra por hijos, mascotas y zona escolar.</p>
+                    </div>
+                    <div class="text-center">
+                        <span class="mx-auto flex size-12 items-center justify-center rounded-full bg-primary/10 text-lg font-extrabold text-primary">3</span>
+                        <h3 class="mt-5 text-lg font-extrabold">Convive con afinidad</h3>
+                        <p class="mt-2 text-sm text-[#618972]">Habla por mensajes, coordina visitas y comparte un calendario que respeta las semanas de custodia de cada uno.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Funciones -->
+        <section id="funciones" class="mx-auto max-w-6xl px-4 py-20">
+            <h2 class="text-center text-3xl font-extrabold tracking-tight md:text-4xl">Pensado para tu realidad</h2>
+            <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <div class="rounded-2xl border border-[#e0e7e3] bg-white p-6 shadow-sm">
+                    <span class="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary"><span class="material-symbols-outlined">family_restroom</span></span>
+                    <h3 class="mt-4 font-extrabold">Custodia compartida</h3>
+                    <p class="mt-2 text-sm text-[#618972]">Indica si aceptas hijos a fines de semana alternos, quincenas o custodia parcial.</p>
+                </div>
+                <div class="rounded-2xl border border-[#e0e7e3] bg-white p-6 shadow-sm">
+                    <span class="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary"><span class="material-symbols-outlined">search</span></span>
+                    <h3 class="mt-4 font-extrabold">Búsqueda avanzada</h3>
+                    <p class="mt-2 text-sm text-[#618972]">Filtra por habitación para hijos, presupuesto, género de convivencia y mascotas.</p>
+                </div>
+                <div class="rounded-2xl border border-[#e0e7e3] bg-white p-6 shadow-sm">
+                    <span class="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary"><span class="material-symbols-outlined">calendar_month</span></span>
+                    <h3 class="mt-4 font-extrabold">Calendario compartido</h3>
+                    <p class="mt-2 text-sm text-[#618972]">Acuerda visitas y días de los hijos con total transparencia entre ambos.</p>
+                </div>
+                <div class="rounded-2xl border border-[#e0e7e3] bg-white p-6 shadow-sm">
+                    <span class="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary"><span class="material-symbols-outlined">forum</span></span>
+                    <h3 class="mt-4 font-extrabold">Afinidad y mensajes</h3>
+                    <p class="mt-2 text-sm text-[#618972]">Conoce a la persona detrás del anuncio y hablad antes de dar el paso.</p>
+                </div>
+                <div class="rounded-2xl border border-[#e0e7e3] bg-white p-6 shadow-sm">
+                    <span class="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary"><span class="material-symbols-outlined">map</span></span>
+                    <h3 class="mt-4 font-extrabold">Mapas con zonas escolares</h3>
+                    <p class="mt-2 text-sm text-[#618972]">Visualiza las casas cerca de los colegios de tus hijos.</p>
+                </div>
+                <div class="rounded-2xl border border-[#e0e7e3] bg-white p-6 shadow-sm">
+                    <span class="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary"><span class="material-symbols-outlined">verified_user</span></span>
+                    <h3 class="mt-4 font-extrabold">Identidad verificada</h3>
+                    <p class="mt-2 text-sm text-[#618972]">Perfiles verificados para que convivas con seguridad y confianza.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Demo / Galería -->
+        <section class="bg-white border-y border-[#e0e7e3]">
+            <div class="mx-auto max-w-6xl px-4 py-20 text-center">
+                <h2 class="text-3xl font-extrabold tracking-tight md:text-4xl">Míralo en marcha</h2>
+                <p class="mx-auto mt-4 max-w-2xl text-[#618972]">Hemos diseñado y conectado 18 pantallas del producto a una API real: explora casas, publícalas, reserva visitas y chatea.</p>
+                <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                    <a href="/gallery" class="rounded-full bg-primary px-8 py-4 text-base font-bold text-white shadow-lg shadow-primary/25 hover:bg-primary-dark transition-colors">Ver galería de pantallas</a>
+                    <a href="/home" class="rounded-full border border-[#e0e7e3] bg-background-light px-8 py-4 text-base font-bold hover:bg-[#eef2ef] transition-colors">Ver home del prototipo</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA final -->
+        <section class="relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-background-dark via-background-dark to-[#0d1a12]"></div>
+            <div class="absolute inset-x-0 top-0 h-px bg-primary/30"></div>
+            <div class="relative mx-auto max-w-4xl px-4 py-24 text-center">
+                <h2 class="text-3xl font-extrabold text-white md:text-5xl">Empieza tu nuevo comienzo hoy</h2>
+                <p class="mx-auto mt-4 max-w-xl text-lg text-[#bfd2c7]">Regístrate gratis, elige tu rol y da el primer paso hacia una convivencia que te entiende.</p>
+                <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                    <a href="/screens-static/seleccion_de_rol/code.html" class="rounded-full bg-primary px-10 py-4 text-base font-bold text-white shadow-xl shadow-primary/25 hover:bg-primary-dark transition-colors">Crear cuenta gratis</a>
+                    <a href="/screens-static/planes_de_suscripcion/code.html" class="rounded-full border border-white/20 bg-white/5 px-10 py-4 text-base font-bold text-white hover:bg-white/10 transition-colors">Ver planes</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="border-t border-[#e0e7e3] bg-background-light">
+            <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-4 py-10 md:flex-row">
+                <div class="flex items-center gap-2">
+                    <span class="flex size-9 items-center justify-center rounded-full bg-primary text-white">
+                        <span class="material-symbols-outlined text-[18px]">home_work</span>
+                    </span>
+                    <span class="font-extrabold tracking-tight">Rehogar</span>
+                </div>
+                <p class="text-sm text-[#618972]">Coliving para personas divorciadas o separadas · <a href="/gallery" class="font-semibold text-primary hover:underline">Demo</a></p>
+                <p class="text-xs text-[#8fae9d]">© 2026 Rehogar. Prototipo funcional.</p>
+            </div>
+        </footer>
+    </div>
+</body>
 </html>
