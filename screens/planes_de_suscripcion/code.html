@@ -91,7 +91,7 @@
 <h3 class="text-[#111814] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Selecciona tu plan</h3>
 <div class="grid grid-cols-1 gap-4">
 <!-- Monthly Plan -->
-<label class="relative flex items-center p-4 bg-white dark:bg-gray-900 border-2 border-transparent has-[:checked]:border-primary rounded-xl cursor-pointer shadow-sm transition-all">
+<label id="plan-monthly" class="relative flex items-center p-4 bg-white dark:bg-gray-900 border-2 border-transparent has-[:checked]:border-primary rounded-xl cursor-pointer shadow-sm transition-all">
 <input class="hidden peer" name="plan" type="radio" value="monthly">
 <div class="flex-1">
 <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Mensual</span>
@@ -105,7 +105,7 @@
 </div>
 </label>
 <!-- Quarterly Plan (Popular) -->
-<label class="relative flex items-center p-4 bg-white dark:bg-gray-900 border-2 border-primary rounded-xl cursor-pointer shadow-md transition-all">
+<label id="plan-quarterly" class="relative flex items-center p-4 bg-white dark:bg-gray-900 border-2 border-primary rounded-xl cursor-pointer shadow-md transition-all">
 <input checked="" class="hidden peer" name="plan" type="radio" value="quarterly">
 <div class="absolute -top-3 right-4 bg-primary text-white text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full">
                         Mejor Valor
@@ -128,7 +128,7 @@
 </div>
 <!-- Sticky Footer CTA -->
 <div class="mt-auto p-4 bg-white dark:bg-background-dark border-t border-gray-100 dark:border-gray-800">
-<a href="/screens-static/perfil_de_usuario_con_rol_diferenciado/code.html" class="cursor-pointer"><button class="w-full bg-primary hover:bg-primary/90 text-[#102218] font-bold py-4 rounded-xl text-lg transition-transform active:scale-[0.98] shadow-lg shadow-primary/20">
+<a href="/screens-static/perfil_de_usuario_con_rol_diferenciado/code.html" class="cursor-pointer"><button id="plan-cta" class="w-full bg-primary hover:bg-primary/90 text-[#102218] font-bold py-4 rounded-xl text-lg transition-transform active:scale-[0.98] shadow-lg shadow-primary/20">
                 Suscribirme ahora
             </button></a>
 <a href="/screens-static/onboarding_de_la_app/code.html" class="cursor-pointer"></a><p class="text-center text-xs text-gray-500 dark:text-gray-400 mt-4"><a href="/screens-static/onboarding_de_la_app/code.html" class="cursor-pointer">
@@ -142,5 +142,30 @@
 </div>
 </div>
 </div>
+  <script>
+(function () {
+  var token = localStorage.getItem('rehogar_token');
+  if (!token) return;
+  var cta = document.getElementById('plan-cta');
+  fetch('/api/auth/me', { headers: { 'Authorization': 'Bearer ' + token } })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (u) {
+      if (!u || !u.plan) return;
+      var sel = null, nombre = null;
+      if (u.plan === 'premium') { sel = document.getElementById('plan-quarterly'); nombre = 'Premium'; }
+      else if (u.plan === 'basic') { sel = document.getElementById('plan-monthly'); nombre = 'Básico'; }
+      if (!sel) return;
+      var radio = sel.querySelector('input[name="plan"]');
+      if (radio) radio.checked = true;
+      sel.classList.add('border-primary');
+      var badge = document.createElement('div');
+      badge.className = 'absolute -top-3 left-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full';
+      badge.textContent = 'Tu plan · ' + nombre;
+      sel.appendChild(badge);
+      if (cta) cta.textContent = 'Tu plan ' + nombre + ' está activo';
+    })
+    .catch(function () {});
+})();
+  </script>
   <script src="/nav.js"></script>
 </body></html>
