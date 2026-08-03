@@ -267,13 +267,17 @@
     }).join('');
   }
 
-  var estado = { busqueda: '', genero: null, mascotas: null };
+  var estado = { ciudad: '', genero: null, mascotas: null, tipo: null, precio_min: null, precio_max: null, habitaciones_min: null };
 
   function loadCasas() {
     var params = [];
-    if (estado.busqueda) params.push('busqueda=' + encodeURIComponent(estado.busqueda));
+    if (estado.ciudad) params.push('ciudad=' + encodeURIComponent(estado.ciudad));
     if (estado.genero) params.push('genero_ok=' + estado.genero);
     if (estado.mascotas !== null) params.push('mascotas=' + estado.mascotas);
+    if (estado.tipo) params.push('tipo=' + encodeURIComponent(estado.tipo));
+    if (estado.precio_min !== null) params.push('precio_min=' + estado.precio_min);
+    if (estado.precio_max !== null) params.push('precio_max=' + estado.precio_max);
+    if (estado.habitaciones_min !== null) params.push('habitaciones_min=' + estado.habitaciones_min);
     var qs = params.length ? '?' + params.join('&') : '';
     var filtrado = params.length > 0;
     fetch('/api/casas' + qs)
@@ -313,7 +317,7 @@
     searchInput.addEventListener('input', function () {
       clearTimeout(timer);
       var val = this.value.trim();
-      timer = setTimeout(function () { estado.busqueda = val; loadCasas(); }, 400);
+      timer = setTimeout(function () { estado.ciudad = val; loadCasas(); }, 400);
     });
   }
 
@@ -321,6 +325,32 @@
   bindChip('qf-mujeres', 'genero', 'mujeres');
   bindChip('qf-mascotas-si', 'mascotas', 'true');
   bindChip('qf-mascotas-no', 'mascotas', 'false');
+
+  (function () {
+    try {
+      var saved = JSON.parse(localStorage.getItem('savedFilters') || 'null');
+      if (!saved) return;
+      localStorage.removeItem('savedFilters');
+      if (saved.location && saved.location.city) estado.ciudad = saved.location.city;
+      if (saved.budget) {
+        if (saved.budget.min > 200) estado.precio_min = saved.budget.min;
+        if (saved.budget.max < 2000) estado.precio_max = saved.budget.max;
+      }
+      if (saved.property) {
+        if (saved.property.type) estado.tipo = saved.property.type;
+        if (saved.property.bedrooms > 0) estado.habitaciones_min = saved.property.bedrooms;
+      }
+      if (saved.coexistence) {
+        if (saved.coexistence.gender && saved.coexistence.gender !== 'mixto') estado.genero = saved.coexistence.gender;
+        if (saved.coexistence.petsAllowed) estado.mascotas = 'true';
+      }
+      if (searchInput && estado.ciudad) searchInput.value = estado.ciudad;
+      setChip('qf-hombres', estado.genero === 'hombres');
+      setChip('qf-mujeres', estado.genero === 'mujeres');
+      setChip('qf-mascotas-si', estado.mascotas === 'true');
+      setChip('qf-mascotas-no', estado.mascotas === 'false');
+    } catch (e) {}
+  })();
 
   loadCasas();
 
