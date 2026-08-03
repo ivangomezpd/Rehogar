@@ -442,8 +442,53 @@
             alert('Por favor, selecciona el tipo de vivienda');
             return;
         }
-        
-        alert('¡Anuncio publicado correctamente!');
+
+        const token = localStorage.getItem('rehogar_token');
+        if (!token) {
+            alert('Debes iniciar sesión para publicar una casa');
+            window.location.href = '/screens-static/login/code.html';
+            return;
+        }
+
+        const parts = listingData.address.split(',').map(s => s.trim()).filter(Boolean);
+        const ciudad = parts.length > 1 ? parts[parts.length - 1] : listingData.address;
+        const tipoLabel = listingData.propertyType.charAt(0).toUpperCase() + listingData.propertyType.slice(1);
+
+        let genero_ok = 'mixto';
+        if (listingData.preferences.indexOf('solo_mujeres') !== -1) genero_ok = 'mujeres';
+        else if (listingData.preferences.indexOf('solo_hombres') !== -1) genero_ok = 'hombres';
+
+        const body = {
+            titulo: tipoLabel + ' en ' + listingData.address,
+            ciudad: ciudad,
+            precio: listingData.price,
+            habitaciones: listingData.bedrooms || undefined,
+            banos: listingData.bathrooms || undefined,
+            tipo: listingData.propertyType,
+            genero_ok: genero_ok,
+            mascotas: listingData.preferences.indexOf('aceptamos_perros') !== -1,
+            descripcion: listingData.description || undefined,
+            amenities: listingData.features.length ? listingData.features : undefined
+        };
+
+        fetch('/api/casas', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+            body: JSON.stringify(body)
+        }).then(function (res) {
+            return res.json().catch(function () { return {}; }).then(function (d) { return { res: res, data: d }; });
+        }).then(function (r) {
+            if (r.res.status === 201) {
+                alert('¡Anuncio publicado correctamente!');
+                window.location.href = '/screens-static/explorar_casas/code.html';
+            } else if (r.res.status === 403) {
+                alert((r.data && r.data.error) || 'Solo los anfitriones pueden publicar casas');
+            } else {
+                alert((r.data && r.data.error) || 'No se pudo publicar el anuncio');
+            }
+        }).catch(function () {
+            alert('Error de conexión con el servidor');
+        });
     }
     
     function getFormData() {
