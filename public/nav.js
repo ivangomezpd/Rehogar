@@ -28,6 +28,8 @@
     notificaciones:  '/screens-static/configuracion_de_notificaciones/code.html',
     seleccionRol:    '/screens-static/seleccion_de_rol/code.html',
     onboarding:      '/screens-static/onboarding_de_la_app/code.html',
+    login:           '/screens-static/login/code.html',
+    register:        '/screens-static/register/code.html',
   };
 
   // ─── Navegar ──────────────────────────────────────────────────────────────
@@ -564,6 +566,7 @@
       } else if (t.includes('cerrar sesión') || t.includes('logout') || iconText === 'logout') {
         el.addEventListener('click', () => {
           if (confirm('¿Seguro que quieres cerrar sesión?')) {
+            localStorage.removeItem('rehogar_token');
             go('onboarding');
           }
         });
