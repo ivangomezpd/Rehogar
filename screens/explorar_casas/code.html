@@ -347,7 +347,7 @@
       }
       if (saved.family) {
         if (saved.family.childrenCount > 0) estado.habitaciones_min = Math.max(estado.habitaciones_min || 0, 2);
-        if (saved.family.custody && saved.family.custody !== 'sin_hijos') estado.custodia_ok = saved.family.custody;
+        if (saved.family.custody && saved.family.custody !== 'sin-hijos') estado.custodia_ok = saved.family.custody;
       }
       if (searchInput && estado.ciudad) searchInput.value = estado.ciudad;
       setChip('qf-hombres', estado.genero === 'hombres');

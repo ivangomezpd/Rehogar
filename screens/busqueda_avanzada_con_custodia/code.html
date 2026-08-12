@@ -267,10 +267,11 @@
                 <div>
                     <span class="text-sm font-semibold mb-3 block">Régimen de Custodia</span>
                     <div class="flex flex-wrap gap-2">
-                        <button class="custody-option px-4 py-2 rounded-full border-2 border-primary bg-primary/10 text-primary font-bold text-sm" data-custody="fines_semana">Fines de semana</button>
-                        <button class="custody-option px-4 py-2 rounded-full border-2 border-gray-100 dark:border-gray-800 text-gray-600 dark:text-gray-400 font-medium text-sm" data-custody="semanas_alternas">Semanas alternas</button>
-                        <button class="custody-option px-4 py-2 rounded-full border-2 border-gray-100 dark:border-gray-800 text-gray-600 dark:text-gray-400 font-medium text-sm" data-custody="custodia_completa">Custodia completa</button>
-                        <button class="custody-option px-4 py-2 rounded-full border-2 border-gray-100 dark:border-gray-800 text-gray-600 dark:text-gray-400 font-medium text-sm" data-custody="sin_hijos">Sin hijos en casa</button>
+<button class="custody-option px-4 py-2 rounded-full border-2 border-gray-100 dark:border-gray-800 text-gray-600 dark:text-gray-400 font-medium text-sm" data-custody="fines-de-semana">Fines
+de semana</button>
+                        <button class="custody-option px-4 py-2 rounded-full border-2 border-gray-100 dark:border-gray-800 text-gray-600 dark:text-gray-400 font-medium text-sm" data-custody="semanas-alternas">Semanas alternas</button>
+                        <button class="custody-option px-4 py-2 rounded-full border-2 border-gray-100 dark:border-gray-800 text-gray-600 dark:text-gray-400 font-medium text-sm" data-custody="custodia-completa">Custodia completa</button>
+                        <button class="custody-option px-4 py-2 rounded-full border-2 border-primary bg-primary/10 text-primary font-bold text-sm" data-custody="sin-hijos">Sin hijos en casa</button>
                     </div>
                 </div>
                 <div>
@@ -431,7 +432,7 @@
             btn.classList.remove('active', 'border-primary', 'bg-primary/10', 'text-primary', 'font-bold');
             btn.classList.add('border-gray-100', 'dark:border-gray-800', 'text-gray-600', 'dark:text-gray-400', 'font-medium');
         });
-        document.querySelector('.custody-option:first-child').classList.add('active', 'border-primary', 'bg-primary/10', 'text-primary', 'font-bold');
+        document.querySelector('.custody-option[data-custody="sin-hijos"]').classList.add('active', 'border-primary', 'bg-primary/10', 'text-primary', 'font-bold');
         
         // Resetear número de niños
         childrenCount = 0;
