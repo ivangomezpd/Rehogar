@@ -203,8 +203,8 @@ Sin casas que coincidan con los filtros.
   }
 
   function pintarEscuelas() {
-    var esc = document.getElementById('map-escuelas');
-    if (esc) esc.remove();
+    var prev = document.getElementById('map-escuelas');
+    if (prev) prev.remove();
     if (!estado.escuelas) return;
     var cont = document.createElement('div');
     cont.id = 'map-escuelas';
