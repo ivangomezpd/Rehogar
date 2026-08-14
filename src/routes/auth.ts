@@ -47,4 +47,9 @@ router.put("/me", authMiddleware, (req: AuthRequest, res: Response) => {
   return res.json({ ok: true });
 });
 
+router.post("/verificar", authMiddleware, (req: AuthRequest, res: Response) => {
+  db.prepare("UPDATE usuarios SET verificado=1, updated_at=datetime('now') WHERE id=?").run(req.user!.id);
+  return res.json({ ok: true, verificado: 1 });
+});
+
 export default router;

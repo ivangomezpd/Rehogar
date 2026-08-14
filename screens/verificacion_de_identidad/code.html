@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="es"><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Verificación de Identidad - Safe Community</title>
+<title>Verificación de Identidad - Rehogar</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet">
@@ -30,16 +30,16 @@
         }
     </script>
 <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 <style>
     body {
       min-height: max(884px, 100dvh);
     }
   </style>
-  </head>
+</head>
 <body class="bg-background-light dark:bg-background-dark text-[#111814] min-h-screen">
 <div class="relative flex h-auto min-h-screen w-full max-w-md mx-auto flex-col bg-white dark:bg-background-dark shadow-2xl overflow-x-hidden">
 <!-- Top Navigation -->
@@ -72,94 +72,371 @@
 <div>
 <h3 class="text-[#111814] dark:text-white text-xl font-bold leading-tight mb-2">Asegura tu hogar y comunidad</h3>
 <p class="text-[#111814]/70 dark:text-white/70 text-sm font-normal leading-relaxed">
-                            Para garantizar un entorno seguro para todas las familias, confirmamos la identidad de cada miembro. Esto evita perfiles falsos y asegura la tranquilidad de tu hogar.
+                            Confirmamos tu identidad con una foto actual del documento, verificando que el DNI, NIE o pasaporte está presente en el momento de la foto. Después completamos con un selfie de seguridad.
                         </p>
 </div>
 </div>
 </div>
 </div>
 <!-- Verification Steps -->
-<div class="flex flex-col gap-4 px-4 pb-24">
+<div class="flex flex-col gap-4 px-4 pb-28">
 <h3 class="text-[#111814] dark:text-white text-base font-bold leading-tight tracking-tight">Pasos requeridos</h3>
-<!-- Step 1 Card -->
-<div class="group relative flex flex-col gap-4 rounded-xl border-2 border-primary bg-white dark:bg-white/5 p-4 transition-all hover:shadow-md">
+
+<!-- Step 1: Documento -->
+<div id="paso-doc" class="group relative flex flex-col gap-4 rounded-xl border-2 border-primary bg-white dark:bg-white/5 p-4">
 <div class="flex items-center justify-between">
 <div class="flex items-center gap-3">
-<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white">
+<div id="doc-icon-wrap" class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white">
 <span class="material-symbols-outlined">badge</span>
 </div>
 <div>
 <p class="text-sm font-bold text-[#111814] dark:text-white">Documento de Identidad</p>
-<p class="text-xs text-[#111814]/60 dark:text-white/50">DNI, NIE o Pasaporte vigente</p>
+<p class="text-xs text-[#111814]/60 dark:text-white/50">DNI, NIE o Pasaporte vigente (foto en vivo)</p>
 </div>
 </div>
-<span class="material-symbols-outlined text-primary">check_circle</span>
+<span id="doc-icon" class="material-symbols-outlined text-primary/30">radio_button_unchecked</span>
 </div>
-<div class="relative aspect-[1.6/1] w-full overflow-hidden rounded-lg bg-background-light dark:bg-white/10 border-2 border-dashed border-primary/30 flex flex-col items-center justify-center text-center p-4">
-<img class="absolute inset-0 h-full w-full object-cover opacity-10 mix-blend-overlay" data-alt="Illustration of a person holding an identity card" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBm1Yirtv2eRz_jGeylcp_kBJLAuyTzCS0jNRVug4YG5Qh9tizQqQageyz9D1SPvMvL6TL_JrnJ5tsLp2emdGjUdwwqA1ZHdVFdEZZT5ExjugSE024bs8W6nJEotBl6SlyIul8txAk7LlkqMz4RUusn-bbhvTDrpbQn9t-4bW22a_qRkD1GJsCZhuOwUrsAFRB7wNnSbHRAMGrgAYSh4pS2x0Pc0B-t0jjnYVKMnxwzUZ0lMcGwG8THu5grm_JedUD8rDjgiEMJpNE">
-<span class="material-symbols-outlined text-4xl text-primary/40 mb-2">add_a_photo</span>
-<p class="text-xs font-medium text-[#111814]/60 dark:text-white/60">Haz clic para escanear el frente y dorso</p>
+
+<!-- Zona de captura -->
+<input id="doc-file" type="file" accept="image/*" capture="environment" class="hidden">
+<div id="doc-zone" class="relative aspect-[1.6/1] w-full overflow-hidden rounded-lg bg-background-light dark:bg-white/10 border-2 border-dashed border-primary/30 flex flex-col items-center justify-center text-center p-4">
+<span class="material-symbols-outlined text-4xl text-primary/40 mb-2">document_scanner</span>
+<p class="text-xs font-medium text-[#111814]/60 dark:text-white/60">Captura tu documento en directo</p>
+<button id="doc-capture-btn" type="button" class="mt-3 rounded-full bg-primary px-5 py-2 text-xs font-bold text-white shadow-md shadow-primary/20 hover:bg-primary-dark transition-colors">Hacer foto</button>
+<button id="doc-upload-btn" type="button" class="mt-2 text-primary text-xs font-bold underline underline-offset-2">Subir foto de la galería</button>
+</div>
+
+<!-- Vista previa + análisis -->
+<div id="doc-result" class="hidden flex-col gap-3">
+<img id="doc-preview" alt="Preview del documento" class="aspect-[1.6/1] w-full rounded-lg object-cover border border-primary/30">
+<div id="doc-status" class="rounded-lg bg-background-light dark:bg-white/10 px-3 py-2 text-xs font-semibold text-[#618972]"></div>
+<label id="doc-check1" class="flex items-start gap-2 text-xs text-[#111814]/80 dark:text-white/70">
+<input type="checkbox" class="mt-0.5 accent-primary self-start">
+<span>Confirmo que mi documento (DNI, NIE o pasaporte) aparece completo, nítido y legible en la foto.</span>
+</label>
+<label id="doc-check2" class="flex items-start gap-2 text-xs text-[#111814]/80 dark:text-white/70">
+<input type="checkbox" class="mt-0.5 accent-primary self-start">
+<span>Confirmo que el documento está vigente y es mío.</span>
+</label>
+<button id="doc-confirm" type="button" disabled class="mt-1 rounded-full bg-primary px-5 py-2.5 text-xs font-bold text-white shadow-md shadow-primary/20 hover:bg-primary-dark transition-colors disabled:opacity-40 disabled:cursor-not-allowed">Confirmar documento</button>
 </div>
 </div>
-<!-- Step 2 Card -->
-<div id="step2" class="group relative flex flex-col gap-4 rounded-xl border border-background-light dark:border-white/10 bg-white dark:bg-white/5 p-4 opacity-70 grayscale transition-all">
+
+<!-- Step 2: Selfie -->
+<div id="paso-selfie" class="group relative flex flex-col gap-4 rounded-xl border border-background-light dark:border-white/10 bg-white dark:bg-white/5 p-4 opacity-60 grayscale">
 <div class="flex items-center justify-between">
 <div class="flex items-center gap-3">
-<div class="flex h-10 w-10 items-center justify-center rounded-full bg-background-light dark:bg-white/10 text-[#111814]/40 dark:text-white/40">
+<div id="selfie-icon-wrap" class="flex h-10 w-10 items-center justify-center rounded-full bg-background-light dark:bg-white/10 text-[#111814]/40 dark:text-white/40">
 <span class="material-symbols-outlined">face</span>
 </div>
 <div>
-<p id="step2-title" class="text-sm font-bold text-[#111814] dark:text-white">Selfie de Seguridad</p>
+<p class="text-sm font-bold text-[#111814] dark:text-white">Selfie de Seguridad</p>
 <p class="text-xs text-[#111814]/60 dark:text-white/50">Validación biométrica en vivo</p>
 </div>
 </div>
-<span id="step2-icon" class="material-symbols-outlined text-background-light dark:text-white/10">lock</span>
+<span id="selfie-icon" class="material-symbols-outlined text-background-light dark:text-white/10">lock</span>
+</div>
+
+<input id="selfie-file" type="file" accept="image/*" capture="user" class="hidden">
+<div id="selfie-zone" class="relative aspect-[1/1] w-full overflow-hidden rounded-lg bg-background-light dark:bg-white/10 border-2 border-dashed border-primary/30 flex flex-col items-center justify-center text-center p-4">
+<span class="material-symbols-outlined text-4xl text-primary/40 mb-2">add_a_photo</span>
+<p class="text-xs font-medium text-[#111814]/60 dark:text-white/60">Captura un selfie de seguridad</p>
+<button id="selfie-capture-btn" type="button" class="mt-3 rounded-full bg-primary px-5 py-2 text-xs font-bold text-white shadow-md shadow-primary/20 hover:bg-primary-dark transition-colors">Hacer selfie</button>
+<button id="selfie-upload-btn" type="button" class="mt-2 text-primary text-xs font-bold underline underline-offset-2">Subir de la galería</button>
+</div>
+
+<div id="selfie-result" class="hidden flex-col gap-3">
+<img id="selfie-preview" alt="Preview del selfie" class="aspect-[1/1] w-full rounded-lg object-cover border border-primary/30">
+<div id="selfie-status" class="rounded-lg bg-background-light dark:bg-white/10 px-3 py-2 text-xs font-semibold text-[#618972]"></div>
+<button id="selfie-confirm" type="button" class="rounded-full bg-primary px-5 py-2.5 text-xs font-bold text-white shadow-md shadow-primary/20 hover:bg-primary-dark transition-colors">Confirmar selfie</button>
 </div>
 </div>
+
+<!-- Estado final -->
+<div id="final-state" class="hidden flex-col items-center gap-3 rounded-xl border border-primary/30 bg-primary/5 p-6 text-center">
+<span class="material-symbols-outlined text-5xl text-primary" style="font-variation-settings: 'FILL' 1">verified_user</span>
+<p id="final-text" class="text-[#111814] dark:text-white text-base font-bold">¡Identidad verificada!</p>
+<p class="text-xs text-[#618972]">Ya formas parte de una comunidad segura y verificada.</p>
+</div>
+
 <!-- Trust Footer Section -->
 <div class="mt-4 flex flex-col items-center gap-4 text-center">
 <div class="flex items-center gap-2 text-xs font-medium text-[#111814]/50 dark:text-white/40">
 <span class="material-symbols-outlined text-sm">enhanced_encryption</span>
-                    Tus datos están encriptados y protegidos (AES-256)
-                </div>
+                        Tus datos están encriptados y protegidos (AES-256)
+                    </div>
 <p class="text-[10px] text-[#111814]/40 dark:text-white/30 leading-tight">
-                    Cumplimos con las normativas GDPR de protección de datos personales. Tu información solo se utiliza para validación de seguridad dentro de la comunidad.
-                </p>
+                        Cumplimos con las normativas GDPR de protección de datos personales. Tu información solo se utiliza para validación de seguridad dentro de la comunidad. Las fotos se procesan en tu dispositivo y solo se guarda el resultado de la verificación.
+                    </p>
 </div>
 </div>
 <!-- Sticky Bottom Action -->
 <div class="fixed bottom-0 left-0 right-0 mx-auto max-w-md bg-white/80 dark:bg-background-dark/80 backdrop-blur-md p-4 border-t border-background-light/10 flex gap-3">
 <a href="/screens-static/explorar_casas/code.html" class="flex-1 cursor-pointer"><button class="w-full bg-primary hover:bg-primary/90 text-[#102218] font-bold py-3 rounded-xl shadow-lg shadow-primary/20 flex flex-col items-center justify-center transition-transform active:scale-[0.98]">
-    <span class="text-sm">Buscador</span>
-    <span class="text-xs font-normal">Explorar casas</span>
+<span class="text-sm">Buscador</span>
+<span class="text-xs font-normal">Explorar casas</span>
 </button></a>
 <a href="/screens-static/publicar_casa_con_custodia/code.html" class="flex-1 cursor-pointer"><button class="w-full bg-background-light dark:bg-white/10 border border-primary/30 hover:border-primary text-[#111814] dark:text-white font-bold py-3 rounded-xl flex flex-col items-center justify-center transition-transform active:scale-[0.98]">
-    <span class="text-sm">Anfitri�n</span>
-    <span class="text-xs font-normal">Publicar casa</span>
+<span class="text-sm">Anfitrión</span>
+<span class="text-xs font-normal">Publicar casa</span>
 </button></a>
 </div>
 </div>
-  <script>
+<!-- Cámara modal -->
+<div id="cam-modal" class="hidden fixed inset-0 z-50 bg-black/90 flex-col items-center justify-center p-4">
+<video id="cam-video" autoplay playsinline muted class="max-h-[70vh] w-full max-w-md rounded-xl bg-black object-contain"></video>
+<div class="flex gap-3 mt-4">
+<button id="cam-cancel" type="button" class="rounded-full bg-white/10 px-6 py-3 text-sm font-bold text-white">Cancelar</button>
+<button id="cam-capture" type="button" class="rounded-full bg-primary px-6 py-3 text-sm font-bold text-white shadow-lg shadow-primary/25">Capturar</button>
+</div>
+</div>
+<canvas id="cam-canvas" class="hidden"></canvas>
+
+<script>
 (function () {
-  var token = localStorage.getItem('rehogar_token');
-  if (!token) return;
-  fetch('/api/auth/me', { headers: { 'Authorization': 'Bearer ' + token } })
-    .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (u) {
-      if (!u || !u.verificado) return;
-      var lbl = document.getElementById('prog-label');
-      if (lbl) lbl.textContent = 'Verificado';
-      var bar = document.getElementById('prog-bar');
-      if (bar) bar.style.width = '100%';
-      var s2 = document.getElementById('step2');
-      if (s2) { s2.classList.remove('opacity-70', 'grayscale'); s2.classList.add('border-primary'); }
-      var t2 = document.getElementById('step2-title');
-      if (t2) t2.textContent = 'Selfie de Seguridad · Verificada';
-      var ic = document.getElementById('step2-icon');
-      if (ic) { ic.textContent = 'check_circle'; ic.classList.remove('text-background-light', 'dark:text-white/10'); ic.classList.add('text-primary'); }
-    })
-    .catch(function () {});
+  var camModal = document.getElementById('cam-modal');
+  var camVideo = document.getElementById('cam-video');
+  var camCanvas = document.getElementById('cam-canvas');
+  var camCaptureBtn = document.getElementById('cam-capture');
+  var camCancelBtn = document.getElementById('cam-cancel');
+  var activeStream = null;
+  var pendingCapture = null;
+
+  var docOK = false;
+  var selfieOK = false;
+  var token = localStorage.getItem('rehogar_token') || '';
+
+  function setLabel(t) { var l = document.getElementById('prog-label'); if (l) l.textContent = t; }
+  function setBar(p) { var b = document.getElementById('prog-bar'); if (b) b.style.width = p + '%'; }
+
+  function openCam(facingMode) {
+    return new Promise(function (resolve, reject) {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        reject(new Error('Cámara no disponible en este navegador'));
+        return;
+      }
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: facingMode }, audio: false })
+        .then(function (stream) {
+          activeStream = stream;
+          camVideo.srcObject = stream;
+          camModal.classList.remove('hidden');
+          camModal.classList.add('flex');
+          pendingCapture = { resolve: resolve, reject: reject };
+        })
+        .catch(reject);
+    });
+  }
+
+  function closeCam() {
+    if (activeStream) { activeStream.getTracks().forEach(function (t) { t.stop(); }); activeStream = null; }
+    camVideo.srcObject = null;
+    camModal.classList.add('hidden');
+    camModal.classList.remove('flex');
+  }
+
+  camCaptureBtn.addEventListener('click', function () {
+    if (pendingCapture) {
+      camCanvas.width = camVideo.videoWidth || 640;
+      camCanvas.height = camVideo.videoHeight || 480;
+      camCanvas.getContext('2d').drawImage(camVideo, 0, 0, camCanvas.width, camCanvas.height);
+      var dataUrl = camCanvas.toDataURL('image/jpeg', 0.9);
+      var cb = pendingCapture.resolve;
+      pendingCapture = null;
+      closeCam();
+      cb(dataUrl);
+    }
+  });
+
+  camCancelBtn.addEventListener('click', function () {
+    if (pendingCapture) { var cb = pendingCapture.reject; pendingCapture = null; closeCam(); cb(new Error('cancelado')); }
+  });
+
+  function cargarArchivo(input) {
+    return new Promise(function (resolve, reject) {
+      var file = input.files && input.files[0];
+      if (!file) { reject(new Error('Sin archivo')); return; }
+      var reader = new FileReader();
+      reader.onload = function () { resolve(reader.result); };
+      reader.onerror = function () { reject(new Error('No se pudo leer la imagen')); };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function analizarImagen(dataUrl, done) {
+    var img = new Image();
+    img.onload = function () {
+      var cv = document.createElement('canvas');
+      cv.width = Math.min(img.width, 640);
+      cv.height = Math.min(img.height, 480);
+      var ctx = cv.getContext('2d');
+      ctx.drawImage(img, 0, 0, cv.width, cv.height);
+      var d;
+      try { d = ctx.getImageData(0, 0, cv.width, cv.height).data; }
+      catch (e) { done({ vacia: false }); return; }
+      var n = d.length / 4, sum = 0, sum2 = 0;
+      for (var i = 0; i < n; i++) {
+        var v = (d[i * 4] + d[i * 4 + 1] + d[i * 4 + 2]) / 3;
+        sum += v; sum2 += v * v;
+      }
+      var mean = sum / n;
+      var variance = Math.max(0, sum2 / n - mean * mean);
+      var std = Math.sqrt(variance);
+      done({ media: mean, desv: std });
+    };
+    img.onerror = function () { done({ vacia: true }); };
+    img.src = dataUrl;
+  }
+
+  function evaluarDoc(dataUrl, statusEl) {
+    analizarImagen(dataUrl, function (r) {
+      if (r.vacia) { statusEl.textContent = 'No se pudo procesar la imagen. Inténtalo de nuevo.'; return; }
+      if (r.media < 12) { statusEl.textContent = 'La imagen está demasiado oscura. Acércate a una fuente de luz y repite la foto.'; return; }
+      if (r.desv < 20) { statusEl.textContent = 'La imagen parece vacía o borrosa. Asegúrate de que tu documento ocupa todo el encuadre.'; return; }
+      statusEl.textContent = 'Documento detectado en la foto. Tiene buena luz y nitidez. Confirma los datos para continuar.';
+      document.getElementById('doc-check1').classList.remove('opacity-40');
+      document.getElementById('doc-check2').classList.remove('opacity-40');
+    });
+  }
+
+  function evaluarSelfie(dataUrl, statusEl) {
+    analizarImagen(dataUrl, function (r) {
+      if (r.vacia) { statusEl.textContent = 'No se pudo procesar la imagen. Inténtalo de nuevo.'; return; }
+      if (r.media < 12) { statusEl.textContent = 'La imagen está demasiado oscura. Busca buena luz para el selfie.'; return; }
+      statusEl.textContent = 'Rostro detectado con buena luz. Confirma tu selfie para completar la verificación.';
+      document.getElementById('selfie-confirm').disabled = false;
+    });
+  }
+
+  // ── Documento ──
+  document.getElementById('doc-capture-btn').addEventListener('click', function () {
+    openCam('environment').then(function (dataUrl) {
+      document.getElementById('doc-zone').classList.add('hidden');
+      var res = document.getElementById('doc-result');
+      res.classList.remove('hidden'); res.classList.add('flex');
+      var prev = document.getElementById('doc-preview'); prev.src = dataUrl;
+      document.getElementById('doc-check1').classList.add('opacity-40');
+      document.getElementById('doc-check2').classList.add('opacity-40');
+      var st = document.getElementById('doc-status');
+      st.textContent = 'Analizando la foto...';
+      evaluarDoc(dataUrl, st);
+    }).catch(function (e) {
+      if (e && e.message === 'cancelado') return;
+      var st = document.getElementById('doc-status');
+      document.getElementById('doc-zone').classList.add('hidden');
+      document.getElementById('doc-result').classList.remove('hidden'); document.getElementById('doc-result').classList.add('flex');
+      st.textContent = 'No se pudo abrir la cámara (' + (e && e.message ? e.message : 'error') + '). Puedes subir una foto ya tomada.';
+    });
+  });
+
+  document.getElementById('doc-upload-btn').addEventListener('click', function () {
+    document.getElementById('doc-file').click();
+  });
+  document.getElementById('doc-file').addEventListener('change', function () {
+    cargarArchivo(this).then(function (dataUrl) {
+      document.getElementById('doc-zone').classList.add('hidden');
+      var res = document.getElementById('doc-result');
+      res.classList.remove('hidden'); res.classList.add('flex');
+      document.getElementById('doc-preview').src = dataUrl;
+      document.getElementById('doc-check1').classList.add('opacity-40');
+      document.getElementById('doc-check2').classList.add('opacity-40');
+      var st = document.getElementById('doc-status');
+      st.textContent = 'Analizando la foto...';
+      evaluarDoc(dataUrl, st);
+    }).catch(function () {});
+    this.value = '';
+  });
+
+  function checkDocConfirm() {
+    var c1 = document.getElementById('doc-check1').querySelector('input').checked;
+    var c2 = document.getElementById('doc-check2').querySelector('input').checked;
+    document.getElementById('doc-confirm').disabled = !(c1 && c2);
+  }
+  document.getElementById('doc-check1').querySelector('input').addEventListener('change', checkDocConfirm);
+  document.getElementById('doc-check2').querySelector('input').addEventListener('change', checkDocConfirm);
+
+  document.getElementById('doc-confirm').addEventListener('click', function () {
+    docOK = true;
+    document.getElementById('doc-icon-wrap').classList.add('bg-primary'); 
+    document.getElementById('doc-icon').textContent = 'check_circle';
+    document.getElementById('doc-icon').style.color = '#11d462';
+    document.getElementById('paso-selfie').classList.remove('opacity-60', 'grayscale');
+    document.getElementById('selfie-icon').textContent = 'radio_button_unchecked';
+    document.getElementById('selfie-icon').style.color = '#11d462';
+    setLabel('Paso 2 de 2'); setBar(75);
+    document.getElementById('selfie-capture-btn').scrollIntoView({ block: 'center', behavior: 'smooth' });
+  });
+
+  // ── Selfie ──
+  function habilitarSelfie(b) { if (b) { document.getElementById('selfie-zone').classList.add('hidden'); var r = document.getElementById('selfie-result'); r.classList.remove('hidden'); r.classList.add('flex'); document.getElementById('selfie-confirm').disabled = true; } }
+  document.getElementById('selfie-capture-btn').addEventListener('click', function () {
+    openCam('user').then(function (dataUrl) {
+      habilitarSelfie(true);
+      document.getElementById('selfie-preview').src = dataUrl;
+      var st = document.getElementById('selfie-status');
+      st.textContent = 'Analizando el selfie...';
+      evaluarSelfie(dataUrl, st);
+    }).catch(function (e) {
+      if (e && e.message === 'cancelado') return;
+      document.getElementById('selfie-zone').classList.add('hidden');
+      var r = document.getElementById('selfie-result'); r.classList.remove('hidden'); r.classList.add('flex');
+      var st = document.getElementById('selfie-status');
+      st.textContent = 'No se pudo abrir la cámara (' + (e && e.message ? e.message : 'error') + '). Puedes subir una foto ya tomada.';
+      document.getElementById('selfie-confirm').disabled = false;
+    });
+  });
+  document.getElementById('selfie-upload-btn').addEventListener('click', function () {
+    document.getElementById('selfie-file').click();
+  });
+  document.getElementById('selfie-file').addEventListener('change', function () {
+    cargarArchivo(this).then(function (dataUrl) {
+      habilitarSelfie(true);
+      document.getElementById('selfie-preview').src = dataUrl;
+      var st = document.getElementById('selfie-status');
+      st.textContent = 'Analizando el selfie...';
+      evaluarSelfie(dataUrl, st);
+    }).catch(function () {});
+    this.value = '';
+  });
+
+  document.getElementById('selfie-confirm').addEventListener('click', function () {
+    selfieOK = true;
+    document.getElementById('selfie-icon-wrap').classList.add('bg-primary');
+    document.getElementById('selfie-icon').textContent = 'check_circle';
+    document.getElementById('selfie-icon').style.color = '#11d462';
+    setLabel('Verificado'); setBar(100);
+    document.getElementById('final-state').classList.remove('hidden');
+    document.getElementById('final-state').classList.add('flex');
+    if (token) {
+      fetch('/api/auth/verificar', { method: 'POST', headers: { 'Authorization': 'Bearer ' + token } })
+        .then(function (r) { return r.json(); })
+        .catch(function () { return {}; });
+    } else {
+      var ft = document.getElementById('final-text');
+      if (ft) ft.textContent = '¡Identidad verificada en esta sesión!';
+    }
+  });
+
+  // ── Si ya está verificado ──
+  if (token) {
+    fetch('/api/auth/me', { headers: { 'Authorization': 'Bearer ' + token } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (u) {
+        if (!u || !u.verificado) return;
+        docOK = true; selfieOK = true;
+        document.getElementById('doc-icon').textContent = 'check_circle';
+        document.getElementById('doc-icon').style.color = '#11d462';
+        document.getElementById('selfie-icon-wrap').classList.add('bg-primary');
+        document.getElementById('selfie-icon').textContent = 'check_circle';
+        document.getElementById('selfie-icon').style.color = '#11d462';
+        document.getElementById('paso-selfie').classList.remove('opacity-60', 'grayscale');
+        setLabel('Verificado'); setBar(100);
+        var fs = document.getElementById('final-state');
+        fs.classList.remove('hidden'); fs.classList.add('flex');
+        document.getElementById('final-text').textContent = 'Tu identidad ya está verificada.';
+      })
+      .catch(function () {});
+  }
 })();
-  </script>
-  <script src="/nav.js"></script>
+</script>
+<script src="/nav.js"></script>
 </body></html>

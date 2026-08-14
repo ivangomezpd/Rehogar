@@ -24,7 +24,6 @@
     calendario:      '/screens-static/calendario_compartido/code.html',
     verificacion:    '/screens-static/verificacion_de_identidad/code.html',
     mapa:            '/screens-static/mapa_interactivo_de_casas/code.html',
-    mapaEscolar:     '/screens-static/mapa_con_zonas_escolares/code.html',
     notificaciones:  '/screens-static/configuracion_de_notificaciones/code.html',
     seleccionRol:    '/screens-static/seleccion_de_rol/code.html',
     onboarding:      '/screens-static/onboarding_de_la_app/code.html',
@@ -421,8 +420,6 @@
         });
       } else if (t.includes('list') || t.includes('lista') || t.includes('list view')) {
         setLink(el, 'explorar');
-      } else if (t.includes('zonas') || t.includes('escolar')) {
-        setLink(el, 'mapaEscolar');
       }
 
       // Filtros rápidos → toggle visual
@@ -439,26 +436,7 @@
     });
   }
 
-  // ─── Pantalla: MAPA CON ZONAS ESCOLARES ───────────────────────────────────
-  function connectMapaEscolar() {
-    document.querySelectorAll('button, a').forEach(el => {
-      const t = text(el);
-      const icon = el.querySelector && el.querySelector('.material-symbols-outlined');
-      const iconText = icon ? icon.textContent.trim() : '';
 
-      if (iconText === 'tune') { setLink(el, 'busqueda'); }
-      else if (iconText === 'my_location') {
-        el.addEventListener('click', () => navigator.geolocation && navigator.geolocation.getCurrentPosition(() => {}));
-      } else if (t.includes('list') || t.includes('lista')) { setLink(el, 'explorar'); }
-      else if (t.includes('explore') || t.includes('explorar') || iconText === 'map') { setLink(el, 'mapa'); }
-      else if (t.includes('match') || t.includes('favorite') || iconText === 'favorite') { setLink(el, 'favoritos'); }
-      else if (t.includes('chat') || iconText === 'chat_bubble') { setLink(el, 'mensajes'); }
-      else if (t.includes('profile') || t.includes('perfil') || iconText === 'person') { setLink(el, 'perfil'); }
-      else if (iconText === 'school' || t.includes('zona escolar')) {
-        el.classList.toggle('bg-primary');
-      }
-    });
-  }
 
   // ─── Pantalla: CALENDARIO COMPARTIDO ─────────────────────────────────────
   function connectCalendario() {
@@ -677,7 +655,6 @@
       'mensajes_y_afinidad':     connectMensajes,
       'mis_favoritos':           connectFavoritos,
       'mapa_interactivo':        connectMapa,
-      'mapa_con_zonas':          connectMapaEscolar,
       'calendario_compartido':   connectCalendario,
       'mis_visitas':             connectVisitas,
       'perfil_de_usuario':       connectPerfil,

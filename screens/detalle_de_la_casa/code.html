@@ -51,28 +51,24 @@
 <main class="max-w-2xl mx-auto">
 <!-- Image Carousel Section -->
 <section class="relative mt-2 px-4">
-<div id="casa-carousel" class="flex overflow-x-auto gap-4 hide-scrollbar snap-x snap-mandatory">
-<div class="min-w-[85%] snap-center">
-<div class="aspect-[4/3] rounded-xl bg-cover bg-center shadow-lg" data-alt="Modern spacious living room with natural light" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDY78D3VwQt5BzlFUO7NbuaX3cDAOprKS3JENwUdfLpOWDVrYbtrwDxFSroxIpq0z4zNGZlMuwZT8yS61qRIyiTM9zYwtxIxb6XOrAW5ZKG1sZUO26_82xKCp1CnjoXP7R9BtDOHAYobhKsOnnXCiRZHbZo0dY508h8yPHENRNzn673OjcjRkYrv5buWflkCzVx_qZbFk6WmJTvcltEAO8617EpObIfjCoYpBp1t5md_Jwp4a8n80_YAETNEEw6iWXfXRhyFaVD9j4')">
-</div>
-<p class="mt-2 text-sm font-semibold text-primary">SalÃ³n compartido</p>
-</div>
-<div class="min-w-[85%] snap-center">
-<div class="aspect-[4/3] rounded-xl bg-cover bg-center shadow-lg" data-alt="Private bedroom with cozy desk area" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBDbYxzsUSRZZsLLH2GMfNR4kQpW98I7KCv5ennHh7WksqCYi2a9Ux0fJXgrh32TLjqYnYBMwJyEK4iRYXtAsbxlSYiGQCGZrTwhmVJKuP76HJEGf35NUgCnD9QHZsIK-vu4bpmi9Gsv5Msxh0prj8F3MgeeDTBHUD9SXoum6JJw_WYoT-nmpzWiKbMOUwpch3nCh1CW3yiCfDts2wk1c3owOMv5qHFH0t1lvEQL5z9F76ZjRPScYAczyET98o6gmxiBwuc4L25PPE')">
-</div>
-<p class="mt-2 text-sm font-semibold text-primary">Suite privada</p>
-</div>
-<div class="min-w-[85%] snap-center">
-<div class="aspect-[4/3] rounded-xl bg-cover bg-center shadow-lg" data-alt="Outdoor terrace with city views and plants" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDPR42sbsDlOhN3tfriztiBQCy0HmjlUtrqC0eP3RcmF4ZQi0IACOvjtI2OyN5lMVhsoGuik3NTS1VACD0qw_iYZiqJpeSCnExAo1os0eSVPQkdS_qwjs793TQe7DFZN7lo95TZENnX_1d2B2qbisNeGa3XX9IsywCajNKyI7rjBn13N-8flgc35HTmvMCf0jttv7tUcOCYNXNxq0I5BRPjJsDCMqR6CjRuaya2lBbt1NJLy5AvfS8Dvdf7DpblNdKadcV-ud6bS4c')">
-</div>
-<p class="mt-2 text-sm font-semibold text-primary">Terraza exterior</p>
+<div id="casa-carousel-wrap" class="relative overflow-hidden rounded-xl shadow-lg">
+<div id="casa-carousel" class="flex transition-transform duration-500 ease-out" style="transform: translateX(0%)">
+<div class="w-full shrink-0">
+<div class="aspect-[4/3] w-full bg-background-light dark:bg-white/10 flex flex-col items-center justify-center gap-2">
+<span class="material-symbols-outlined text-4xl text-primary/40">image</span>
+<p class="text-xs font-medium text-[#111814]/50">Sin fotos todavía</p>
 </div>
 </div>
-<div class="flex justify-center gap-1.5 mt-4">
-<div class="w-6 h-1.5 rounded-full bg-primary"></div>
-<div class="w-1.5 h-1.5 rounded-full bg-primary/30"></div>
-<div class="w-1.5 h-1.5 rounded-full bg-primary/30"></div>
 </div>
+<button id="carousel-prev" aria-label="Foto anterior" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-full bg-white/90 text-[#111814] shadow-md hover:bg-white transition-colors">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+</button>
+<button id="carousel-next" aria-label="Foto siguiente" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-full bg-white/90 text-[#111814] shadow-md hover:bg-white transition-colors">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+</button>
+<div id="carousel-counter" class="absolute bottom-3 right-3 rounded-full bg-black/55 text-white text-xs font-bold px-2.5 py-1">1 / 1</div>
+</div>
+<div id="carousel-dots" class="flex justify-center gap-1.5 mt-3"></div>
 </section>
 <!-- Main Info -->
 <section class="px-4 mt-6">
@@ -196,16 +192,39 @@
       if (desc) desc.textContent = c.descripcion || '';
       if (precio && c.precio) precio.textContent = c.precio + 'â‚¬';
       if (dtitle) dtitle.textContent = c.titulo;
-      if (c.fotos && c.fotos.length) {
-        var carousel = document.getElementById('casa-carousel');
-        if (carousel) {
-          carousel.innerHTML = c.fotos.map(function (f, i) {
-            return '<div class="min-w-[85%] snap-center">' +
-              '<div class="aspect-[4/3] rounded-xl bg-cover bg-center shadow-lg" style="background-image:url(\'' + esc(f) + '\')"></div>' +
-              '<p class="mt-2 text-sm font-semibold text-primary">Vista ' + (i + 1) + '</p>' +
-            '</div>';
+      var carousel = document.getElementById('casa-carousel');
+      if (carousel) {
+        var fotos = (c.fotos && c.fotos.length) ? c.fotos : [];
+        if (!fotos.length) {
+          carousel.innerHTML = '<div class="w-full shrink-0">' +
+            '<div class="aspect-[4/3] w-full bg-background-light dark:bg-white/10 flex flex-col items-center justify-center gap-2">' +
+            '<span class="material-symbols-outlined text-4xl text-primary/40">image</span>' +
+            '<p class="text-xs font-medium text-[#111814]/50">Sin fotos todav\u00eda</p></div></div>';
+        } else {
+          carousel.innerHTML = fotos.map(function (f) {
+            return '<div class="w-full shrink-0"><img class="aspect-[4/3] w-full object-cover" src="' + esc(f) + '" alt="Foto de la casa" loading="lazy"></div>';
           }).join('');
         }
+        var slides = carousel.children.length;
+        var idx = 0;
+        var counter = document.getElementById('carousel-counter');
+        var prevBtn = document.getElementById('carousel-prev');
+        var nextBtn = document.getElementById('carousel-next');
+        var dotsWrap = document.getElementById('carousel-dots');
+        function renderCarousel() {
+          carousel.style.transform = 'translateX(-' + (idx * 100) + '%)';
+          if (counter) counter.textContent = (idx + 1) + ' / ' + slides;
+          if (dotsWrap) {
+            dotsWrap.innerHTML = Array.prototype.map.call(carousel.children, function (_, i) {
+              return '<div class="' + (i === idx ? 'w-6 h-1.5 rounded-full bg-primary' : 'w-1.5 h-1.5 rounded-full bg-primary/30') + '"></div>';
+            }).join('');
+          }
+          if (prevBtn) prevBtn.style.opacity = idx === 0 ? '0.4' : '1';
+          if (nextBtn) nextBtn.style.opacity = idx >= slides - 1 ? '0.4' : '1';
+        }
+        if (prevBtn) prevBtn.addEventListener('click', function () { if (idx > 0) { idx--; renderCarousel(); } });
+        if (nextBtn) nextBtn.addEventListener('click', function () { if (idx < slides - 1) { idx++; renderCarousel(); } });
+        renderCarousel();
       }
     })
     .catch(function () {});

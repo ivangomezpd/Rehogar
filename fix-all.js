@@ -27,7 +27,7 @@ const DUPLICATES_TO_DELETE = [
   'publicar_casa',       // conservamos publicar_casa_con_custodia
 ];
 
-// ─── Las 16 pantallas correctas que deben quedar ─────────────────────────
+// ─── Las 15 pantallas correctas que deben quedar ─────────────────────────
 const VALID_SCREENS = [
   'onboarding_de_la_app',
   'seleccion_de_rol',
@@ -36,7 +36,6 @@ const VALID_SCREENS = [
   'busqueda_avanzada_con_custodia',
   'detalle_de_la_casa',
   'mapa_interactivo_de_casas',
-  'mapa_con_zonas_escolares',
   'mensajes_y_afinidad',
   'mis_favoritos',
   'mis_visitas',

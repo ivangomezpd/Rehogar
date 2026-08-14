@@ -62,9 +62,9 @@ En producción `JWT_SECRET` es obligatorio (el servidor aborta si falta).
 - `GET /api/mensajes` · `GET /api/mensajes/:userId` · `POST /api/mensajes`
 - `GET /health` — healthcheck
 
-## Pantallas (18)
+## Pantallas (17)
 
-`onboarding_de_la_app`, `seleccion_de_rol`, `verificacion_de_identidad`, `register`, `login`, `explorar_casas`, `detalle_de_la_casa`, `busqueda_avanzada_con_custodia`, `mis_favoritos`, `mis_visitas`, `calendario_compartido`, `mensajes_y_afinidad`, `perfil_de_usuario_con_rol_diferenciado`, `publicar_casa_con_custodia`, `mapa_interactivo_de_casas`, `mapa_con_zonas_escolares`, `planes_de_suscripcion`, `configuracion_de_notificaciones`.
+`onboarding_de_la_app`, `seleccion_de_rol`, `verificacion_de_identidad`, `register`, `login`, `explorar_casas`, `detalle_de_la_casa`, `busqueda_avanzada_con_custodia`, `mis_favoritos`, `mis_visitas`, `calendario_compartido`, `mensajes_y_afinidad`, `perfil_de_usuario_con_rol_diferenciado`, `publicar_casa_con_custodia`, `mapa_interactivo_de_casas` (con capa de zonas escolares), `planes_de_suscripcion`, `configuracion_de_notificaciones`.
 
 Sírvidas en `/screens-static/<nombre>/code.html` (galería en `/gallery`). El rol se propaga desde la selección de rol (`localStorage.rehogar_rol`) al formulario de registro.
 
