@@ -50,7 +50,9 @@ export const schemas = {
   // Enviar mensaje
   mensaje: z.object({
     receptor_id: z.number().int().positive('ID de receptor inválido'),
-    contenido: z.string().min(1, 'El mensaje no puede estar vacío').max(2000),
+    // trim() ANTES de min(1): el insert hace contenido.trim(), asi que sin esto
+    // un cuerpo de solo espacios pasaba el filtro (len >= 1) y se guardaba vacio.
+    contenido: z.string().trim().min(1, 'El mensaje no puede estar vacío').max(2000),
     casa_id: z.number().int().positive().optional(),
   }),
 
