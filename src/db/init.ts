@@ -29,6 +29,11 @@ db.exec(`
     usuario_id INTEGER PRIMARY KEY REFERENCES usuarios(id) ON DELETE CASCADE,
     custodia TEXT, hijos_edades TEXT, genero TEXT, estilo_vida TEXT,
     preferencias TEXT, ciudad TEXT, lat REAL, lng REAL,
+    custodia_patron TEXT CHECK (custodia_patron IN ('semana_alterna','fin_de_semana_alterno','ninguna','otro')),
+    custodia_semana_par INTEGER,
+    num_hijos INTEGER NOT NULL DEFAULT 0,
+    estilo_vida_tags TEXT,
+    busca_afinidad TEXT CHECK (busca_afinidad IN ('solo_divorciados_con_hijos','divorciados','indiferente')) DEFAULT 'indiferente',
     updated_at TEXT NOT NULL DEFAULT (CURRENT_TIMESTAMP)
   );
   
@@ -72,10 +77,28 @@ db.exec(`
     notas TEXT, created_at TEXT NOT NULL DEFAULT (CURRENT_TIMESTAMP)
   );
   
+  CREATE TABLE IF NOT EXISTS afinidad (
+    usuario_a_id INTEGER NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
+    usuario_b_id INTEGER NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
+    score INTEGER NOT NULL,
+    detalle TEXT,
+    calculado_at TEXT NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+    PRIMARY KEY (usuario_a_id, usuario_b_id)
+  );
+
   CREATE INDEX IF NOT EXISTS idx_casas_ciudad ON casas(ciudad);
   CREATE INDEX IF NOT EXISTS idx_casas_precio ON casas(precio);
   CREATE INDEX IF NOT EXISTS idx_casas_activa ON casas(activa);
 `);
+
+// Migración suave para bases de datos ya existentes creadas antes de estas columnas
+const perfilCols = (db.prepare("PRAGMA table_info(perfiles)").all() as any[]).map(c => c.name);
+const addColIfMissing = (col: string, ddl: string) => { if (!perfilCols.includes(col)) db.exec(`ALTER TABLE perfiles ADD COLUMN ${ddl}`); };
+addColIfMissing("custodia_patron", "custodia_patron TEXT");
+addColIfMissing("custodia_semana_par", "custodia_semana_par INTEGER");
+addColIfMissing("num_hijos", "num_hijos INTEGER NOT NULL DEFAULT 0");
+addColIfMissing("estilo_vida_tags", "estilo_vida_tags TEXT");
+addColIfMissing("busca_afinidad", "busca_afinidad TEXT DEFAULT 'indiferente'");
 
 const count = (db.prepare("SELECT COUNT(*) as n FROM usuarios").get() as any).n;
 if (count === 0 && process.env.NODE_ENV === "development") {

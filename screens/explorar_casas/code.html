@@ -94,6 +94,10 @@
 <span class="material-symbols-outlined text-[18px]">block</span>
 <p class="text-sm font-medium">No mascotas</p>
 </button></a>
+<button id="qf-afinidad" class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-[#e0e7e3] text-[#111814] px-5 hover:bg-[#f0f4f2] transition-colors">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+<p class="text-sm font-medium">Ordenar por afinidad</p>
+</button>
 </div>
 <!-- Main Content -->
 <main class="flex-1 pb-24">
@@ -241,13 +245,16 @@
         ? '<img class="size-8 rounded-full border-2 border-white object-cover" src="' + esc(c.anfitrion_avatar) + '" alt="Host">'
         : '<div class="size-8 rounded-full border-2 border-white bg-primary text-white flex items-center justify-center text-xs font-bold">' + esc(host.charAt(0).toUpperCase()) + '</div>';
       var badge = c.anfitrion_verificado ? '<span class="flex items-center gap-1 text-primary"><span class="material-symbols-outlined text-[16px]">check_circle</span> Verificado</span>' : '';
+      var afinidad = (typeof c.afinidad === 'number' && c.afinidad > 0)
+        ? '<div class="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-primary text-white shadow-sm"><p class="text-[11px] font-bold flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">favorite</span>' + c.afinidad + '% afín</p></div>'
+        : '';
       var genero = (c.genero_ok && c.genero_ok !== 'mixto')
         ? '<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">' + (c.genero_ok === 'mujeres' ? 'woman' : 'person') + '</span> Solo ' + (c.genero_ok === 'mujeres' ? 'Mujeres' : 'Hombres') + '</span>'
         : '';
       return '' +
         '<a href="/screens-static/detalle_de_la_casa/code.html?id=' + c.id + '" class="block h-full cursor-pointer">' +
           '<div class="group relative flex flex-col gap-3 rounded-2xl bg-white border border-[#f0f4f2] p-2 shadow-sm hover:shadow-md transition-shadow">' +
-            '<div class="relative w-full aspect-[4/3] overflow-hidden rounded-xl">' + img +
+            '<div class="relative w-full aspect-[4/3] overflow-hidden rounded-xl">' + img + afinidad +
               '<div class="absolute top-3 right-3 px-3 py-1.5 rounded-lg bg-white/90 backdrop-blur-sm shadow-sm"><p class="text-sm font-bold text-primary">€' + esc(c.precio) + '<span class="text-[10px] text-[#618972] font-medium">/mes</span></p></div>' +
               '<div class="absolute bottom-3 left-3 flex items-center gap-2 p-1.5 rounded-full bg-white/95 backdrop-blur-sm shadow-lg border border-white/50">' +
                 '<div class="flex -space-x-2">' + avatar + '</div>' +
@@ -267,7 +274,7 @@
     }).join('');
   }
 
-  var estado = { ciudad: '', genero: null, mascotas: null, tipo: null, precio_min: null, precio_max: null, habitaciones_min: null, custodia_ok: null };
+  var estado = { ciudad: '', genero: null, mascotas: null, tipo: null, precio_min: null, precio_max: null, habitaciones_min: null, custodia_ok: null, orden: null };
 
   function loadCasas() {
     var params = [];
@@ -279,9 +286,13 @@
     if (estado.precio_max !== null) params.push('precio_max=' + estado.precio_max);
     if (estado.habitaciones_min !== null) params.push('habitaciones_min=' + estado.habitaciones_min);
     if (estado.custodia_ok) params.push('custodia_ok=' + encodeURIComponent(estado.custodia_ok));
+    if (estado.orden) params.push('orden=' + estado.orden);
     var qs = params.length ? '?' + params.join('&') : '';
     var filtrado = params.length > 0;
-    fetch('/api/casas' + qs)
+    var headers = {};
+    var tok = localStorage.getItem('rehogar_token');
+    if (tok) headers['Authorization'] = 'Bearer ' + tok;
+    fetch('/api/casas' + qs, { headers: headers })
       .then(function (r) { return r.json().catch(function () { return {}; }); })
       .then(function (data) { renderCards((data && data.casas) || [], filtrado); })
       .catch(function () {});
@@ -290,7 +301,7 @@
   function setChip(id, on) {
     var a = document.getElementById(id);
     if (!a) return;
-    var btn = a.querySelector('button');
+    var btn = a.tagName === 'BUTTON' ? a : a.querySelector('button');
     if (!btn) return;
     var active = 'flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary text-white px-5 shadow-md shadow-primary/20 transition-transform active:scale-95';
     var inactive = 'flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-[#e0e7e3] text-[#111814] px-5 hover:bg-[#f0f4f2] transition-colors';
@@ -327,6 +338,17 @@
   bindChip('qf-mascotas-si', 'mascotas', 'true');
   bindChip('qf-mascotas-no', 'mascotas', 'false');
 
+  var afinidadChip = document.getElementById('qf-afinidad');
+  if (afinidadChip) afinidadChip.addEventListener('click', function () {
+    if (!localStorage.getItem('rehogar_token')) {
+      window.location.href = '/screens-static/login/code.html';
+      return;
+    }
+    estado.orden = estado.orden === 'afinidad' ? null : 'afinidad';
+    setChip('qf-afinidad', estado.orden === 'afinidad');
+    loadCasas();
+  });
+
   (function () {
     try {
       var saved = JSON.parse(localStorage.getItem('savedFilters') || 'null');
@@ -349,6 +371,7 @@
         if (saved.family.childrenCount > 0) estado.habitaciones_min = Math.max(estado.habitaciones_min || 0, 2);
         if (saved.family.custody && saved.family.custody !== 'sin-hijos') estado.custodia_ok = saved.family.custody;
       }
+      if (saved.ordenarPorAfinidad) { estado.orden = 'afinidad'; setChip('qf-afinidad', true); }
       if (searchInput && estado.ciudad) searchInput.value = estado.ciudad;
       setChip('qf-hombres', estado.genero === 'hombres');
       setChip('qf-mujeres', estado.genero === 'mujeres');

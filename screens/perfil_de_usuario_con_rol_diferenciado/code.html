@@ -125,41 +125,68 @@
 </div>
 </div>
 </div>
-<!-- Lifestyle Section -->
+<!-- Custodia y afinidad Section (editable) -->
+<div class="px-4 py-4">
+<h3 class="text-[#111814] text-lg font-bold mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">calendar_month</span>
+            Mi custodia
+        </h3>
+<div class="bg-white border border-gray-100 rounded-xl p-4 flex flex-col gap-3">
+<div>
+<label class="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-1.5">Patrón de custodia</label>
+<select id="custodia-patron" class="w-full rounded-lg border-gray-200 text-sm font-medium text-[#111814] focus:ring-primary focus:border-primary">
+<option value="">Sin especificar</option>
+<option value="semana_alterna">Semana alterna</option>
+<option value="fin_de_semana_alterno">Fin de semana alterno</option>
+<option value="ninguna">No tengo custodia</option>
+<option value="otro">Otro</option>
+</select>
+</div>
+<div id="semana-par-wrapper" class="hidden">
+<label class="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-1.5">Tengo a mis hijos en...</label>
+<div class="flex gap-2">
+<button type="button" data-val="1" class="semana-par-btn flex-1 py-2 rounded-lg border text-sm font-bold">Semanas pares</button>
+<button type="button" data-val="0" class="semana-par-btn flex-1 py-2 rounded-lg border text-sm font-bold">Semanas impares</button>
+</div>
+</div>
+<div>
+<label class="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-1.5">Número de hijos</label>
+<input id="num-hijos" type="number" min="0" max="20" class="w-full rounded-lg border-gray-200 text-sm font-medium text-[#111814] focus:ring-primary focus:border-primary">
+</div>
+</div>
+</div>
+<!-- Lifestyle Section (editable) -->
 <div class="px-4 py-4">
 <h3 class="text-[#111814] text-lg font-bold mb-3 flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">style</span>
             Mi estilo de vida
         </h3>
-<div class="flex flex-wrap gap-2">
-<span class="px-3 py-1.5 bg-gray-100 rounded-full text-xs font-semibold text-gray-700 flex items-center gap-1.5">
-<span class="material-symbols-outlined text-sm">filter_vintage</span> Tranquilo
-            </span>
-<span class="px-3 py-1.5 bg-gray-100 rounded-full text-xs font-semibold text-gray-700 flex items-center gap-1.5">
-<span class="material-symbols-outlined text-sm">movie</span> Cine
-            </span>
-<span class="px-3 py-1.5 bg-gray-100 rounded-full text-xs font-semibold text-gray-700 flex items-center gap-1.5">
-<span class="material-symbols-outlined text-sm">fitness_center</span> Deporte
-            </span>
-<span class="px-3 py-1.5 bg-gray-100 rounded-full text-xs font-semibold text-gray-700 flex items-center gap-1.5">
-<span class="material-symbols-outlined text-sm">smoke_free</span> No fumador
-            </span>
-<span class="px-3 py-1.5 bg-gray-100 rounded-full text-xs font-semibold text-gray-700 flex items-center gap-1.5">
-<span class="material-symbols-outlined text-sm">restaurant</span> Cocinillas
-            </span>
+<div id="estilo-vida-tags" class="flex flex-wrap gap-2">
+<button type="button" data-tag="con_hijos" class="tag-btn px-3 py-1.5 bg-gray-100 rounded-full text-xs font-semibold text-gray-700">Con hijos en casa</button>
+<button type="button" data-tag="tranquilo" class="tag-btn px-3 py-1.5 bg-gray-100 rounded-full text-xs font-semibold text-gray-700">Tranquilo</button>
+<button type="button" data-tag="no_fumador" class="tag-btn px-3 py-1.5 bg-gray-100 rounded-full text-xs font-semibold text-gray-700">No fumador</button>
+<button type="button" data-tag="teletrabajo" class="tag-btn px-3 py-1.5 bg-gray-100 rounded-full text-xs font-semibold text-gray-700">Teletrabajo</button>
+<button type="button" data-tag="deportista" class="tag-btn px-3 py-1.5 bg-gray-100 rounded-full text-xs font-semibold text-gray-700">Deportista</button>
+<button type="button" data-tag="cocinillas" class="tag-btn px-3 py-1.5 bg-gray-100 rounded-full text-xs font-semibold text-gray-700">Cocinillas</button>
+<button type="button" data-tag="mascotas_ok" class="tag-btn px-3 py-1.5 bg-gray-100 rounded-full text-xs font-semibold text-gray-700">Mascotas ok</button>
+<button type="button" data-tag="madrugador" class="tag-btn px-3 py-1.5 bg-gray-100 rounded-full text-xs font-semibold text-gray-700">Madrugador</button>
 </div>
 </div>
-<!-- Looking For Section -->
+<!-- Looking For Section (editable) -->
 <div class="px-4 py-4">
 <h3 class="text-[#111814] text-lg font-bold mb-3 flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">search</span>
             Lo que busco
         </h3>
-<div class="bg-gray-50 border border-dashed border-gray-200 rounded-xl p-4">
-<p class="text-gray-600 text-sm leading-relaxed">
-                Busco compartir con personas empÃ¡ticas que entiendan la etapa vital de un padre divorciado. Valoro mucho la limpieza en zonas comunes, el silencio a partir de las 22:00 y la buena comunicaciÃ³n para resolver cualquier inconveniente del dÃ­a a dÃ­a.
-            </p>
-</div>
+<select id="busca-afinidad" class="w-full rounded-lg border-gray-200 text-sm font-medium text-[#111814] focus:ring-primary focus:border-primary mb-3">
+<option value="indiferente">Indiferente, cualquier perfil</option>
+<option value="divorciados">Prefiero compartir con divorciados/separados</option>
+<option value="solo_divorciados_con_hijos">Solo divorciados/separados con hijos</option>
+</select>
+<button id="guardar-afinidad-btn" class="w-full bg-primary text-white py-2.5 rounded-lg font-bold text-sm shadow-sm hover:bg-opacity-90 transition-all">
+                Guardar preferencias
+            </button>
+<p id="guardar-afinidad-msg" class="text-xs text-center mt-2 hidden"></p>
 </div>
 <!-- Logout / Danger Area -->
 <div class="p-4 mt-4 pb-24">
@@ -218,8 +245,78 @@
         if (publicar) publicar.closest('a').classList.add('hidden');
         if (planCard) planCard.classList.add('hidden');
       }
+      // --- Rellenar formulario de custodia / afinidad con lo que ya tenga guardado ---
+      var patronSel = document.getElementById('custodia-patron');
+      var numHijos = document.getElementById('num-hijos');
+      var buscaSel = document.getElementById('busca-afinidad');
+      var semanaWrap = document.getElementById('semana-par-wrapper');
+      if (patronSel && u.custodia_patron) patronSel.value = u.custodia_patron;
+      if (numHijos && typeof u.num_hijos === 'number') numHijos.value = u.num_hijos;
+      if (buscaSel && u.busca_afinidad) buscaSel.value = u.busca_afinidad;
+      if (patronSel && patronSel.value === 'semana_alterna' && semanaWrap) semanaWrap.classList.remove('hidden');
+      if (typeof u.custodia_semana_par === 'number') {
+        document.querySelectorAll('.semana-par-btn').forEach(function (btn) {
+          if (Number(btn.dataset.val) === u.custodia_semana_par) btn.classList.add('bg-primary', 'text-white', 'border-primary');
+          else btn.classList.add('border-gray-200');
+        });
+      } else {
+        document.querySelectorAll('.semana-par-btn').forEach(function (btn) { btn.classList.add('border-gray-200'); });
+      }
+      var tagsGuardados = Array.isArray(u.estilo_vida_tags) ? u.estilo_vida_tags : [];
+      document.querySelectorAll('.tag-btn').forEach(function (btn) {
+        if (tagsGuardados.indexOf(btn.dataset.tag) !== -1) btn.classList.add('bg-primary', 'text-white');
+      });
     })
     .catch(function () {});
+
+  // --- Interacción del formulario de custodia / afinidad ---
+  var patronSelector = document.getElementById('custodia-patron');
+  if (patronSelector) patronSelector.addEventListener('change', function () {
+    var wrap = document.getElementById('semana-par-wrapper');
+    if (wrap) wrap.classList.toggle('hidden', patronSelector.value !== 'semana_alterna');
+  });
+  document.querySelectorAll('.semana-par-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.semana-par-btn').forEach(function (b) { b.classList.remove('bg-primary', 'text-white', 'border-primary'); });
+      btn.classList.add('bg-primary', 'text-white', 'border-primary');
+    });
+  });
+  document.querySelectorAll('.tag-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () { btn.classList.toggle('bg-primary'); btn.classList.toggle('text-white'); });
+  });
+  var guardarBtn = document.getElementById('guardar-afinidad-btn');
+  if (guardarBtn) guardarBtn.addEventListener('click', function () {
+    var msg = document.getElementById('guardar-afinidad-msg');
+    var patron = document.getElementById('custodia-patron').value;
+    var semanaBtnActivo = document.querySelector('.semana-par-btn.bg-primary');
+    var tags = [];
+    document.querySelectorAll('.tag-btn.bg-primary').forEach(function (b) { tags.push(b.dataset.tag); });
+    var body = {
+      custodia_patron: patron || undefined,
+      num_hijos: Number(document.getElementById('num-hijos').value) || 0,
+      estilo_vida_tags: tags,
+      busca_afinidad: document.getElementById('busca-afinidad').value,
+    };
+    if (patron === 'semana_alterna' && semanaBtnActivo) body.custodia_semana_par = semanaBtnActivo.dataset.val === '1';
+    fetch('/api/auth/me', {
+      method: 'PUT',
+      headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    })
+      .then(function (r) {
+        // Sin mirar r.ok, un 401/400/500 caia en el .then de exito y la UI mintia:
+        // "Preferencias guardadas" cuando no se habia guardado nada.
+        if (r.status === 401) { localStorage.removeItem('rehogar_token'); window.location.href = '/screens-static/login/code.html'; return null; }
+        if (!r.ok) return r.json().catch(function () { return {}; }).then(function (d) { throw new Error(d.error || 'Error ' + r.status); });
+        return r.json();
+      })
+      .then(function () {
+        if (msg) { msg.textContent = 'Preferencias guardadas'; msg.className = 'text-xs text-center mt-2 text-primary font-bold'; }
+      })
+      .catch(function (e) {
+        if (msg) { msg.textContent = e && e.message ? e.message : 'No se pudo guardar, inténtalo de nuevo'; msg.className = 'text-xs text-center mt-2 text-red-500 font-bold'; }
+      });
+  });
   var logout = document.getElementById('logout-btn');
   if (logout) logout.addEventListener('click', function () {
     localStorage.removeItem('rehogar_token');

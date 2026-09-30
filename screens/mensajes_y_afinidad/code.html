@@ -321,9 +321,37 @@
               '<span class="text-[11px] text-slate-400 whitespace-nowrap">' + relTime(c.ultimo_fecha) + '</span>' +
             '</div>' +
             '<p class="text-sm text-slate-600 line-clamp-1 group-hover:text-slate-900 transition-colors font-medium">' + esc(c.ultimo_mensaje || '') + '</p>' +
+            '<div id="afinidad-' + c.otro_id + '" class="mt-1"></div>' +
           '</div>' +
         '</div>' +
       '</div>';
+  }
+
+  function cargarAfinidades(msgs) {
+    if (!msgs.length) return;
+    var ids = msgs.map(function (c) { return c.otro_id; }).filter(Boolean);
+    if (!ids.length) return;
+    // Una sola peticion para todas las conversaciones: pedir /api/match/:id una vez
+    // por conversacion es un N+1 de red (con 20 chats, 20 viajes de ida y vuelta).
+    fetch('/api/match?ids=' + encodeURIComponent(ids.join(',')), { headers: { 'Authorization': 'Bearer ' + token } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        if (!data || !data.afinidades) return;
+        msgs.forEach(function (c) {
+          var m = data.afinidades[String(c.otro_id)];
+          if (!m) return;
+          var el = document.getElementById('afinidad-' + c.otro_id);
+          if (!el) return;
+          var color = m.score >= 70 ? 'text-primary' : m.score >= 40 ? 'text-amber-500' : 'text-slate-400';
+          var partes = [];
+          if (m.detalle && m.detalle.complementario_calendario) partes.push('semanas complementarias');
+          if (m.detalle && m.detalle.hijos > 0) partes.push('ambos con hijos');
+          if (m.detalle && m.detalle.estilo_vida > 0) partes.push('estilo de vida afín');
+          var texto = partes.length ? ' · ' + partes.join(', ') : '';
+          el.innerHTML = '<p class="text-[11px] font-bold ' + color + ' flex items-center gap-1"><span class="material-symbols-outlined text-[13px]">favorite</span>' + m.score + '% de afinidad' + esc(texto) + '</p>';
+        });
+      })
+      .catch(function () {});
   }
 
   if (!token) { loginCta(); return; }
@@ -336,6 +364,7 @@
       if (msgs === null) return;
       if (!msgs || !msgs.length) { emptyState(); return; }
       showState(msgs.map(conv).join(''));
+      cargarAfinidades(msgs);
     })
     .catch(function () {});
 })();
