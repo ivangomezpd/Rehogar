@@ -33,10 +33,26 @@ export const schemas = {
     custodia_ok: z.string().max(50).optional(),
   }),
 
+  // Actualizar perfil (datos generales + campos de afinidad/custodia)
+  perfilAfinidad: z.object({
+    nombre: z.string().min(2).max(50).optional(),
+    bio: z.string().max(1000).optional(),
+    ciudad: z.string().min(2).optional(),
+    custodia: z.string().max(200).optional(),
+    // null = borrar la seleccion ("Sin especificar"); ausente = no tocar el valor actual.
+    custodia_patron: z.enum(['semana_alterna', 'fin_de_semana_alterno', 'ninguna', 'otro']).nullable().optional(),
+    custodia_semana_par: z.boolean().optional(),
+    num_hijos: z.number().int().min(0).max(20).optional(),
+    estilo_vida_tags: z.array(z.string().max(40)).max(20).optional(),
+    busca_afinidad: z.enum(['solo_divorciados_con_hijos', 'divorciados', 'indiferente']).optional(),
+  }),
+
   // Enviar mensaje
   mensaje: z.object({
     receptor_id: z.number().int().positive('ID de receptor inválido'),
-    contenido: z.string().min(1, 'El mensaje no puede estar vacío').max(2000),
+    // trim() ANTES de min(1): el insert hace contenido.trim(), asi que sin esto
+    // un cuerpo de solo espacios pasaba el filtro (len >= 1) y se guardaba vacio.
+    contenido: z.string().trim().min(1, 'El mensaje no puede estar vacío').max(2000),
     casa_id: z.number().int().positive().optional(),
   }),
 

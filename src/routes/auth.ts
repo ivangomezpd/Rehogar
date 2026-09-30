@@ -34,16 +34,47 @@ router.post("/login", validate(schemas.login), (req: Request, res: Response) => 
 });
 
 router.get("/me", authMiddleware, (req: AuthRequest, res: Response) => {
-  const user = db.prepare("SELECT u.id,u.nombre,u.email,u.rol,u.plan,u.avatar,u.bio,u.verificado,p.ciudad,p.custodia FROM usuarios u LEFT JOIN perfiles p ON p.usuario_id=u.id WHERE u.id=?").get(req.user!.id);
+  const user = db.prepare(
+    `SELECT u.id,u.nombre,u.email,u.rol,u.plan,u.avatar,u.bio,u.verificado,
+            p.ciudad,p.custodia,p.custodia_patron,p.custodia_semana_par,p.num_hijos,p.estilo_vida_tags,p.busca_afinidad
+     FROM usuarios u LEFT JOIN perfiles p ON p.usuario_id=u.id WHERE u.id=?`
+  ).get(req.user!.id) as any;
   if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
+  if (user.estilo_vida_tags) { try { user.estilo_vida_tags = JSON.parse(user.estilo_vida_tags); } catch { user.estilo_vida_tags = []; } }
   return res.json(user);
 });
 
-router.put("/me", authMiddleware, (req: AuthRequest, res: Response) => {
-  const { nombre, bio, ciudad, custodia } = req.body;
+router.put("/me", authMiddleware, validate(schemas.perfilAfinidad), (req: AuthRequest, res: Response) => {
+  const { nombre, bio, ciudad, custodia, custodia_patron, custodia_semana_par, num_hijos, estilo_vida_tags, busca_afinidad } = req.body;
   if (nombre) db.prepare("UPDATE usuarios SET nombre=?,updated_at=datetime('now') WHERE id=?").run(nombre, req.user!.id);
   if (bio !== undefined) db.prepare("UPDATE usuarios SET bio=? WHERE id=?").run(bio, req.user!.id);
-  db.prepare("UPDATE perfiles SET ciudad=COALESCE(?,ciudad),custodia=COALESCE(?,custodia),updated_at=datetime('now') WHERE usuario_id=?").run(ciudad||null, custodia||null, req.user!.id);
+  db.prepare(
+    `UPDATE perfiles SET
+       ciudad=COALESCE(?,ciudad),
+       custodia=COALESCE(?,custodia),
+       custodia_patron=CASE WHEN ? THEN ? ELSE custodia_patron END,
+       custodia_semana_par=COALESCE(?,custodia_semana_par),
+       num_hijos=COALESCE(?,num_hijos),
+       estilo_vida_tags=COALESCE(?,estilo_vida_tags),
+       busca_afinidad=COALESCE(?,busca_afinidad),
+       updated_at=datetime('now')
+     WHERE usuario_id=?`
+  ).run(
+    ciudad || null,
+    custodia || null,
+    // custodia_patron es el unico campo cuyo valor "vacio" es NULL, y COALESCE(?,col)
+    // con ?=NULL devuelve col: con COALESCE el patron de custodia era inborrable
+    // (el "Sin especificar" del formulario no podia deshacer una seleccion previa).
+    // El primer ? dice si la clave vino en el body y el segundo lleva el valor:
+    // ausente -> se mantiene, null explicito -> se borra, string -> se guarda.
+    custodia_patron === undefined ? 0 : 1,
+    custodia_patron === undefined ? null : custodia_patron,
+    custodia_semana_par === undefined ? null : (custodia_semana_par ? 1 : 0),
+    num_hijos === undefined ? null : num_hijos,
+    estilo_vida_tags ? JSON.stringify(estilo_vida_tags) : null,
+    busca_afinidad || null,
+    req.user!.id
+  );
   return res.json({ ok: true });
 });
 

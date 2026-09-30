@@ -231,6 +231,15 @@
                         <span class="inline-block h-5 w-5 translate-x-1 transform rounded-full bg-white shadow-md transition-transform duration-300 ease-in-out"></span>
                     </button>
                 </div>
+                <div class="flex items-center justify-between p-4 bg-primary/5 rounded-xl border border-primary/20">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                        <span class="font-bold text-primary">Ordenar resultados por afinidad</span>
+                    </div>
+                    <button id="afinidadToggle" class="relative inline-flex h-7 w-12 items-center rounded-full bg-gray-300 dark:bg-gray-700 transition-all shadow-inner" role="switch" aria-checked="false" onclick="toggleSwitch(this)">
+                        <span class="inline-block h-5 w-5 translate-x-1 transform rounded-full bg-white shadow-md transition-transform duration-300 ease-in-out"></span>
+                    </button>
+                </div>
             </div>
         </section>
         
@@ -423,6 +432,9 @@ de semana</button>
         
         const noSmokingToggle = document.getElementById('noSmokingToggle');
         if (noSmokingToggle && noSmokingToggle.getAttribute('aria-checked') === 'true') toggleSwitch(noSmokingToggle);
+
+        const afinidadToggle = document.getElementById('afinidadToggle');
+        if (afinidadToggle && afinidadToggle.getAttribute('aria-checked') === 'true') toggleSwitch(afinidadToggle);
         
         // Resetear edad de hijos
         document.querySelectorAll('input[name="child_ages"]').forEach(cb => cb.checked = false);
@@ -488,6 +500,10 @@ de semana</button>
     }
     
     function applyFilters() {
+        if (document.getElementById('afinidadToggle')?.getAttribute('aria-checked') === 'true' && !localStorage.getItem('rehogar_token')) {
+            window.location.href = '/screens-static/login/code.html';
+            return;
+        }
         const filters = {
             location: {
                 city: document.getElementById('city')?.value || '',
@@ -509,6 +525,7 @@ de semana</button>
                 petsAllowed: document.getElementById('petsToggle')?.getAttribute('aria-checked') === 'true',
                 noSmoking: document.getElementById('noSmokingToggle')?.getAttribute('aria-checked') === 'true'
             },
+            ordenarPorAfinidad: document.getElementById('afinidadToggle')?.getAttribute('aria-checked') === 'true',
             family: {
                 childAges: getSelectedChildAges(),
                 custody: getActiveFilterOption('custody-option'),

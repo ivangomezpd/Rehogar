@@ -136,6 +136,20 @@
 </div>
 </div>
 </section>
+<!-- Afinidad con el anfitrión -->
+<section id="afinidad-section" class="px-4 mt-8 hidden">
+<h3 class="text-lg font-bold mb-3 flex items-center gap-2 text-[#111814] dark:text-white">
+    Tu afinidad con el anfitrión
+    <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+</h3>
+<div class="bg-white rounded-xl p-4 shadow-sm border border-primary/5">
+<div class="flex items-center justify-between mb-2">
+<span id="afinidad-score" class="text-3xl font-bold text-primary">—%</span>
+<span class="text-xs font-bold text-[#618972] uppercase">de afinidad</span>
+</div>
+<p id="afinidad-detalle" class="text-sm text-[#4a5a51] leading-relaxed"></p>
+</div>
+</section>
 <!-- Amenities / Description -->
 <section class="px-4 mt-8 pb-8">
 <h3 class="text-lg font-bold mb-3">Sobre la casa</h3>
@@ -226,8 +240,33 @@
         if (nextBtn) nextBtn.addEventListener('click', function () { if (idx < slides - 1) { idx++; renderCarousel(); } });
         renderCarousel();
       }
+      cargarAfinidad(c.anfitrion_id);
     })
     .catch(function () {});
+
+  function cargarAfinidad(anfitrionId) {
+    var token = localStorage.getItem('rehogar_token');
+    if (!token || !anfitrionId) return;
+    fetch('/api/match/' + anfitrionId, { headers: { 'Authorization': 'Bearer ' + token } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (m) {
+        if (!m) return;
+        var section = document.getElementById('afinidad-section');
+        var score = document.getElementById('afinidad-score');
+        var detalle = document.getElementById('afinidad-detalle');
+        if (!section || !score) return;
+        section.classList.remove('hidden');
+        score.textContent = m.score + '%';
+        var partes = [];
+        if (m.detalle) {
+          if (m.detalle.complementario_calendario) partes.push('vuestras semanas de custodia son complementarias');
+          if (m.detalle.hijos > 0) partes.push('ambos tenéis hijos');
+          if (m.detalle.estilo_vida > 0) partes.push('coincidís en estilo de vida');
+        }
+        if (detalle) detalle.textContent = partes.length ? 'Coincidís porque ' + partes.join(', ') + '.' : 'Completa tu perfil de custodia y estilo de vida para ver más coincidencias.';
+      })
+      .catch(function () {});
+  }
   var contactar = document.getElementById('btn-contactar');
   if (contactar) contactar.addEventListener('click', function (e) {
     var token = localStorage.getItem('rehogar_token');

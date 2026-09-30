@@ -16,6 +16,7 @@ import authRoutes from "./routes/auth";
 import casasRoutes from "./routes/casas";
 import favoritosRoutes from "./routes/favoritos";
 import mensajesRoutes, { visitasRouter } from "./routes/mensajes";
+import matchRoutes from "./routes/match";
 import { logger } from "./utils/logger";
 
 const app = express();
@@ -74,6 +75,7 @@ app.use("/api/casas", casasRoutes);
 app.use("/api/favoritos", favoritosRoutes);
 app.use("/api/mensajes", mensajesRoutes);
 app.use("/api/visitas", visitasRouter);
+app.use("/api/match", matchRoutes);
 
 app.get("/health", (_req,res) => res.json({ status:"ok", env:process.env.NODE_ENV, ts:new Date().toISOString() }));
 app.get("/gallery", (_req,res) => { const p=path.join(__dirname,"..","public","gallery.html"); fs.existsSync(p)?res.sendFile(p):res.status(404).send("Galeria no encontrada"); });

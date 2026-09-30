@@ -1,13 +1,58 @@
 import { Router, Request, Response } from "express";
 import db from "../db/init";
-import { authMiddleware, AuthRequest } from "../middleware/auth";
+import { authMiddleware, AuthRequest, optionalAuthMiddleware } from "../middleware/auth";
+import { calcularAfinidad, parseTags, PerfilAfinidad } from "../utils/afinidad";
 
 import { validate, schemas } from "../utils/validate";
 
 const router = Router();
 
-router.get("/", (req: Request, res: Response) => {
-  const { ciudad, tipo, genero_ok, mascotas, precio_min, precio_max, habitaciones_min, custodia_ok, busqueda, pagina = "1", limite = "20" } = req.query;
+const LIMITE_POR_PAGINA = 100;
+
+function cargarPerfilAfinidad(usuarioId: number): PerfilAfinidad | null {
+  const row = db
+    .prepare("SELECT custodia_patron, custodia_semana_par, num_hijos, estilo_vida_tags, busca_afinidad FROM perfiles WHERE usuario_id = ?")
+    .get(usuarioId) as any;
+  if (!row) return null;
+  return {
+    custodia_patron: row.custodia_patron,
+    custodia_semana_par: row.custodia_semana_par,
+    num_hijos: row.num_hijos || 0,
+    estilo_vida_tags: parseTags(row.estilo_vida_tags),
+    busca_afinidad: row.busca_afinidad,
+  };
+}
+
+/**
+ * Perfiles de afinidad de varios anfitriones en UNA consulta. La version anterior hacia
+ * una consulta por casa (N+1) y, al ordenar por afinidad, sobre el conjunto completo
+ * de resultados: no es un problema con 30 casas, si con 30.000.
+ */
+function cargarPerfilesAfinidad(usuarioIds: number[]): Map<number, PerfilAfinidad> {
+  const mapa = new Map<number, PerfilAfinidad>();
+  const unicos = [...new Set(usuarioIds)];
+  if (!unicos.length) return mapa;
+  const placeholders = unicos.map(() => "?").join(",");
+  const rows = db
+    .prepare(
+      `SELECT usuario_id, custodia_patron, custodia_semana_par, num_hijos, estilo_vida_tags, busca_afinidad
+       FROM perfiles WHERE usuario_id IN (${placeholders})`
+    )
+    .all(...unicos) as any[];
+  for (const r of rows) {
+    mapa.set(r.usuario_id, {
+      custodia_patron: r.custodia_patron,
+      custodia_semana_par: r.custodia_semana_par,
+      num_hijos: r.num_hijos || 0,
+      estilo_vida_tags: parseTags(r.estilo_vida_tags),
+      busca_afinidad: r.busca_afinidad,
+    });
+  }
+  return mapa;
+}
+
+router.get("/", optionalAuthMiddleware, (req: AuthRequest, res: Response) => {
+  const { ciudad, tipo, genero_ok, mascotas, precio_min, precio_max, habitaciones_min, custodia_ok, busqueda, orden, pagina = "1" } = req.query;
   const conditions: string[] = ["c.activa = 1"];
   const params: any[] = [];
   if (ciudad)        { conditions.push("c.ciudad LIKE ?");     params.push(`%${ciudad}%`); }
@@ -20,11 +65,46 @@ router.get("/", (req: Request, res: Response) => {
   if (custodia_ok)   { conditions.push("c.custodia_ok = ?");    params.push(custodia_ok); }
   if (busqueda)      { conditions.push("(c.titulo LIKE ? OR c.descripcion LIKE ?)"); params.push(`%${busqueda}%`,`%${busqueda}%`); }
   const where = conditions.join(" AND ");
-  const offset = (Number(pagina) - 1) * Number(limite);
+
+  // `limite` viene del query string sin validar: toparlo evita que un cliente pida
+  // ?limite=1000000 y se trailing la tabla entera en memoria.
+  const limite = Math.max(1, Math.min(Number(req.query.limite) || 20, LIMITE_POR_PAGINA));
+  const paginaActual = Math.max(1, Number(pagina) || 1);
+
+  const ordenarPorAfinidad = orden === "afinidad" && !!req.user;
+  const propio = ordenarPorAfinidad ? cargarPerfilAfinidad(req.user!.id) : null;
+
   const total = (db.prepare(`SELECT COUNT(*) as n FROM casas c WHERE ${where}`).get(...params as []) as any).n;
-  const casas = db.prepare(`SELECT c.*,u.nombre as anfitrion_nombre,u.avatar as anfitrion_avatar,u.verificado as anfitrion_verificado FROM casas c JOIN usuarios u ON u.id=c.anfitrion_id WHERE ${where} ORDER BY c.created_at DESC LIMIT ? OFFSET ?`).all(...params as [], Number(limite), offset) as any[];
+
+  // Si se pide orden por afinidad, el score se calcula en memoria (logica de negocio en JS,
+  // no SQL), asi que hay que traer los candidatos antes de paginar. Con el volumen del
+  // proyecto es asumible; si creciera, el siguiente paso es una tabla materializada de
+  // afinidad por (usuario, anfitrion) actualizada al editar el perfil.
+  const offset = (paginaActual - 1) * limite;
+  // `c.id DESC` como desempate: created_at es CURRENT_TIMESTAMP y tiene granularidad de
+  // segundo, asi que sin un segundo criterio dos casas creadas en el mismo segundo mantienen
+  // un orden arbitrario y el LIMIT/OFFSET puede repetir o saltar filas entre paginas.
+  const baseQuery = `SELECT c.*, u.nombre as anfitrion_nombre, u.avatar as anfitrion_avatar, u.verificado as anfitrion_verificado
+                      FROM casas c JOIN usuarios u ON u.id=c.anfitrion_id WHERE ${where} ORDER BY c.created_at DESC, c.id DESC`;
+
+  let casas: any[];
+  if (ordenarPorAfinidad && propio) {
+    const todas = db.prepare(baseQuery).all(...params as []) as any[];
+    const perfiles = cargarPerfilesAfinidad(todas.map((c) => c.anfitrion_id));
+    casas = todas
+      .map((c) => {
+        const perfilAnfitrion = perfiles.get(c.anfitrion_id);
+        const afinidad = perfilAnfitrion ? calcularAfinidad(propio, perfilAnfitrion) : null;
+        return { ...c, afinidad: afinidad?.score ?? 0, afinidad_detalle: afinidad?.detalle ?? null };
+      })
+      .sort((a, b) => b.afinidad - a.afinidad)
+      .slice(offset, offset + limite);
+  } else {
+    casas = db.prepare(`${baseQuery} LIMIT ? OFFSET ?`).all(...params as [], limite, offset) as any[];
+  }
+
   casas.forEach(c => { if (c.fotos) c.fotos = JSON.parse(c.fotos); if (c.amenities) c.amenities = JSON.parse(c.amenities); });
-  return res.json({ casas, paginacion: { total, pagina: Number(pagina), limite: Number(limite), paginas: Math.ceil(total/Number(limite)) } });
+  return res.json({ casas, paginacion: { total, pagina: paginaActual, limite, paginas: Math.ceil(total / limite) } });
 });
 
 router.get("/:id", (req: Request, res: Response) => {
