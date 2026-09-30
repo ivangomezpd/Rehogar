@@ -316,3 +316,54 @@ describe('PUT/GET /api/auth/me (campos de afinidad)', () => {
     expect((await request(app).put('/api/auth/me').send({ num_hijos: 1 })).status).toBe(401);
   });
 });
+
+describe('GET /api/match/candidatos/lista (tope del conjunto puntuado)', () => {
+  it('acota en SQL los candidatos que puntúa: con más candidatos que el tope, los más antiguos quedan fuera', async () => {
+    // El score se calcula en JS, así que la consulta no puede ordenar por afinidad:
+    // acota los candidatos a los más recientes (POOL_CANDIDATOS = 500). Con un buscador
+    // y 520 candidatos perfectos, el de menor id (el más antiguo) cae fuera del conjunto
+    // puntuado y no aparece; el más reciente sí. Antes esta consulta traía TODOS los
+    // usuarios y recortaba al final, así que ningún candidato quedaba fuera.
+    const buscador = crearUsuario({ nombre: 'Buscador pool', email: 'pool@test.local', rol: 'buscador' });
+    guardarPerfil(buscador, {
+      custodia_patron: 'semana_alterna',
+      custodia_semana_par: 1,
+      num_hijos: 2,
+      estilo_vida_tags: JSON.stringify(['con_hijos', 'tranquilo', 'no_fumador']),
+    });
+
+    const N = 520;
+    const ids: number[] = [];
+    // Sentencias preparadas fuera de la transacción (recomendado por better-sqlite3).
+    const insertarUsuario = db.prepare("INSERT INTO usuarios (nombre,email,password,rol) VALUES (?,?,?,?)");
+    const insertarPerfil = db.prepare(
+      "INSERT INTO perfiles (usuario_id,custodia_patron,custodia_semana_par,num_hijos,estilo_vida_tags) VALUES (?,?,?,?,?)"
+    );
+    const insertarCandidatos = db.transaction(() => {
+      for (let i = 0; i < N; i++) {
+        const u = insertarUsuario.run(`Candidato ${i}`, `candidato${i}@pool.local`, 'x', 'anfitrion');
+        const id = Number(u.lastInsertRowid);
+        // Semanas complementarias + hijos + 2 tags en común -> score 90 con el buscador.
+        insertarPerfil.run(id, 'semana_alterna', 0, 1, JSON.stringify(['con_hijos', 'tranquilo']));
+        ids.push(id);
+      }
+    });
+    insertarCandidatos();
+
+    const r = await request(app)
+      .get('/api/match/candidatos/lista?limite=50')
+      .set('Authorization', `Bearer ${token(buscador, 'buscador')}`);
+
+    expect(r.status).toBe(200);
+    expect(r.body.candidatos.length).toBe(50);
+
+    const devueltos = new Set<number>(r.body.candidatos.map((c: any) => c.usuario_id));
+    // El más reciente entra; el más antiguo de los 520 queda por debajo del tope.
+    expect(devueltos.has(ids[N - 1])).toBe(true);
+    expect(devueltos.has(ids[0])).toBe(false);
+
+    const scores = r.body.candidatos.map((c: any) => c.score);
+    expect(scores).toEqual([...scores].sort((a: number, b: number) => b - a));
+    expect(scores.every((s: number) => s > 0)).toBe(true);
+  });
+});

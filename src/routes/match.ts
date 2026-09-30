@@ -56,6 +56,17 @@ function registrarAfinidad(a: number, b: number, score: number, detalle: unknown
   ).run(x, y, score, JSON.stringify(detalle));
 }
 
+// Tope de candidatos que se puntúan por petición. El score se calcula en JS
+// (calcularAfinidad es la única fuente de verdad), así que no se puede hacer
+// ORDER BY afinidad en SQL sin duplicar la fórmula y arriesgar que las dos copias
+// se desincronicen. En lugar de traer TODOS los usuarios y recortar al final
+// —memoria y número de parámetros SQL lineales con la tabla— se acota el conjunto
+// que se puntúa a los más recientes por id. Con el volumen actual el top-N es el
+// real; si la tabla creciera, el siguiente paso es materializar el score por
+// (usuario, candidato) y ordenar en SQL. 500 deja margen bajo el límite clásico
+// de 999 parámetros de SQLite (cargarPerfiles usa un placeholder por candidato).
+const POOL_CANDIDATOS = 500;
+
 // GET /api/match/candidatos/lista — otros usuarios ordenados por afinidad con el usuario autenticado
 // (Registrada ANTES de /:usuarioId a propósito: si no, Express interpretaría "candidatos"
 // como un valor de :usuarioId y esta ruta nunca se alcanzaría.)
@@ -75,9 +86,10 @@ router.get("/candidatos/lista", authMiddleware, (req: AuthRequest, res: Response
       `SELECT u.id, u.nombre, u.avatar, u.verificado, u.rol, p.ciudad
        FROM usuarios u JOIN perfiles p ON p.usuario_id = u.id
        WHERE u.id != ?
-       ORDER BY u.id`
+       ORDER BY u.id DESC
+       LIMIT ?`
     )
-    .all(req.user!.id) as any[];
+    .all(req.user!.id, POOL_CANDIDATOS) as any[];
 
   const perfiles = cargarPerfiles(candidatos.map((c) => c.id));
 
