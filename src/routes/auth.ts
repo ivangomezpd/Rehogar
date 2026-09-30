@@ -52,7 +52,7 @@ router.put("/me", authMiddleware, validate(schemas.perfilAfinidad), (req: AuthRe
     `UPDATE perfiles SET
        ciudad=COALESCE(?,ciudad),
        custodia=COALESCE(?,custodia),
-       custodia_patron=COALESCE(?,custodia_patron),
+       custodia_patron=CASE WHEN ? THEN ? ELSE custodia_patron END,
        custodia_semana_par=COALESCE(?,custodia_semana_par),
        num_hijos=COALESCE(?,num_hijos),
        estilo_vida_tags=COALESCE(?,estilo_vida_tags),
@@ -62,7 +62,13 @@ router.put("/me", authMiddleware, validate(schemas.perfilAfinidad), (req: AuthRe
   ).run(
     ciudad || null,
     custodia || null,
-    custodia_patron || null,
+    // custodia_patron es el unico campo cuyo valor "vacio" es NULL, y COALESCE(?,col)
+    // con ?=NULL devuelve col: con COALESCE el patron de custodia era inborrable
+    // (el "Sin especificar" del formulario no podia deshacer una seleccion previa).
+    // El primer ? dice si la clave vino en el body y el segundo lleva el valor:
+    // ausente -> se mantiene, null explicito -> se borra, string -> se guarda.
+    custodia_patron === undefined ? 0 : 1,
+    custodia_patron === undefined ? null : custodia_patron,
     custodia_semana_par === undefined ? null : (custodia_semana_par ? 1 : 0),
     num_hijos === undefined ? null : num_hijos,
     estilo_vida_tags ? JSON.stringify(estilo_vida_tags) : null,

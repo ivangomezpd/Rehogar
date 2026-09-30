@@ -39,7 +39,8 @@ export const schemas = {
     bio: z.string().max(1000).optional(),
     ciudad: z.string().min(2).optional(),
     custodia: z.string().max(200).optional(),
-    custodia_patron: z.enum(['semana_alterna', 'fin_de_semana_alterno', 'ninguna', 'otro']).optional(),
+    // null = borrar la seleccion ("Sin especificar"); ausente = no tocar el valor actual.
+    custodia_patron: z.enum(['semana_alterna', 'fin_de_semana_alterno', 'ninguna', 'otro']).nullable().optional(),
     custodia_semana_par: z.boolean().optional(),
     num_hijos: z.number().int().min(0).max(20).optional(),
     estilo_vida_tags: z.array(z.string().max(40)).max(20).optional(),

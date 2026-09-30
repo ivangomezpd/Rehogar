@@ -261,6 +261,57 @@ describe('PUT/GET /api/auth/me (campos de afinidad)', () => {
     expect(r.status).toBe(400);
   });
 
+  it('borra custodia_patron con null explicito y la deja intacta si se omite', async () => {
+    const id = crearUsuario({ nombre: 'Sin custodia', email: 'sincustodia@test.local', rol: 'buscador' });
+    const auth = `Bearer ${token(id, 'buscador')}`;
+    await request(app)
+      .put('/api/auth/me')
+      .set('Authorization', auth)
+      .send({ custodia_patron: 'semana_alterna', num_hijos: 2 });
+
+    // Ausente = "no lo toques": un PUT parcial de otro campo no debe borrar la custodia.
+    await request(app).put('/api/auth/me').set('Authorization', auth).send({ num_hijos: 4 });
+    let me = await request(app).get('/api/auth/me').set('Authorization', auth);
+    expect(me.body.custodia_patron).toBe('semana_alterna');
+
+    // null explicito = "Sin especificar" en el formulario. Con COALESCE esto devolvia
+    // 200 sin borrar nada y la UI Volvia a pintar el valor anterior.
+    const r = await request(app).put('/api/auth/me').set('Authorization', auth).send({ custodia_patron: null });
+    expect(r.status).toBe(200);
+
+    me = await request(app).get('/api/auth/me').set('Authorization', auth);
+    expect(me.body.custodia_patron).toBeNull();
+    // El resto del perfil no se toco al borrar un solo campo.
+    expect(me.body.num_hijos).toBe(4);
+  });
+
+  it('el score deja de contar custodia complementaria cuando el usuario borra su patron', async () => {
+    const id = crearUsuario({ nombre: 'Ana otra vez', email: 'ana2@test.local', rol: 'buscador' });
+    const auth = `Bearer ${token(id, 'buscador')}`;
+    // Mismo perfil que Ana: 45 custodia + 25 hijos + 20 estilo de vida.
+    await request(app)
+      .put('/api/auth/me')
+      .set('Authorization', auth)
+      .send({
+        custodia_patron: 'semana_alterna',
+        custodia_semana_par: true,
+        num_hijos: 2,
+        estilo_vida_tags: ['con_hijos', 'tranquilo', 'no_fumador'],
+      });
+    const antes = await request(app).get(`/api/match/${carlosId}`).set('Authorization', auth);
+    expect(antes.body.score).toBe(AFINIDAD_ANA_CARLOS);
+
+    await request(app).put('/api/auth/me').set('Authorization', auth).send({ custodia_patron: null });
+
+    // Sin patron de custodia los 45 puntos de custodia desaparecen, pero siguen
+    // contando los hijos y los tags: 0 + 25 + 20.
+    const despues = await request(app).get(`/api/match/${carlosId}`).set('Authorization', auth);
+    expect(despues.status).toBe(200);
+    expect(despues.body.score).toBe(45);
+    expect(despues.body.detalle.custodia).toBe(0);
+    expect(despues.body.detalle.complementario_calendario).toBe(false);
+  });
+
   it('devuelve 401 sin token', async () => {
     expect((await request(app).put('/api/auth/me').send({ num_hijos: 1 })).status).toBe(401);
   });

@@ -292,7 +292,9 @@
     var tags = [];
     document.querySelectorAll('.tag-btn.bg-primary').forEach(function (b) { tags.push(b.dataset.tag); });
     var body = {
-      custodia_patron: patron || undefined,
+      // null explicito, no undefined: undefined disappearia del JSON y el backend no
+      // podria distinguir "no lo toques" de "borralo" al elegir "Sin especificar".
+      custodia_patron: patron || null,
       num_hijos: Number(document.getElementById('num-hijos').value) || 0,
       estilo_vida_tags: tags,
       busca_afinidad: document.getElementById('busca-afinidad').value,
@@ -306,11 +308,14 @@
       .then(function (r) {
         // Sin mirar r.ok, un 401/400/500 caia en el .then de exito y la UI mintia:
         // "Preferencias guardadas" cuando no se habia guardado nada.
+        // En 401 se devuelve null y se navega: el .then de exito debe comprobarlo,
+        // si no pinta "guardado" mientras la pagina va cambiando a login.
         if (r.status === 401) { localStorage.removeItem('rehogar_token'); window.location.href = '/screens-static/login/code.html'; return null; }
         if (!r.ok) return r.json().catch(function () { return {}; }).then(function (d) { throw new Error(d.error || 'Error ' + r.status); });
         return r.json();
       })
-      .then(function () {
+      .then(function (d) {
+        if (!d) return;
         if (msg) { msg.textContent = 'Preferencias guardadas'; msg.className = 'text-xs text-center mt-2 text-primary font-bold'; }
       })
       .catch(function (e) {
