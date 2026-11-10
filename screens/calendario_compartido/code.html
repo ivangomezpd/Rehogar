@@ -253,6 +253,9 @@
     }
     grid.innerHTML = html;
   }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
   function fmtHora(h) {
     if (!h) return '';
     var p = String(h).split(':');
@@ -277,8 +280,8 @@
       return '<div class="bg-white dark:bg-slate-900 p-4 rounded-xl border-l-4 ' + color + ' shadow-sm flex items-start justify-between">' +
         '<div class="flex items-start gap-3">' +
         '<div class="bg-primary/10 p-2 rounded-lg"><span class="material-symbols-outlined text-primary">home</span></div>' +
-        '<div><h4 class="font-bold text-slate-900 dark:text-white">Visita: ' + (vis.casa_titulo || 'Casa') + '</h4>' +
-        '<p class="text-sm text-slate-500">' + fmtHora(vis.hora) + ' · ' + (vis.estado || '') + '</p></div></div>' +
+        '<div><h4 class="font-bold text-slate-900 dark:text-white">Visita: ' + esc(vis.casa_titulo || 'Casa') + '</h4>' +
+        '<p class="text-sm text-slate-500">' + esc(fmtHora(vis.hora)) + ' · ' + esc(vis.estado || '') + '</p></div></div>' +
         '<a href="/screens-static/mis_visitas/code.html" class="cursor-pointer"><button class="text-slate-400"><span class="material-symbols-outlined">more_vert</span></button></a></div>';
     }).join('');
   }

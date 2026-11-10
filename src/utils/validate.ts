@@ -47,6 +47,25 @@ export const schemas = {
     busca_afinidad: z.enum(['solo_divorciados_con_hijos', 'divorciados', 'indiferente']).optional(),
   }),
 
+  // Editar casa: misma forma que `casa` pero todo opcional (PUT parcial).
+  // Antes el PUT no validaba nada y de paso ignoraba custodia_ok,
+  // amenities, fotos y mascotas.
+  casaUpdate: z.object({
+    titulo: z.string().min(3, 'El título es muy corto').max(100).optional(),
+    ciudad: z.string().min(2, 'La ciudad es requerida').optional(),
+    precio: z.number().positive('El precio debe ser positivo').optional(),
+    habitaciones: z.number().int().positive().optional(),
+    banos: z.number().int().positive().optional(),
+    tipo: z.string().optional(),
+    genero_ok: z.string().optional(),
+    mascotas: z.boolean().optional(),
+    // descripcion '' = borrar el texto (el PUT distingue "presente" de "ausente")
+    descripcion: z.string().max(2000).optional(),
+    amenities: z.array(z.string()).max(30).optional(),
+    fotos: z.array(z.string().url('URL de foto inválida')).max(10).optional(),
+    custodia_ok: z.string().max(50).optional(),
+  }),
+
   // Enviar mensaje
   mensaje: z.object({
     receptor_id: z.number().int().positive('ID de receptor inválido'),
@@ -64,6 +83,13 @@ export const schemas = {
     notas: z.string().max(500).optional(),
   }),
 };
+
+/** JSON.parse sin tirar la petición: un valor corrupto en un TEXT de la BD
+ *  no debería convertir un listado público en un 500. */
+export function parseJsonSeguro(raw: unknown): unknown {
+  if (typeof raw !== "string" || !raw) return null;
+  try { return JSON.parse(raw); } catch { return null; }
+}
 
 // Middleware de validación genérico
 export const validate = (schema: ZodSchema) => {

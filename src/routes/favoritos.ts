@@ -1,13 +1,16 @@
 import { Router, Response } from "express";
 import db from "../db/init";
 import { authMiddleware, AuthRequest } from "../middleware/auth";
+import { parseJsonSeguro } from "../utils/validate";
 
 const router = Router();
 router.use(authMiddleware);
 
 router.get("/", (req: AuthRequest, res: Response) => {
-  const favs = db.prepare("SELECT c.*,u.nombre as anfitrion_nombre,f.created_at as guardado_en FROM favoritos f JOIN casas c ON c.id=f.casa_id JOIN usuarios u ON u.id=c.anfitrion_id WHERE f.usuario_id=? ORDER BY f.created_at DESC").all(req.user!.id) as any[];
-  favs.forEach(c => { if (c.fotos) c.fotos = JSON.parse(c.fotos); });
+  // Solo casas activas: un anfitrión que borra su casa no debería seguir
+  // apareciendo en los favoritos de otros usuarios.
+  const favs = db.prepare("SELECT c.*,u.nombre as anfitrion_nombre,f.created_at as guardado_en FROM favoritos f JOIN casas c ON c.id=f.casa_id JOIN usuarios u ON u.id=c.anfitrion_id WHERE f.usuario_id=? AND c.activa=1 ORDER BY f.created_at DESC").all(req.user!.id) as any[];
+  favs.forEach(c => { if (c.fotos) c.fotos = parseJsonSeguro(c.fotos) || []; });
   return res.json(favs);
 });
 
@@ -16,7 +19,12 @@ router.post("/:casaId", (req: AuthRequest, res: Response) => {
   try {
     db.prepare("INSERT INTO favoritos (usuario_id,casa_id) VALUES (?,?)").run(req.user!.id, req.params.casaId);
     return res.status(201).json({ ok: true });
-  } catch { return res.status(409).json({ error: "Ya esta en favoritos" }); }
+  } catch (e: any) {
+    // Antes cualquier error de BD se disfrazaba de "Ya esta en favoritos".
+    // Solo la violación de UNIQUE es ese caso.
+    if (e && e.code === "SQLITE_CONSTRAINT_UNIQUE") return res.status(409).json({ error: "Ya esta en favoritos" });
+    throw e;
+  }
 });
 
 router.delete("/:casaId", (req: AuthRequest, res: Response) => {

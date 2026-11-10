@@ -25,7 +25,7 @@ npm run build
 npm start
 ```
 
-La app arranca en `http://localhost:3000` y crea la BD SQLite con datos de prueba (usuarios `ana@rehogar.com` / `carlos@rehogar.com`, ambos con contraseña `password123`).
+La app arranca en `http://localhost:3000` y crea la BD SQLite. Los datos de prueba (`ana@rehogar.com` / `carlos@rehogar.com`, contraseña `password123`) solo se siembran con `NODE_ENV=development` **y** `SEED_DEMO=1`.
 
 ## Configuración (`.env`)
 
@@ -35,8 +35,16 @@ La app arranca en `http://localhost:3000` y crea la BD SQLite con datos de prueb
 | `NODE_ENV`  | `development` o `production`             | `development`          |
 | `JWT_SECRET`| Secreto para firmar tokens               | 64 caracteres hex      |
 | `DB_PATH`   | Ruta del archivo SQLite                  | `./data/rehogar.db`    |
+| `CORS_ORIGIN` | Orígenes CORS admitidos (comas)        | `https://tu-dominio`   |
+| `TRUST_PROXY` | `1` solo si hay proxy delante           | `1`                    |
+| `SEED_DEMO` | `1` para sembrar datos demo (dev)      | `1`                    |
+| `GOOGLE_MAPS_EMBED_KEY` | Clave de Maps Embed (restringida por referrer) | `AIza...` |
 
-En producción `JWT_SECRET` es obligatorio (el servidor aborta si falta).
+`JWT_SECRET` es obligatorio en **todos** los entornos: el servidor aborta si falta, si es el valor de ejemplo de `.env.example` o si mide menos de 16 caracteres.
+
+## Despliegue
+
+SQLite vive en disco (`DB_PATH`) y también los logs (`logs/`), así que un entorno serverless (Vercel Functions, AWS Lambda) pierde los datos en cada arranque. Despliega en un VPS o contenedor con volumen persistente. Detrás de un proxy inverso, pon `TRUST_PROXY=1` y configura `CORS_ORIGIN` con tu dominio.
 
 ## Scripts
 
@@ -55,11 +63,13 @@ En producción `JWT_SECRET` es obligatorio (el servidor aborta si falta).
 - `GET /api/auth/me` — perfil autenticado (rol, plan, verificado, custodia)
 - `PUT /api/auth/me` — actualizar perfil
 - `GET /api/casas` — listar/buscar (`ciudad`, `tipo`, `genero_ok`, `mascotas`, `precio_min/max`, `habitaciones_min`, `custodia_ok`, `busqueda`, paginación)
-- `GET /api/casas/:id` — detalle
+- `GET /api/casas/:id` — detalle (la dirección exacta solo la ve el anfitrión o quien tiene una visita confirmada)
 - `POST /api/casas` — publicar casa (solo anfitriones; `fotos[]`, `amenities[]`, `custodia_ok`)
+- `PUT /api/casas/:id` — editar casa (parcial, validado con Zod)
 - `GET /api/favoritos` · `POST /api/favoritos/:casaId` · `DELETE /api/favoritos/:casaId`
-- `GET /api/visitas` · `POST /api/visitas` · `PATCH /api/visitas/:id`
+- `GET /api/visitas` · `POST /api/visitas` · `PATCH /api/visitas/:id` (el solicitante solo puede cancelar; confirmar/completar es cosa del anfitrión)
 - `GET /api/mensajes` · `GET /api/mensajes/:userId` · `POST /api/mensajes`
+- `GET /api/config` — configuración pública del frontend (clave de Maps Embed si está configurada)
 - `GET /health` — healthcheck
 
 ## Pantallas (17)
@@ -72,4 +82,8 @@ La **landing promocional** se sirve en `/` (`public/index.html`) y la home del p
 
 ## Tests
 
-Batería funcional (API + pantallas HTTP 200): `node C:\Users\igomez\AppData\Local\Temp\opencode\bateria.cjs` (requiere `REPO` apuntando a la raíz del repo).
+```bash
+npm test        # Jest con cobertura (33 casos: afinidad, match, mensajes, health, visitas)
+```
+
+La integración continua (`.github/workflows/ci.yml`) ejecuta en cada push y PR: `npm ci`, `npm run build` (tsc), `npm test` y `npm audit --omit=dev --audit-level=high`.

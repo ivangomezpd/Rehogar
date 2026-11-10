@@ -101,7 +101,10 @@ addColIfMissing("estilo_vida_tags", "estilo_vida_tags TEXT");
 addColIfMissing("busca_afinidad", "busca_afinidad TEXT DEFAULT 'indiferente'");
 
 const count = (db.prepare("SELECT COUNT(*) as n FROM usuarios").get() as any).n;
-if (count === 0 && process.env.NODE_ENV === "development") {
+// La siembra de credenciales conocidas (documentadas en el README) ahora
+// exige SEED_DEMO=1 además de development: quien despliegue con NODE_ENV=development
+// por error no abre una puerta trasera con ana@rehogar.com / password123.
+if (count === 0 && process.env.NODE_ENV === "development" && process.env.SEED_DEMO === "1") {
   const bcrypt = require("bcryptjs");
   const hash = bcrypt.hashSync("password123", 10);
   db.prepare("INSERT INTO usuarios (nombre,email,password,rol,verificado,plan) VALUES (?,?,?,?,?,?)").run("Ana Garcia","ana@rehogar.com",hash,"buscador",1,"premium");

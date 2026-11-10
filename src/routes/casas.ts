@@ -3,11 +3,20 @@ import db from "../db/init";
 import { authMiddleware, AuthRequest, optionalAuthMiddleware } from "../middleware/auth";
 import { calcularAfinidad, parseTags, PerfilAfinidad } from "../utils/afinidad";
 
-import { validate, schemas } from "../utils/validate";
+import { validate, schemas, parseJsonSeguro } from "../utils/validate";
 
 const router = Router();
 
 const LIMITE_POR_PAGINA = 100;
+
+/**
+ * Escapa los comodines de LIKE (% y _) y la propia barra de escape para que
+ * una búsqueda de "100%" no haga matching contra cualquier cosa que empiece
+ * por "100". Va junto a la cláusula ESCAPE '\' de cada LIKE.
+ */
+function likeSeguro(valor: unknown): string {
+  return String(valor).replace(/[\\%_]/g, (m) => "\\" + m);
+}
 
 function cargarPerfilAfinidad(usuarioId: number): PerfilAfinidad | null {
   const row = db
@@ -53,9 +62,17 @@ function cargarPerfilesAfinidad(usuarioIds: number[]): Map<number, PerfilAfinida
 
 router.get("/", optionalAuthMiddleware, (req: AuthRequest, res: Response) => {
   const { ciudad, tipo, genero_ok, mascotas, precio_min, precio_max, habitaciones_min, custodia_ok, busqueda, orden, pagina = "1" } = req.query;
+  // Los filtros numéricos venían del query string sin validar: Number("abc")
+  // es NaN, better-sqlite3 lo enlaza sin error y el listado devolvía 0
+  // resultados en silencio. Ahora el error es explícito.
+  for (const [nombre, valor] of Object.entries({ precio_min, precio_max, habitaciones_min })) {
+    if (valor !== undefined && !Number.isFinite(Number(valor))) {
+      return res.status(400).json({ error: `Parámetro ${nombre} debe ser numérico` });
+    }
+  }
   const conditions: string[] = ["c.activa = 1"];
   const params: any[] = [];
-  if (ciudad)        { conditions.push("c.ciudad LIKE ?");     params.push(`%${ciudad}%`); }
+  if (ciudad)        { conditions.push("c.ciudad LIKE ? ESCAPE '\\'");     params.push(`%${likeSeguro(ciudad)}%`); }
   if (tipo)          { conditions.push("c.tipo = ?");           params.push(tipo); }
   if (genero_ok)     { conditions.push("c.genero_ok = ?");      params.push(genero_ok); }
   if (mascotas)      { conditions.push("c.mascotas = ?");       params.push(mascotas === "true" ? 1 : 0); }
@@ -63,7 +80,7 @@ router.get("/", optionalAuthMiddleware, (req: AuthRequest, res: Response) => {
   if (precio_max)    { conditions.push("c.precio <= ?");        params.push(Number(precio_max)); }
   if (habitaciones_min){ conditions.push("c.habitaciones >= ?");params.push(Number(habitaciones_min)); }
   if (custodia_ok)   { conditions.push("c.custodia_ok = ?");    params.push(custodia_ok); }
-  if (busqueda)      { conditions.push("(c.titulo LIKE ? OR c.descripcion LIKE ?)"); params.push(`%${busqueda}%`,`%${busqueda}%`); }
+  if (busqueda)      { conditions.push("(c.titulo LIKE ? ESCAPE '\\' OR c.descripcion LIKE ? ESCAPE '\\')"); params.push(`%${likeSeguro(busqueda)}%`,`%${likeSeguro(busqueda)}%`); }
   const where = conditions.join(" AND ");
 
   // `limite` viene del query string sin validar: toparlo evita que un cliente pida
@@ -103,15 +120,25 @@ router.get("/", optionalAuthMiddleware, (req: AuthRequest, res: Response) => {
     casas = db.prepare(`${baseQuery} LIMIT ? OFFSET ?`).all(...params as [], limite, offset) as any[];
   }
 
-  casas.forEach(c => { if (c.fotos) c.fotos = JSON.parse(c.fotos); if (c.amenities) c.amenities = JSON.parse(c.amenities); });
+  casas.forEach(c => { if (c.fotos) c.fotos = parseJsonSeguro(c.fotos) || []; if (c.amenities) c.amenities = parseJsonSeguro(c.amenities) || []; });
   return res.json({ casas, paginacion: { total, pagina: paginaActual, limite, paginas: Math.ceil(total / limite) } });
 });
 
-router.get("/:id", (req: Request, res: Response) => {
+router.get("/:id", optionalAuthMiddleware, (req: AuthRequest, res: Response) => {
   const casa = db.prepare("SELECT c.*,u.nombre as anfitrion_nombre,u.avatar as anfitrion_avatar,u.bio as anfitrion_bio,u.verificado as anfitrion_verificado FROM casas c JOIN usuarios u ON u.id=c.anfitrion_id WHERE c.id=? AND c.activa=1").get(req.params.id) as any;
   if (!casa) return res.status(404).json({ error: "Casa no encontrada" });
-  if (casa.fotos) casa.fotos = JSON.parse(casa.fotos || "[]");
-  if (casa.amenities) casa.amenities = JSON.parse(casa.amenities || "[]");
+  // La dirección exacta solo la ve el anfitrión o quien tiene una visita
+  // confirmada/completada. Antes este endpoint era público y devolvía la
+  // dirección (y lat/lng) de la casa de cualquiera que la hubiera publicado.
+  const esAnfitrion = !!req.user && casa.anfitrion_id === req.user.id;
+  let puedeVerUbicacion = esAnfitrion;
+  if (!puedeVerUbicacion && req.user) {
+    const visita = db.prepare("SELECT id FROM visitas WHERE casa_id=? AND solicitante_id=? AND estado IN ('confirmada','completada')").get(casa.id, req.user!.id);
+    puedeVerUbicacion = !!visita;
+  }
+  if (!puedeVerUbicacion) { casa.direccion = null; casa.lat = null; casa.lng = null; }
+  if (casa.fotos) casa.fotos = parseJsonSeguro(casa.fotos) || [];
+  if (casa.amenities) casa.amenities = parseJsonSeguro(casa.amenities) || [];
   return res.json(casa);
 });
 
@@ -122,12 +149,32 @@ router.post("/", authMiddleware, validate(schemas.casa), (req: AuthRequest, res:
   return res.status(201).json({ id: result.lastInsertRowid, ok: true });
 });
 
-router.put("/:id", authMiddleware, (req: AuthRequest, res: Response) => {
+router.put("/:id", authMiddleware, validate(schemas.casaUpdate), (req: AuthRequest, res: Response) => {
   const casa = db.prepare("SELECT * FROM casas WHERE id=?").get(req.params.id) as any;
   if (!casa) return res.status(404).json({ error: "Casa no encontrada" });
   if (casa.anfitrion_id !== req.user!.id) return res.status(403).json({ error: "Sin permiso" });
-  const { titulo, descripcion, ciudad, precio, habitaciones, banos, tipo, genero_ok, mascotas } = req.body;
-  db.prepare("UPDATE casas SET titulo=COALESCE(?,titulo),descripcion=COALESCE(?,descripcion),ciudad=COALESCE(?,ciudad),precio=COALESCE(?,precio),habitaciones=COALESCE(?,habitaciones),banos=COALESCE(?,banos),tipo=COALESCE(?,tipo),genero_ok=COALESCE(?,genero_ok),updated_at=datetime('now') WHERE id=?").run(titulo||null,descripcion||null,ciudad||null,precio||null,habitaciones||null,banos||null,tipo||null,genero_ok||null,req.params.id);
+  // SET dinámico a partir de las claves presentes en el body validado.
+  // Sustituye al UPDATE con COALESCE(?, col): con COALESCE, precio=0 o
+  // descripcion="" (valores falsy) no se podían guardar porque el ||null del
+  // run los convertía en NULL y COALESCE mantenía el valor anterior.
+  const data = req.body as Record<string, unknown>;
+  const sets: string[] = [];
+  const params: unknown[] = [];
+  const set = (col: string, val: unknown) => { sets.push(`${col}=?`); params.push(val); };
+  if (data.titulo !== undefined) set("titulo", data.titulo);
+  if (data.descripcion !== undefined) set("descripcion", data.descripcion);
+  if (data.ciudad !== undefined) set("ciudad", data.ciudad);
+  if (data.precio !== undefined) set("precio", data.precio);
+  if (data.habitaciones !== undefined) set("habitaciones", data.habitaciones);
+  if (data.banos !== undefined) set("banos", data.banos);
+  if (data.tipo !== undefined) set("tipo", data.tipo);
+  if (data.genero_ok !== undefined) set("genero_ok", data.genero_ok);
+  if (data.mascotas !== undefined) set("mascotas", data.mascotas ? 1 : 0);
+  if (data.custodia_ok !== undefined) set("custodia_ok", data.custodia_ok);
+  if (data.amenities !== undefined) set("amenities", JSON.stringify(data.amenities));
+  if (data.fotos !== undefined) set("fotos", JSON.stringify(data.fotos));
+  if (!sets.length) return res.json({ ok: true });
+  db.prepare(`UPDATE casas SET ${sets.join(",")}, updated_at=datetime('now') WHERE id=?`).run(...params, req.params.id);
   return res.json({ ok: true });
 });
 

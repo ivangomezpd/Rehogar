@@ -133,9 +133,11 @@
                 </label>
             </div>
 
-            <!-- Google Maps con búsqueda funcional -->
+            <!-- Google Maps con búsqueda funcional. La clave NO va hardcodeada:
+                 se pide a /api/config y vive en GOOGLE_MAPS_EMBED_KEY (.env),
+                 donde se puede restringir por referrer en Google Cloud. -->
             <div class="rounded-xl overflow-hidden h-40 w-full relative border border-[#dbe6e0] dark:border-[#2a3f33]">
-                <iframe id="googleMap" width="100%" height="100%" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbV6arttYQ&q=Madrid+Spain" allowfullscreen>
+                <iframe id="googleMap" width="100%" height="100%" frameborder="0" style="border:0" src="" allowfullscreen>
                 </iframe>
                 <div class="absolute bottom-2 right-2 bg-white dark:bg-[#1a2e23] px-2 py-1.5 rounded-lg text-[10px] shadow-md border border-gray-100 dark:border-gray-800 flex items-center gap-1.5 grayscale opacity-80">
                         <svg class="w-3.5 h-3.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
@@ -379,13 +381,27 @@
         // ============================================
         const addressInput = document.getElementById('address');
         const mapFrame = document.getElementById('googleMap');
-        
+        let mapsEmbedKey = null;
+
+        // La clave viene del entorno del servidor (no más clave de ejemplo de
+        // la documentación de Google pegada en el HTML, que además estaba
+        // invalidada y el mapa ni cargaba).
+        fetch('/api/config')
+            .then(r => r.json())
+            .then(cfg => {
+                mapsEmbedKey = cfg && cfg.maps_embed_key;
+                if (mapsEmbedKey && mapFrame) {
+                    mapFrame.src = `https://www.google.com/maps/embed/v1/search?key=${encodeURIComponent(mapsEmbedKey)}&q=Madrid+Spain`;
+                }
+            })
+            .catch(() => {});
+
         if (addressInput && mapFrame) {
             addressInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
+                if (e.key === 'Enter' && mapsEmbedKey) {
                     const address = encodeURIComponent(this.value);
                     if (address) {
-                        mapFrame.src = `https://www.google.com/maps/embed/v1/place?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbV6arttYQ&q=${address}`;
+                        mapFrame.src = `https://www.google.com/maps/embed/v1/place?key=${encodeURIComponent(mapsEmbedKey)}&q=${address}`;
                     }
                 }
             });

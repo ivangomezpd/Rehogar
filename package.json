@@ -41,5 +41,9 @@
     "typescript": "^5.9.3"
   },
   "author": "Ivan Gomez",
-  "license": "MIT"
+  "license": "MIT",
+  "allowScripts": {
+    "better-sqlite3@12.9.0": true,
+    "unrs-resolver@1.11.1": true
+  }
 }

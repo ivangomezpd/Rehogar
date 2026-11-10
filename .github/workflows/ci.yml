@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # Instala con las versiones exactas del lockfile. better-sqlite3
+      # descarga un binario precompilado; si no existiera para la plataforma,
+      # node-gyp se encarga en el install script.
+      - run: npm ci
+
+      - run: npm run build
+
+      - run: npm test
+
+      # --audit-level=high: quedan 2 moderados sin fix no-rupturista
+      # (qs a traves de express 4); no deben tumbar la CI.
+      - run: npm audit --omit=dev --audit-level=high

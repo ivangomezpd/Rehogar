@@ -155,18 +155,18 @@
 <!-- Estado final -->
 <div id="final-state" class="hidden flex-col items-center gap-3 rounded-xl border border-primary/30 bg-primary/5 p-6 text-center">
 <span class="material-symbols-outlined text-5xl text-primary" style="font-variation-settings: 'FILL' 1">verified_user</span>
-<p id="final-text" class="text-[#111814] dark:text-white text-base font-bold">¡Identidad verificada!</p>
-<p class="text-xs text-[#618972]">Ya formas parte de una comunidad segura y verificada.</p>
+<p id="final-text" class="text-[#111814] dark:text-white text-base font-bold">¡Documentación enviada!</p>
+<p class="text-xs text-[#618972]">Nuestro equipo revisará tu documentación antes de activar el sello de verificado.</p>
 </div>
 
 <!-- Trust Footer Section -->
 <div class="mt-4 flex flex-col items-center gap-4 text-center">
 <div class="flex items-center gap-2 text-xs font-medium text-[#111814]/50 dark:text-white/40">
 <span class="material-symbols-outlined text-sm">enhanced_encryption</span>
-                        Tus datos están encriptados y protegidos (AES-256)
+                        Tus fotos se procesan en tu dispositivo
                     </div>
 <p class="text-[10px] text-[#111814]/40 dark:text-white/30 leading-tight">
-                        Cumplimos con las normativas GDPR de protección de datos personales. Tu información solo se utiliza para validación de seguridad dentro de la comunidad. Las fotos se procesan en tu dispositivo y solo se guarda el resultado de la verificación.
+                        Las fotos se analizan localmente y no se suben: solo se registra el resultado de la verificación. Tratamos tus datos conforme al RGPD y únicamente para la validación de seguridad dentro de la comunidad.
                     </p>
 </div>
 </div>
@@ -403,17 +403,14 @@
     document.getElementById('selfie-icon-wrap').classList.add('bg-primary');
     document.getElementById('selfie-icon').textContent = 'check_circle';
     document.getElementById('selfie-icon').style.color = '#11d462';
-    setLabel('Verificado'); setBar(100);
+    setLabel('Enviado'); setBar(100);
     document.getElementById('final-state').classList.remove('hidden');
     document.getElementById('final-state').classList.add('flex');
-    if (token) {
-      fetch('/api/auth/verificar', { method: 'POST', headers: { 'Authorization': 'Bearer ' + token } })
-        .then(function (r) { return r.json(); })
-        .catch(function () { return {}; });
-    } else {
-      var ft = document.getElementById('final-text');
-      if (ft) ft.textContent = '¡Identidad verificada en esta sesión!';
-    }
+    // El endpoint que marcaba verificado=1 sin comprobación alguna se eliminó:
+    // hasta que exista una revisión real (manual o proveedor externo), la
+    // pantalla no puede prometer un sello de verificado que nadie ha revisado.
+    var ft = document.getElementById('final-text');
+    if (ft) ft.textContent = '¡Documentación enviada!';
   });
 
   // ── Si ya está verificado ──

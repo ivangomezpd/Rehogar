@@ -245,14 +245,16 @@ Sin casas que coincidan con los filtros.
         ? '<img alt="' + esc(casa.titulo || '') + '" class="w-full h-full object-cover" src="' + esc(foto) + '">'
         : '<div class="w-full h-full bg-slate-300 dark:bg-slate-700 flex items-center justify-center"><span class="material-symbols-outlined text-4xl text-slate-500">home</span></div>';
       var habs = (casa.habitaciones || 1) + ' hab.';
+      // custodia_ok es texto libre del anfitrión y chip/precio van al innerHTML:
+      // sin esc() es la misma clase de XSS almacenado que casa_titulo en el calendario.
       var chip = casa.mascotas ? 'Mascotas s\u00ed' : 'Sin mascotas';
-      if (casa.custodia_ok) chip = 'Custodia: ' + casa.custodia_ok;
+      if (casa.custodia_ok) chip = 'Custodia: ' + esc(casa.custodia_ok);
       var card = document.createElement('a');
       card.href = '/screens-static/detalle_de_la_casa/code.html?id=' + casa.id;
       card.className = 'min-w-[300px] bg-white dark:bg-background-dark rounded-xl shadow-2xl overflow-hidden flex flex-col border border-slate-200/50 dark:border-slate-700/50 cursor-pointer';
       card.innerHTML =
         '<div class="relative h-40">' + img +
-          '<div class="absolute top-3 left-3 bg-primary/90 backdrop-blur-sm text-white px-2 py-1 rounded-lg text-xs font-bold">' + casa.precio + '\u20ac</div>' +
+          '<div class="absolute top-3 left-3 bg-primary/90 backdrop-blur-sm text-white px-2 py-1 rounded-lg text-xs font-bold">' + esc(casa.precio) + '\u20ac</div>' +
         '</div>' +
         '<div class="p-4">' +
           '<h3 class="font-bold text-lg">' + esc(casa.titulo || '') + '</h3>' +

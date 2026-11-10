@@ -78,9 +78,13 @@ router.put("/me", authMiddleware, validate(schemas.perfilAfinidad), (req: AuthRe
   return res.json({ ok: true });
 });
 
-router.post("/verificar", authMiddleware, (req: AuthRequest, res: Response) => {
-  db.prepare("UPDATE usuarios SET verificado=1, updated_at=datetime('now') WHERE id=?").run(req.user!.id);
-  return res.json({ ok: true, verificado: 1 });
+router.post("/verificar", authMiddleware, (_req: AuthRequest, res: Response) => {
+  // Eliminado: marcaba verificado=1 a cualquiera autenticado, sin ninguna
+  // prueba de identidad, mientras la UI prometía un proceso con DNI y selfie.
+  // La verificación real requerirá revisión manual o un proveedor externo;
+  // hasta entonces no existe el endpoint y el badge solo refleja datos
+  // sembrados en desarrollo.
+  return res.status(501).json({ error: "Verificación de identidad no disponible todavía" });
 });
 
 export default router;
